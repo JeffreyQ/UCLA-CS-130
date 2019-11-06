@@ -11,3 +11,10 @@ After this use alembic to create the schema by cd into `/src` and then running `
 
 After that you can run the app by going into `/src/server` and running `python server.py`
 
+If it's all working you should be able to run 
+
+`curl localhost:5000/add`
+
+N times and see N users when you run 
+
+`curl localhost:5000/users
