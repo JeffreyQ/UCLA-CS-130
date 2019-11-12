@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from gevent.pywsgi import WSGIServer
@@ -17,7 +17,7 @@ def test():
 
 @app.route('/users')
 def get_all_users():
-    print("TESjT")
+    print("TEST")
     asdf = User.query.all()
     for user in asdf:
         print(user)
@@ -30,6 +30,25 @@ def populate():
         db.session.add(test)
         db.session.commit()
         return "success"
+    except Exception as e:
+        print(e)
+    return "failure"
+
+@app.route('/create_poll', methods=['POST'])
+def create_poll():
+    try:
+        req_data = request.get_json()
+
+        poll_id=random.randint(1, 101)
+        owner_id = req_data['owner_id']
+        prompt = req_data['prompt']
+        form_type = req_data['form_type']
+        resp_struct = req_data['resp_struct']
+
+        poll = Poll(id=poll_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
+        db.session.add(poll)
+        db.session.commit()
+        return poll_id
     except Exception as e:
         print(e)
     return "failure"
