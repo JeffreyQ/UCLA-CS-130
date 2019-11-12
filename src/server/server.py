@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from gevent.pywsgi import WSGIServer
-from models import User, db
+from models import User, Poll, db
 import random
 import logging
 
@@ -45,10 +45,30 @@ def create_poll():
         form_type = req_data['form_type']
         resp_struct = req_data['resp_struct']
 
-        poll = Poll(id=poll_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
+        poll = Poll(id=poll_id, owner_id=owner_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
         db.session.add(poll)
         db.session.commit()
-        return poll_id
+        return {"poll_id": poll_id}
+    except Exception as e:
+        print(e)
+    return "failure"
+
+
+@app.route('/get_poll', methods=['GET'])
+def get_poll():
+    try:
+        req_data = request.get_json()
+
+        resp = {}
+        polls = []
+        
+        if req_data and "poll_id" in req_data:
+            polls = Poll.query.filter(Poll.id == req_data["poll_id"])
+        else:
+            polls = Poll.query.all()
+        
+        resp["polls"] = [poll.as_dict() for poll in polls]
+        return resp
     except Exception as e:
         print(e)
     return "failure"

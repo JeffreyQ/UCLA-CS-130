@@ -6,6 +6,7 @@ alembic pulls the metadata from this file in order to autogenerate migrations
 """
 from sqlalchemy import Boolean, Column, DateTime, MetaData, String, Table, Integer, Enum, JSON
 from flask_sqlalchemy import SQLAlchemy
+import json
 
 metadata = MetaData()
 
@@ -27,6 +28,9 @@ class Poll(db.Model):
 	prompt = db.Column(db.String(200))
 	form_type = db.Column(form_type_enum)
 	resp_struct = db.Column(db.JSON)
+
+	def as_dict(self):
+		return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 	def __repr__(self):
 		return "Poll Id: {}, Type: {}, Owner: {}".format(self.id, self.form_type, self.owner_id, self)
