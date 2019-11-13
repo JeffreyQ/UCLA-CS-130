@@ -1,0 +1,56 @@
+
+[[_paths]]
+== Paths
+
+[[_post_poll]]
+=== POST /poll
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|No Content
+|===
+
+
+==== Tags
+
+* default
+
+
+[[_get_poll]]
+=== GET /poll
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|No Content
+|===
+
+
+==== Tags
+
+* default
+
+
+[[_delete_poll]]
+=== DELETE /poll
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|No Content
+|===
+
+
+==== Tags
+
+* default
+
+
+
