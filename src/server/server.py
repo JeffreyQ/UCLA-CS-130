@@ -26,7 +26,7 @@ def get_all_users():
 @app.route('/add')
 def populate():
     try:
-        test= User(id=random.randint(1, 101), email="test")
+        test= User(email="test")
         db.session.add(test)
         db.session.commit()
         return "success"
@@ -38,17 +38,15 @@ def populate():
 def create_poll():
     try:
         req_data = request.get_json()
-
-        poll_id=random.randint(1, 101)
         owner_id = req_data['owner_id']
         prompt = req_data['prompt']
         form_type = req_data['form_type']
         resp_struct = req_data['resp_struct']
 
-        poll = Poll(id=poll_id, owner_id=owner_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
+        poll = Poll(owner_id=owner_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
         db.session.add(poll)
         db.session.commit()
-        return {"poll_id": poll_id}
+        return {"poll_id": poll.id}
     except Exception as e:
         print(e)
     return "failure"
@@ -63,12 +61,30 @@ def get_poll():
         polls = []
         
         if req_data and "poll_id" in req_data:
-            polls = Poll.query.filter(Poll.id == req_data["poll_id"])
+            polls = Poll.query.filter(Poll.id == req_data["poll_id"]).all()
         else:
             polls = Poll.query.all()
         
         resp["polls"] = [poll.as_dict() for poll in polls]
         return resp
+    except Exception as e:
+        print(e)
+    return "failure"
+
+@app.route('/delete_poll', methods=['DELETE'])
+def delete_poll():
+    try:
+        req_data = request.get_json()
+        poll = Poll.query.filter(Poll.id == req_data["poll_id"]).first()
+
+        if poll is None:
+            return "Poll {} not found, no deletion necessary.".format(req_data["poll_id"])
+        elif poll.owner_id == None or poll.owner_id == req_data["owner_id"]:
+            db.session.delete(poll)
+            db.session.commit()
+            return "Poll {} successfully deleted.".format(req_data["poll_id"])
+
+        return "Owner {} does not own poll {}, cannot be deleted.".format(req_data["owner_id"], req_data["poll_id"])
     except Exception as e:
         print(e)
     return "failure"
