@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask_restplus import Api, Resource, fields
 from gevent.pywsgi import WSGIServer
-from models import User, Poll, db
+from models import User, Poll, Response, db
 import random
 import json
 import logging
@@ -30,6 +30,7 @@ class UserCollection(Resource):
         for user in asdf:
             print(user)
         return "Working!"
+    @api.expect(api.model('Register_User', {'email': fields.String}))
     def post(self):
         try:
             req_data = request.get_json()
@@ -44,7 +45,7 @@ class UserCollection(Resource):
             print(e)
         return "failure"
 
-resp_struct_fields = api.model('Resp_Struct', {
+resp_struct_fields = api.model('Response_Struct', {
     'low': fields.String,
     'high': fields.String,
     'options': fields.List(fields.String),
@@ -115,6 +116,31 @@ class PollItem(Resource):
             db.session.commit()
             return "Poll {} successfully deleted.".format(id)
 
+        except Exception as e:
+            print(e)
+        return "failure"
+
+resp_fields = api.model('Response_Fields', {
+    'poll_id': fields.Integer,
+	'responder_id': fields.Integer,
+	'answer': fields.Integer,
+    'comment': fields.String
+})
+@api.route('/poll-response')
+class PollResponseCollection(Resource):
+    @api.expect(resp_fields)
+    def post(self):
+        try:
+            req_data = request.get_json()
+            poll_id = req_data['poll_id']
+            responder_id = req_data['responder_id']
+            answer = req_data['answer']
+            comment = req_data['comment']
+
+            response = Response(poll_id=poll_id,responder_id=responder_id,answer=answer,comment=comment)
+            db.session.add(response)
+            db.session.commit()
+            return "success"
         except Exception as e:
             print(e)
         return "failure"
