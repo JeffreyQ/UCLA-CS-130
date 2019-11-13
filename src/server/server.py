@@ -23,11 +23,14 @@ def get_all_users():
         print(user)
     return "Working!"
 
-@app.route('/add')
+@app.route('/add_user',methods=['POST'])
 def populate():
     try:
-        test= User(id=random.randint(1, 101), email="test")
-        db.session.add(test)
+        req_data = request.get_json()
+
+        email = req_data['email']
+        user = User(email=email)
+        db.session.add(user)
         db.session.commit()
         return "success"
     except Exception as e:
