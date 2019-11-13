@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default class App extends React.Component {
   render() {
@@ -43,12 +44,38 @@ class CreatePollScreen extends React.Component {
 
 const bottomTabNavigator = createBottomTabNavigator(
   {
-    Published: PublishedPollsScreen,
-    Create: CreatePollScreen,
-    Inbox: PollInboxScreen,
+    Published: {
+      screen: PublishedPollsScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => {
+            const iconName = `ios-list`;
+            return <Ionicons name={iconName} size={25} color={tintColor} />;
+        },
+      },
+    },
+    Create: {
+      screen: CreatePollScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => {
+            const iconName = `ios-add-circle-outline`;
+            return <Ionicons name={iconName} size={25} color={tintColor} />;
+        },
+      },
+    },
+    Inbox: {
+      screen: PollInboxScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => {
+            const iconName = `ios-mail`;
+            return <Ionicons name={iconName} size={25} color={tintColor} />;
+        },
+      },
+    }
   },
   {
-    initialRouteName: 'Published'
+    initialRouteName: 'Published',
+    order: ['Published', 'Create', 'Inbox'],
+    tabBarOptions: { showIcon: true, }
   }
 );
 
