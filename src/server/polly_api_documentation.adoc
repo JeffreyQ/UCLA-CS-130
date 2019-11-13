@@ -1,3 +1,37 @@
+= Polly API
+
+
+[[_overview]]
+== Overview
+Polly API
+
+
+=== Version information
+[%hardbreaks]
+__Version__ : 1.0
+
+
+=== URI scheme
+[%hardbreaks]
+__BasePath__ : /
+
+
+=== Tags
+
+* default : Default namespace
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
 
 [[_paths]]
 == Paths
@@ -183,6 +217,103 @@ __required__|<<_register_user,Register_User>>
 ==== Tags
 
 * default
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_create_poll_fields]]
+=== Create_Poll_Fields
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**form_type** +
+__optional__|string
+|**owner_id** +
+__optional__|integer
+|**prompt** +
+__optional__|string
+|**resp_struct** +
+__optional__|<<_response_struct,Response_Struct>>
+|===
+
+
+[[_poll_fields]]
+=== Poll_Fields
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**form_type** +
+__optional__|string
+|**id** +
+__optional__|integer
+|**owner_id** +
+__optional__|integer
+|**prompt** +
+__optional__|string
+|**resp_struct** +
+__optional__|<<_response_struct,Response_Struct>>
+|===
+
+
+[[_poll_id]]
+=== Poll_Id
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**id** +
+__optional__|integer
+|===
+
+
+[[_register_user]]
+=== Register_User
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**email** +
+__optional__|string
+|===
+
+
+[[_response_fields]]
+=== Response_Fields
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**answer** +
+__optional__|integer
+|**comment** +
+__optional__|string
+|**poll_id** +
+__optional__|integer
+|**responder_id** +
+__optional__|integer
+|===
+
+
+[[_response_struct]]
+=== Response_Struct
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**high** +
+__optional__|string
+|**low** +
+__optional__|string
+|**options** +
+__optional__|< string > array
+|===
+
+
 
 
 
