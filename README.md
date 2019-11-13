@@ -20,4 +20,8 @@ N times and see N users when you run
 `curl localhost:5000/users`
 
 ## Documentation Generation
-Our backend API documentation is generated automatically using `flask_restplus`, a library extension of `Swagger`. When you run the server via `python server.py`, a JSON file describing the API is generated in `/src/server/polly_api.json`. Then I am using an open source software called `swagger2markup` to generate AsciiDocs from the swagger OpenAPI JSON files, which you can install [here](https://github.com/Swagger2Markup/swagger2markup-cli). To generate up to date AsciiDocs, run `swagger2markup convert -i polly_api.json -d ./` in the `/src/serve` folder. 
+Our backend API documentation is generated automatically using `flask_restplus`, a library extension of `Swagger`.
+When you run the server via `python server.py`, a JSON file describing the API is generated in `/src/server/polly_api.json`.
+Then I am using an open source software called `swagger2markup` to generate AsciiDocs from the swagger OpenAPI JSON files, which you can install [here](https://github.com/Swagger2Markup/swagger2markup-cli).
+To generate up to date AsciiDocs, run `swagger2markup convert -i polly_api.json -d ./` in the `/src/serve` folder.
+The generated AsciiDocs should be located in the same folder.
