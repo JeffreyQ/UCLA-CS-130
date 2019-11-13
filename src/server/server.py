@@ -1,13 +1,13 @@
 from flask import Flask, Blueprint, request
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
-from flask_restplus import Api, Resource
+from flask_restplus import Api, Resource, fields
 from gevent.pywsgi import WSGIServer
-import models
+from models import User, Poll, db
 import random
+import json
 import logging
 
-db = models.db
 app = Flask(__name__)
 
 api = Api(app, version='1.0', title='Polly API',
@@ -22,31 +22,51 @@ db.init_app(app)
 def test():
     return "Hello World!"
 
-@app.route('/users')
-def get_all_users():
-    print("TEST")
-    asdf = models.User.query.all()
-    for user in asdf:
-        print(user)
-    return "Working!"
+@api.route('/user')
+class UserCollection(Resource):
+    def get(self):
+        print("TEST")
+        asdf = User.query.all()
+        for user in asdf:
+            print(user)
+        return "Working!"
+    def post(self):
+        try:
+            req_data = request.get_json()
 
-@app.route('/add_user',methods=['POST'])
-def populate():
-    try:
-        req_data = request.get_json()
+            email = req_data['email']
+            user = User(email=email)
+            db.session.add(user)
 
-        email = req_data['email']
-        user = User(email=email)
-        db.session.add(user)
+            db.session.commit()
+            return "success"
+        except Exception as e:
+            print(e)
+        return "failure"
 
-        db.session.commit()
-        return "success"
-    except Exception as e:
-        print(e)
-    return "failure"
+resp_struct_fields = api.model('Resp_Struct', {
+    'low': fields.String,
+    'high': fields.String,
+    'options': fields.List(fields.String),
+})
+create_poll_fields = api.model('Create_Poll_Fields', {
+	'owner_id': fields.Integer,
+	'prompt': fields.String,
+	'form_type': fields.String,
+	'resp_struct': fields.Nested(resp_struct_fields),
+})
+poll_fields = api.model('Poll_Fields', {
+    'id': fields.Integer,
+	'owner_id': fields.Integer,
+	'prompt': fields.String,
+	'form_type': fields.String,
+	'resp_struct': fields.Nested(resp_struct_fields),
+})
 
 @api.route('/poll')
-class Poll(Resource):
+class PollCollection(Resource):
+    @api.expect(create_poll_fields)
+    @api.marshal_with(api.model('Poll_Id', {"id": fields.Integer}))
     def post(self):
         try:
             req_data = request.get_json()
@@ -55,50 +75,53 @@ class Poll(Resource):
             form_type = req_data['form_type']
             resp_struct = req_data['resp_struct']
 
-            poll = models.Poll(owner_id=owner_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
+            poll = Poll(owner_id=owner_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
             db.session.add(poll)
             db.session.commit()
-            return {"poll_id": poll.id}
+            return {"id": poll.id}
         except Exception as e:
             print(e)
         return "failure"
-
+    @api.marshal_with(poll_fields, as_list=True)
     def get(self):
         try:
-            req_data = request.get_json()
-
-            resp = {}
-            polls = []
-
-            if req_data and "poll_id" in req_data:
-                polls = models.Poll.query.filter(models.Poll.id == req_data["poll_id"]).all()
-            else:
-                polls = models.Poll.query.all()
-
-            resp["polls"] = [poll.as_dict() for poll in polls]
-            return resp
+            polls = Poll.query.all()
+            return [poll.as_dict() for poll in polls]
         except Exception as e:
             print(e)
         return "failure"
 
-    def delete(self):
+
+@api.route('/poll/<id>')
+@api.doc(params={'id': 'Unique poll Id'})
+class PollItem(Resource):
+    @api.marshal_with(poll_fields)
+    def get(self, id):
         try:
-            req_data = request.get_json()
-            poll = models.Poll.query.filter(models.Poll.id == req_data["poll_id"]).first()
+            poll = Poll.query.filter(Poll.id == id).first()
+            return poll.as_dict()
+        except Exception as e:
+            print(e)
+        return "failure"
+
+    def delete(self, id):
+        try:
+            poll = Poll.query.filter(Poll.id == id).first()
 
             if poll is None:
-                return "Poll {} not found, no deletion necessary.".format(req_data["poll_id"])
-            elif poll.owner_id == None or poll.owner_id == req_data["owner_id"]:
-                db.session.delete(poll)
-                db.session.commit()
-                return "Poll {} successfully deleted.".format(req_data["poll_id"])
+                return "Poll {} not found, no deletion necessary.".format(id)
 
-            return "Owner {} does not own poll {}, cannot be deleted.".format(req_data["owner_id"], req_data["poll_id"])
+            db.session.delete(poll)
+            db.session.commit()
+            return "Poll {} successfully deleted.".format(id)
+
         except Exception as e:
             print(e)
         return "failure"
 
 
 if __name__ == '__main__':
+    with app.app_context(), app.test_request_context(), open('polly_api.json', 'w') as outfile:
+            json.dump(api.__schema__, outfile)
     http_server = WSGIServer(('', 5000), app, log=app.logger)
     http_server.serve_forever()

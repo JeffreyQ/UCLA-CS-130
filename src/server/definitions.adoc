@@ -1,2 +1,39 @@
 
+[[_definitions]]
+== Definitions
+
+[[_poll_item]]
+=== Poll_Item
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**form_type** +
+__optional__|string
+|**id** +
+__optional__|integer
+|**owner_id** +
+__optional__|integer
+|**prompt** +
+__optional__|string
+|**resp_struct** +
+__optional__|<<_resp_struct,Resp_Struct>>
+|===
+
+
+[[_resp_struct]]
+=== Resp_Struct
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**high** +
+__optional__|string
+|**low** +
+__optional__|string
+|**options** +
+__optional__|< string > array
+|===
+
+
 
