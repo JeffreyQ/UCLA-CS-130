@@ -62,6 +62,25 @@ def answer():
         print(e)
     return "failure"    
 
+@app.route('/get_answers',methods=['POST'])
+def get_answers():
+    try:
+        req_data = request.get_json()
+        
+        poll_id = req_data['poll_id']
+        '''
+        
+            now query responses where poll id == and group by answer
+        '''
+        answer = db.session.query(models.Responses.answer,db.func.count(models.Responses.answer))\
+            .filter(models.Responses.poll_id == poll_id)\
+            .group_by(models.Responses.answer)\
+            .all()
+        print(answer)
+        return "success"
+    except Exception as e:
+            print(e)
+    return "failure"
 @api.route('/poll')
 class Poll(Resource):
     def post(self):
