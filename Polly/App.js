@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import CreatePollScreen from './src/scenes/CreatePoll'
+import { Text, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Header } from 'react-native-elements'
+
 
 export default class App extends React.Component {
   render() {
@@ -33,18 +34,34 @@ class PollInboxScreen extends React.Component {
   }
 }
 
-class CreatePollScreen extends React.Component {
-  render() {
-    return(
+// class CreatePollScreen extends React.Component {
+//   render() {
+//     return(
       
-      <View style={{flex: 1, alignItems: 'center'}}> 
-        <Header centerComponent={{ text: 'Create New Poll', style: { color: '#fff',  fontSize: 20, fontWeight: 'bold' } }}>
-        </Header>
-        <Text> Select Poll Type </Text>
-      </View>
-    );
-  }
-}
+//       <View style={{flex: 1, alignItems: 'center'}}> 
+//         <Header centerComponent={{ text: 'Create New Poll', style: { color: '#fff',  fontSize: 20, fontWeight: 'bold' } }}>
+//         </Header>
+//         <Text> Select Poll Type </Text>
+//         <Button
+//           title="Select All"
+//           type="solid"
+//         />
+//         <Button
+//           title="Multiple Choice"
+//           type="solid"
+//         />
+//         <Button
+//           title="Short Answer"
+//           type="solid"
+//         />
+//         <Button
+//           title="Number Scale"
+//           type="solid"
+//         />
+//       </View>
+//     );
+//   }
+// }
 
 const bottomTabNavigator = createBottomTabNavigator(
   {
