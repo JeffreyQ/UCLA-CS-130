@@ -5,12 +5,24 @@
 [[_post_poll_collection]]
 === POST /poll
 
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|**Body**|**payload** +
+__required__||<<_create_poll_fields,Create_Poll_Fields>>
+|===
+
+
 ==== Responses
 
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|Success|No Content
+|**200**|Success|<<_poll_id,Poll_Id>>
 |===
 
 
@@ -21,6 +33,43 @@
 
 [[_get_poll_collection]]
 === GET /poll
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|< <<_poll_fields,Poll_Fields>> > array
+|===
+
+
+==== Tags
+
+* default
+
+
+[[_post_poll_response_collection]]
+=== POST /poll-response
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Body**|**payload** +
+__required__|<<_response_fields,Response_Fields>>
+|===
+
 
 ==== Responses
 
@@ -56,7 +105,7 @@ __required__|Unique poll Id|string
 [options="header", cols=".^2a,.^14a,.^4a"]
 |===
 |HTTP Code|Description|Schema
-|**200**|Success|<<_poll_item,Poll_Item>>
+|**200**|Success|<<_poll_fields,Poll_Fields>>
 |===
 
 
@@ -77,6 +126,50 @@ __required__|Unique poll Id|string
 __required__|Unique poll Id|string
 |===
 
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|No Content
+|===
+
+
+==== Tags
+
+* default
+
+
+[[_post_user_collection]]
+=== POST /user
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Body**|**payload** +
+__required__|<<_register_user,Register_User>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|No Content
+|===
+
+
+==== Tags
+
+* default
+
+
+[[_get_user_collection]]
+=== GET /user
 
 ==== Responses
 
