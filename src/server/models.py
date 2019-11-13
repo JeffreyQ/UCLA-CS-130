@@ -19,7 +19,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120))
     polls = db.relationship("Poll")
-
+    responses = db.relationship("Responses")
     def __repr__(self):
         return "User {} : {}".format(self.id, self.email)
 
@@ -29,9 +29,20 @@ class Poll(db.Model):
 	prompt = db.Column(db.String(200))
 	form_type = db.Column(form_type_enum)
 	resp_struct = db.Column(db.JSON)
+	responses = db.relationship("Responses")
 
 	def as_dict(self):
 		return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 	def __repr__(self):
 		return "Poll Id: {}, Type: {}, Owner: {}".format(self.id, self.form_type, self.owner_id, self)
+
+class Responses(db.Model):
+	id = db.Column(db.Integer,primary_key=True)
+	poll_id = db.Column(db.Integer,db.ForeignKey('poll.id'))
+	responder_id = db.Column(db.Integer,db.ForeignKey('user.id'))
+	answer = db.Column(db.Integer)
+	comment = db.Column(db.String(200))
+
+	def __repr__(self):
+		return "Poll Id: {}, Responder: {}, Answer: {}".format(self.poll_id, self.responder_id, self.answer, self)

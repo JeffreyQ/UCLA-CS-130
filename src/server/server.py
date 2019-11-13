@@ -36,7 +36,7 @@ def populate():
         req_data = request.get_json()
 
         email = req_data['email']
-        user = User(email=email)
+        user = models.User(email=email)
         db.session.add(user)
 
         db.session.commit()
@@ -44,6 +44,23 @@ def populate():
     except Exception as e:
         print(e)
     return "failure"
+
+@app.route('/answer_poll',methods=['POST'])
+def answer():
+    try:
+        req_data = request.get_json()
+        poll_id = req_data['poll_id']
+        responder_id = req_data['responder_id']
+        answer = req_data['answer']
+        comment = req_data['comment']
+
+        response = models.Responses(poll_id=poll_id,responder_id=responder_id,answer=answer,comment=comment)
+        db.session.add(response)
+        db.session.commit()
+        return "success"
+    except Exception as e:
+        print(e)
+    return "failure"    
 
 @api.route('/poll')
 class Poll(Resource):
