@@ -18,13 +18,14 @@ form_type_enum = db.Enum(*form_types, name="form_type")
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120))
+    polls = db.relationship("Poll")
 
     def __repr__(self):
         return "User {} : {}".format(self.id, self.email)
 
 class Poll(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	owner_id = db.Column(db.Integer)
+	owner_id = db.Column(db.Integer,db.ForeignKey('user.id'))
 	prompt = db.Column(db.String(200))
 	form_type = db.Column(form_type_enum)
 	resp_struct = db.Column(db.JSON)

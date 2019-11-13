@@ -1,0 +1,34 @@
+= Polly API
+
+
+[[_overview]]
+== Overview
+Polly API
+
+
+=== Version information
+[%hardbreaks]
+__Version__ : 1.0
+
+
+=== URI scheme
+[%hardbreaks]
+__BasePath__ : /
+
+
+=== Tags
+
+* default : Default namespace
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
