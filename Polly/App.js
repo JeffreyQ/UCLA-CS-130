@@ -38,9 +38,8 @@ class CreatePollScreen extends React.Component {
     return(
       
       <View style={{flex: 1, alignItems: 'center'}}> 
-        <Header centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}>
+        <Header centerComponent={{ text: 'Create New Poll', style: { color: '#fff',  fontSize: 20, fontWeight: 'bold' } }}>
         </Header>
-        <Text style={{justifyContent: 'center',}}> Create New Poll </Text>
         <Text> Select Poll Type </Text>
       </View>
     );
