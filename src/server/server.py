@@ -30,11 +30,15 @@ def get_all_users():
         print(user)
     return "Working!"
 
-@app.route('/add')
+@app.route('/add_user',methods=['POST'])
 def populate():
     try:
-        test= models.User(email="test")
-        db.session.add(test)
+        req_data = request.get_json()
+
+        email = req_data['email']
+        user = User(email=email)
+        db.session.add(user)
+
         db.session.commit()
         return "success"
     except Exception as e:
@@ -65,12 +69,12 @@ class Poll(Resource):
 
             resp = {}
             polls = []
-            
+
             if req_data and "poll_id" in req_data:
                 polls = Poll.query.filter(Poll.id == req_data["poll_id"]).all()
             else:
                 polls = Poll.query.all()
-            
+
             resp["polls"] = [poll.as_dict() for poll in polls]
             return resp
         except Exception as e:
