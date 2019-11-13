@@ -33,3 +33,9 @@ Then I am using an open source software called `swagger2markup` to generate Asci
 To generate up-to-date AsciiDoc, run `swagger2markup convert -i polly_api.json -f ./polly_api_documentation` folder.
 
 The generated AsciiDoc should be located in the same folder.
+
+
+## React-Native Setup
+To run the react-native mobile app we are following the instructions [here](https://facebook.github.io/react-native/docs/getting-started)
+
+Be sure to follow the React-Native CLI Quickstart flow of the guide. 
