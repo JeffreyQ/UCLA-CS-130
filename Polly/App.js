@@ -6,20 +6,12 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
+import PublishedPollsScreen from './src/screens/PublishedPolls'
+
 export default class App extends React.Component {
   render() {
     return (
         <AppContainer />
-    );
-  }
-}
-
-class PublishedPollsScreen extends React.Component {
-  render() {
-    return(
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text> This is my published polls screen </Text>
-      </View>
     );
   }
 }
