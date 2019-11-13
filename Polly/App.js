@@ -11,21 +11,31 @@ export default class App extends React.Component {
   }
 }
 
-class HomeScreen extends React.Component {
+class PublishedPollsScreen extends React.Component {
   render() {
     return(
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text> This is my Home screen </Text>
+        <Text> This is my published polls screen </Text>
       </View>
     );
   }
 }
 
-class ExploreScreen extends React.Component {
+class PollInboxScreen extends React.Component {
   render() {
     return(
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text> This is my Explore screen </Text>
+        <Text> This is my poll inbox screen </Text>
+      </View>
+    );
+  }
+}
+
+class CreatePollScreen extends React.Component {
+  render() {
+    return(
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text> This is my Poll Creation screen </Text>
       </View>
     );
   }
@@ -33,11 +43,12 @@ class ExploreScreen extends React.Component {
 
 const bottomTabNavigator = createBottomTabNavigator(
   {
-    Home: HomeScreen,
-    Explore: ExploreScreen,
+    Published: PublishedPollsScreen,
+    Create: CreatePollScreen,
+    Inbox: PollInboxScreen,
   },
   {
-    initialRouteName: 'Home'
+    initialRouteName: 'Published'
   }
 );
 
