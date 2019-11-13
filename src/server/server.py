@@ -55,7 +55,7 @@ class Poll(Resource):
             form_type = req_data['form_type']
             resp_struct = req_data['resp_struct']
 
-            poll = Poll(owner_id=owner_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
+            poll = models.Poll(owner_id=owner_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
             db.session.add(poll)
             db.session.commit()
             return {"poll_id": poll.id}
@@ -71,9 +71,9 @@ class Poll(Resource):
             polls = []
 
             if req_data and "poll_id" in req_data:
-                polls = Poll.query.filter(Poll.id == req_data["poll_id"]).all()
+                polls = models.Poll.query.filter(models.Poll.id == req_data["poll_id"]).all()
             else:
-                polls = Poll.query.all()
+                polls = models.Poll.query.all()
 
             resp["polls"] = [poll.as_dict() for poll in polls]
             return resp
@@ -84,7 +84,7 @@ class Poll(Resource):
     def delete(self):
         try:
             req_data = request.get_json()
-            poll = Poll.query.filter(Poll.id == req_data["poll_id"]).first()
+            poll = models.Poll.query.filter(models.Poll.id == req_data["poll_id"]).first()
 
             if poll is None:
                 return "Poll {} not found, no deletion necessary.".format(req_data["poll_id"])

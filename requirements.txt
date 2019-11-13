@@ -4,3 +4,4 @@ alembic
 flask_cors
 psycopg2
 gevent
+flask_restplus
