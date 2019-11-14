@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, request
+from flask import Flask, Blueprint, request, abort
 from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask_restplus import Api, Resource, fields
@@ -87,10 +87,10 @@ class UserCollection(Resource):
             db.session.add(user)
 
             db.session.commit()
-            return "success"
+            return 200
         except Exception as e:
             print(e)
-        return "failure"
+            abort(500)
 
 @api.route('/poll')
 class PollCollection(Resource):

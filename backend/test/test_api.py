@@ -14,8 +14,8 @@ from src.server import server
 def client():
     db_fd, server.app.config['DATABASE'] = tempfile.mkstemp()
     server.app.config['TESTING'] = True
+    server.db.init_app(server.app)
     client = server.app.test_client()
-
     yield client
 
     os.close(db_fd)
@@ -26,5 +26,14 @@ def client():
 class TestUserCollection:
 
     def test_get(self, client):
-        asdf = client.get('/user')
-        return asdf
+        response = client.get('/user')
+        assert response.status_code == 200
+
+
+    def test_post(self, client):
+        response = client.post('/user', data={'email': 'jones@teal.com'})
+        assert response.status_code == 200
+
+        response = client.post('/user', data={'asdf': 'jones@teal.com'})
+        assert response.status_code != 200
+
