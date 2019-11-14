@@ -1,23 +1,25 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
 
 import { heading2Text, grayBody } from '../../textMixins'
 
 export default Card = props => {
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Text>Image</Text>
-      </View>
-      <View style={styles.infoContainer}>
-        <Text style={styles.heading2Text}>{props.poll.question}</Text>
-        <View style={styles.infoDetailContainer}>
-          <Text style={styles.pollCreator}>{props.poll.owner}</Text>
-          <Text>Expires: {props.poll.expiration}</Text>
-          <Text>{props.poll.answers}</Text>
+    <TouchableHighlight onPress={props.onPress}>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Text>Image</Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <Text style={styles.heading2Text}>{props.poll.question}</Text>
+          <View style={styles.infoDetailContainer}>
+            <Text style={styles.pollCreator}>{props.poll.owner}</Text>
+            <Text>Expires: {props.poll.expiration}</Text>
+            <Text>{props.poll.answers}</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableHighlight>
   )
 }
 

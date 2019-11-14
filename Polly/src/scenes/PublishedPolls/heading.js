@@ -15,7 +15,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    paddingLeft: 20,
+    paddingRight: 20
   },
   heading: {
     ...heading1Text,
