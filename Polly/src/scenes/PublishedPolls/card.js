@@ -5,7 +5,7 @@ import { heading2Text, grayBody } from '../../textMixins'
 
 export default Card = props => {
   return (
-    <TouchableHighlight onPress={props.onPress}>
+    <TouchableHighlight underlayColor={"#fff"} onPress={props.onPress}>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Text>Image</Text>

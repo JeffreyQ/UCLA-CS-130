@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native'
+import { heading1Text, heading2Text } from '../../../textMixins'
 
 class PollDetails extends React.Component {
   render() {
@@ -10,10 +11,17 @@ class PollDetails extends React.Component {
           width,
           height: width,
           backgroundColor: 'rgba(86, 204, 242, .08)',
-          justifyContent: 'center',
+          justifyContent: 'space-evenly',
           alignItems: 'center'
         }}>
-          <Text>{this.props.navigation.getParam('pollId')}</Text>
+          <Image
+            source={{uri: 'https://via.placeholder.com/150'}}
+            style={{height: 150, width: 150}} />
+          <Text style={styles.title}>Poll Title</Text>
+          <Text style={styles.pollExpiration}>Expires tomorrow</Text>
+        </View>
+        <View style={styles.pollDetailsContainer}>
+          <Text>Poll Details Go Here</Text>
         </View>
       </View>
     )
@@ -21,7 +29,16 @@ class PollDetails extends React.Component {
 }
 
 const styles = StyleSheet.create({
-
+  title: {
+    ...heading1Text
+  },
+  pollExpiration: {
+    ...heading2Text
+  },
+  pollDetailsContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 })
 
 export default PollDetails

@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, SafeAreaView, ScrollView, View } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, View } from 'react-native'
+import { ScrollView } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 
 import { dummyPoll } from '../../store'
@@ -19,8 +20,15 @@ class PublishedPollsScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.viewContainer}>
           <Heading />
-          <View>
-            <ScrollView style={{height:'100%', alignSelf:'stretch', paddingRight: 20, paddingLeft: 20}}>
+          <View style={{flex: 1}}>
+            <ScrollView
+              contentContainerStyle={{paddingBottom:20}}
+              style={{
+                height:'100%',
+                alignSelf:'stretch',
+                paddingRight: 20,
+                paddingLeft: 20
+              }}>
               <Card poll={dummyPoll} onPress={() => this.onCardPress(1)}/>
               <Card poll={dummyPoll} />
               <Card poll={dummyPoll} />
@@ -40,6 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   viewContainer: {
+    flex: 1,
     paddingTop: 30
   }
 });
