@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
-import PublishedPollsScreen from './src/screens/PublishedPolls'
+import PublishedPollsScreen from './src/scenes/PublishedPolls'
 
 export default class App extends React.Component {
   render() {

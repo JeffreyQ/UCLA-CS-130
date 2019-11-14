@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, SafeAreaView, View } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, ScrollView, View } from 'react-native'
 
 import { dummyPoll } from '../../store'
 import Heading from './heading'
@@ -11,9 +11,12 @@ class PublishedPollsScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.viewContainer}>
           <Heading />
-          <Card poll={dummyPoll} />
-          <Card poll={dummyPoll} />
-          <Card poll={dummyPoll} />
+          <ScrollView>
+            <Card poll={dummyPoll} />
+            <Card poll={dummyPoll} />
+            <Card poll={dummyPoll} />
+            <Card poll={dummyPoll} />
+          </ScrollView>
         </View>
       </SafeAreaView>
     )
