@@ -1,5 +1,5 @@
 export const dummyPoll = {
-  question: 'Poll Title',
+  question: 'What do i wear tomorrow',
   owner: 'Stephanie',
   expiration: 'Tomorrow',
   answers: '12 answers so far'

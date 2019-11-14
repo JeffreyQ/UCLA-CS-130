@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
+import { heading2Text, grayBody } from '../../textMixins'
+
 export default Card = props => {
   return (
     <View style={styles.container}>
@@ -8,36 +10,53 @@ export default Card = props => {
         <Text>Image</Text>
       </View>
       <View style={styles.infoContainer}>
-        <Text>{props.poll.question}</Text>
-        <Text>{props.poll.owner}</Text>
-        <Text>{props.poll.expiration}</Text>
-        <Text>{props.poll.answers}</Text>
+        <Text style={styles.heading2Text}>{props.poll.question}</Text>
+        <View style={styles.infoDetailContainer}>
+          <Text style={styles.pollCreator}>{props.poll.owner}</Text>
+          <Text>Expires: {props.poll.expiration}</Text>
+          <Text>{props.poll.answers}</Text>
+        </View>
       </View>
     </View>
   )
 }
 
+function elevationShadowStyle(elevation) {
+  return {
+    elevation,
+    shadowColor: '#0047FF',
+    shadowOffset: { width: 0, height: 0.5 * elevation },
+    shadowOpacity: 0.3,
+    shadowRadius: 0.8 * elevation,
+    shadowOpacity: 0.12
+  };
+}
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
+    marginTop: 28,
+    backgroundColor: 'white',
+    height: 118,
+    padding: 7,
+    borderTopLeftRadius: 50,
+    borderBottomLeftRadius: 50,
+    ...elevationShadowStyle(5)
   },
   imageContainer: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   infoContainer: {
     flex: 2,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  heading2Text: {
+    ...heading2Text
+  },
+  pollCreator: {
+    ...grayBody
   }
 })

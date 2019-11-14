@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import { heading1Text, grayBody } from '../../textMixins'
+import { heading1Text, bodyText, grayBody } from '../../textMixins'
 
 export default Heading = () => {
   return (
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     ...heading1Text,
   },
   filter: {
-    ...grayBody
+    ...grayBody,
+    ...bodyText
   }
 })
