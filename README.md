@@ -33,3 +33,28 @@ Then I am using an open source software called `swagger2markup` to generate Asci
 To generate up-to-date AsciiDoc, run `swagger2markup convert -i polly_api.json -f ./polly_api_documentation` folder.
 
 The generated AsciiDoc should be located in the same folder.
+
+
+## React-Native Setup
+To run the react-native mobile app we are following the instructions [here](https://facebook.github.io/react-native/docs/getting-started).
+
+Be sure to follow the React-Native CLI Quickstart flow of the guide. 
+
+You will need Watchman, Node, and XCode installed. 
+```
+brew install node
+brew install watchman
+```
+
+XCode is most easily installed through the [Mac App Store](https://apps.apple.com/us/app/xcode/id497799835?mt=12).
+
+The iOS Package Manager CocoaPods is also necessary. 
+```
+sudo gem install cocoapods
+```
+
+Assuming that you have the iOS simulator installed, all it takes to run Polly is 
+```
+cd Polly
+react-native run-ios
+```
