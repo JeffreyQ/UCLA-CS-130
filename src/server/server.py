@@ -63,26 +63,11 @@ poll_fields = api.model('Poll_Fields', {
 	'form_type': fields.String,
 	'resp_struct': fields.Nested(resp_struct_fields),
 })
-
-@app.route('/get_answers',methods=['POST'])
-def get_answers():
-    try:
-        req_data = request.get_json()
-        
-        poll_id = req_data['poll_id']
-        '''
-        
-            now query responses where poll id == and group by answer
-        '''
-        answer = db.session.query(Response.answer,db.func.count(Response.answer))\
-            .filter(Response.poll_id == poll_id)\
-            .group_by(Responses.answer)\
-            .all()
-        print(answer)
-        return "success"
-    except Exception as e:
-            print(e)
-    return "failure"
+'''
+    This class defines the CRUD operations for Poll Collections.  
+    The post request creates polls given an id, question prompt and type of poll
+    The get request returns a collection of all polls
+'''
 @api.route('/poll')
 class PollCollection(Resource):
     @api.expect(create_poll_fields)
@@ -111,7 +96,9 @@ class PollCollection(Resource):
             print(e)
         return "failure"
 
-
+'''
+    This route gets or deletes a single poll at the ID.
+'''
 @api.route('/poll/<id>')
 @api.doc(params={'id': 'Unique poll Id'})
 class PollItem(Resource):
@@ -145,6 +132,10 @@ resp_fields = api.model('Response_Fields', {
 	'answer': fields.Integer,
     'comment': fields.String
 })
+'''
+    This route stores a user's answers to the Response table.
+    Its arguments are in a post request, and include the id of the poll, the id of the user, their answer, and an optional comment
+'''
 @api.route('/poll-response')
 class PollResponseCollection(Resource):
     @api.expect(resp_fields)
@@ -170,6 +161,25 @@ aggregate_answers= api.model('Aggregated_Answers',{
 resp_answers = api.model('Response_Answers',{
     'aggregates':fields.List(fields.Nested(aggregate_answers)),
 })
+
+'''
+    This route returns  the current responses to the poll id.
+    This response is of the following json format:
+
+                {
+                    "aggregates": [
+                        {
+                            "answer": 0,
+                            "votes": 1
+                        },
+                        {
+                            "answer": 1,
+                            "votes": 3
+                        }
+                    ]
+                }
+    Where answer denotes the integer representation of the answer option, and votes is the number of votes that answer has.
+'''
 @api.route('/poll-response/<id>')
 @api.doc(params={'id': 'Unique poll Id'})
 class PollResponseItem(Resource):
@@ -190,21 +200,7 @@ class PollResponseItem(Resource):
                     'votes':pair[1]
                 }
                 aggregate_dict.append(pair_dict)
-            '''
-            
-                {
-                    "aggregates": [
-                        {
-                            "answer": 0,
-                            "votes": 1
-                        },
-                        {
-                            "answer": 1,
-                            "votes": 3
-                        }
-                    ]
-                }
-            '''
+
 
             result = {"aggregates":aggregate_dict}
             return result
