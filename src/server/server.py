@@ -64,6 +64,25 @@ poll_fields = api.model('Poll_Fields', {
 	'resp_struct': fields.Nested(resp_struct_fields),
 })
 
+@app.route('/get_answers',methods=['POST'])
+def get_answers():
+    try:
+        req_data = request.get_json()
+        
+        poll_id = req_data['poll_id']
+        '''
+        
+            now query responses where poll id == and group by answer
+        '''
+        answer = db.session.query(Response.answer,db.func.count(Response.answer))\
+            .filter(Response.poll_id == poll_id)\
+            .group_by(Responses.answer)\
+            .all()
+        print(answer)
+        return "success"
+    except Exception as e:
+            print(e)
+    return "failure"
 @api.route('/poll')
 class PollCollection(Resource):
     @api.expect(create_poll_fields)
@@ -143,6 +162,54 @@ class PollResponseCollection(Resource):
             return "success"
         except Exception as e:
             print(e)
+        return "failure"
+aggregate_answers= api.model('Aggregated_Answers',{
+    'answer':fields.Integer,
+    'votes':fields.Integer,
+})
+resp_answers = api.model('Response_Answers',{
+    'aggregates':fields.List(fields.Nested(aggregate_answers)),
+})
+@api.route('/poll-response/<id>')
+@api.doc(params={'id': 'Unique poll Id'})
+class PollResponseItem(Resource):
+    @api.marshal_with(resp_answers)
+    def get(self,id):
+        try:            
+            poll_id = id
+
+            aggregates = db.session.query(Response.answer,db.func.count(Response.answer))\
+                .filter(Response.poll_id == poll_id)\
+                .group_by(Response.answer)\
+                .all()
+
+            aggregate_dict = []
+            for pair in aggregates:
+                pair_dict = {
+                    'answer':pair[0],
+                    'votes':pair[1]
+                }
+                aggregate_dict.append(pair_dict)
+            '''
+            
+                {
+                    "aggregates": [
+                        {
+                            "answer": 0,
+                            "votes": 1
+                        },
+                        {
+                            "answer": 1,
+                            "votes": 3
+                        }
+                    ]
+                }
+            '''
+
+            result = {"aggregates":aggregate_dict}
+            return result
+        except Exception as e:
+                print(e)
         return "failure"
 
 
