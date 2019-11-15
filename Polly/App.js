@@ -1,5 +1,6 @@
 import React from 'react'
 import CreatePollScreen from './src/scenes/CreatePoll'
+import ProfileScreen from './src/scenes/Profile'
 import { Text, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
@@ -46,11 +47,11 @@ const bottomTabNavigator = createBottomTabNavigator(
         },
       },
     },
-    Inbox: {
-      screen: PollInboxScreen,
+    Profile: {
+      screen: ProfileScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => {
-            const iconName = `ios-mail`;
+            const iconName = `ios-person`;
             return <Ionicons name={iconName} size={25} color={tintColor} />;
         },
       },
@@ -58,7 +59,7 @@ const bottomTabNavigator = createBottomTabNavigator(
   },
   {
     initialRouteName: 'Published',
-    order: ['Published', 'Create', 'Inbox'],
+    order: ['Published', 'Create', 'Profile'],
     tabBarOptions: { showIcon: true, }
   }
 );
