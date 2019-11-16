@@ -1,5 +1,6 @@
+
+server:
+	python src/server/server.py
+
 test:
 	pytest
-
-up:
-	python src/server/server.py

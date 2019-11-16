@@ -21,8 +21,6 @@ def client():
     os.close(db_fd)
     os.unlink(server.app.config['DATABASE'])
 
-
-
 class TestUserCollection:
 
     def test_get(self, client):
@@ -36,4 +34,6 @@ class TestUserCollection:
 
         response = client.post('/user', data={'asdf': 'jones@teal.com'})
         assert response.status_code != 200
+
+
 

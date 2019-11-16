@@ -6,6 +6,9 @@ from gevent.pywsgi import WSGIServer
 import random
 import json
 import logging
+import os
+import sys
+sys.path.append('.')
 from src.server.models import User, Poll, Response, db
 
 app = Flask(__name__)
