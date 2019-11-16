@@ -1,6 +1,4 @@
-# UCLA-CS-130
-----
-
+# Polly
 
 ## Setup instructions
 Firstly, `pip install -r requirements.txt` also install postgres locally and create a database called `polly`
