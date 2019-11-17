@@ -30,7 +30,7 @@ Then I am using an open source software called `swagger2markup` to generate Asci
 
 To generate up-to-date AsciiDoc, run `swagger2markup convert -i polly_api.json -f ./polly_api_documentation`
 
-The generated AsciiDoc should be located in the same folder [here] (https://github.com/JeffreyQ/UCLA-CS-130/blob/master/src/server/polly_api_documentation.adoc.)
+The generated AsciiDoc should be located in the same folder [here] (https://github.com/JeffreyQ/UCLA-CS-130/blob/master/backend/src/server/polly_api_documentation.adoc)
 
 
 ## React-Native Setup
