@@ -1,13 +1,13 @@
 import React from 'react'
-import CreatePollScreen from './src/scenes/CreatePoll'
-import ProfileScreen from './src/scenes/Profile'
 import { Text, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-
 import PublishedPollsScreen from './src/scenes/PublishedPolls'
+import CreatePollScreen from './src/scenes/CreatePoll'
+import ProfileScreen from './src/scenes/Profile'
+import LoginScreen from './src/scenes/LoginScreen'
 
 export default class App extends React.Component {
   render() {
@@ -30,7 +30,7 @@ class PollInboxScreen extends React.Component {
 const bottomTabNavigator = createBottomTabNavigator(
   {
     Published: {
-      screen: PublishedPollsScreen,
+      screen: LoginScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => {
             const iconName = `ios-list`;
