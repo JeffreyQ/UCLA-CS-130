@@ -1,6 +1,4 @@
-# UCLA-CS-130
-----
-
+# Polly
 
 ## Setup instructions
 Firstly, `pip install -r requirements.txt` also install postgres locally and create a database called `polly`
@@ -30,17 +28,17 @@ Every time you run the server via `python server.py`, an updated JSON file descr
 
 Then I am using an open source software called `swagger2markup` to generate AsciiDocs from the swagger OpenAPI JSON files, which you can install [here](https://github.com/Swagger2Markup/swagger2markup-cli).
 
-To generate up-to-date AsciiDoc, run `swagger2markup convert -i polly_api.json -f ./polly_api_documentation` folder.
+To generate up-to-date AsciiDoc, run `swagger2markup convert -i polly_api.json -f ./polly_api_documentation`
 
-The generated AsciiDoc should be located in the same folder.
+The generated AsciiDoc should be located in the same folder [here](https://github.com/JeffreyQ/UCLA-CS-130/blob/master/backend/src/server/polly_api_documentation.adoc)
 
 
 ## React-Native Setup
 To run the react-native mobile app we are following the instructions [here](https://facebook.github.io/react-native/docs/getting-started).
 
-Be sure to follow the React-Native CLI Quickstart flow of the guide. 
+Be sure to follow the React-Native CLI Quickstart flow of the guide.
 
-You will need Watchman, Node, and XCode installed. 
+You will need Watchman, Node, and XCode installed.
 ```
 brew install node
 brew install watchman
@@ -48,12 +46,12 @@ brew install watchman
 
 XCode is most easily installed through the [Mac App Store](https://apps.apple.com/us/app/xcode/id497799835?mt=12).
 
-The iOS Package Manager CocoaPods is also necessary. 
+The iOS Package Manager CocoaPods is also necessary.
 ```
 sudo gem install cocoapods
 ```
 
-Assuming that you have the iOS simulator installed, all it takes to run Polly is 
+Assuming that you have the iOS simulator installed, all it takes to run Polly is
 ```
 cd Polly
 react-native run-ios
