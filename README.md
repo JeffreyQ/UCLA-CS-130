@@ -1,13 +1,22 @@
 # Polly
 
 ## Setup instructions
-Firstly, `pip install -r requirements.txt` also install postgres locally and create a database called `polly`
+Our Flask backend and postgres database are containerized using Docker.
 
-You can do this by running `psql postgres` in the terminal and then running `CREATE DATABASE polly;` at the prompt.
+To begin, make sure you have [Docker Desktop](https://docs.docker.com/v17.09/docker-for-mac/install/) installed.
 
-After this use alembic to create the schema by cd into `/src` and then running `alembic upgrade head` in the terminal.
+Once you have Docker running, use the following commands from the root project directory to setup and run the application:
 
-After that you can run the app by going into `/src/server` and running `python server.py`
+* `make build`
+    * Builds both docker images
+* `make run`
+    * Runs the Flask and postgres containers
+
+To stop the docker-compose process, press `Ctrl-C`
+
+Live-reloading of the flask code is enabled, meaning you will be able to edit Python source code and see changes take effect immediately.
+
+Postgres data is persisted to a volume on disk. This means that if you stop the docker-compose process, any data written to the postgres instance will be saved and available the next time you run `make run`. If you want to delete the volume completely, run `make clean`
 
 If it's all working you should be able to run
 
