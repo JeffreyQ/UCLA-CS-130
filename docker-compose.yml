@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  backend:
+    build: ./backend
+    image: polly/backend
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=postgresql://polly:polly-password@db/polly-prod
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=polly
+      - POSTGRES_PASSWORD=polly-password
+      - POSTGRES_DB=polly-prod
+    volumes:
+      - polly-data:/var/lib/postgresql/data
+
+volumes:
+  polly-data:

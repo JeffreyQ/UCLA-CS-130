@@ -12,12 +12,14 @@ sys.path.append('.')
 from src.server.models import User, Poll, Response, db
 
 app = Flask(__name__)
+app.config.from_object('config.DevelopmentConfig')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 api = Api(app, version='1.0', title='Polly API',
     description='Polly API',
 )
 
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///polly'
 db.init_app(app)
 
 resp_struct_fields = api.model('Response_Struct', {
