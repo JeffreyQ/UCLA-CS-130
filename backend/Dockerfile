@@ -9,8 +9,12 @@ WORKDIR /app
 
 RUN pip3 install -r requirements.txt
 
-COPY . /app
+COPY src test __init__.py  /app/
 
-ENTRYPOINT ["python3"]
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod 777 /usr/local/bin/docker-entrypoint.sh \
+    && ln -s /usr/local/bin/docker-entrypoint.sh /
 
-CMD [ "src/server/server.py" ]
+# start server
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD [ "python3", "src/server/server.py" ]
