@@ -3,19 +3,59 @@ import { Text, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { Provider, connect } from 'react-redux'
 
 import PublishedPollsScreen from './src/scenes/PublishedPolls'
 import CreatePollScreen from './src/scenes/CreatePoll'
 import ProfileScreen from './src/scenes/Profile'
 import LoginScreen from './src/scenes/LoginScreen'
 
-export default class App extends React.Component {
+import store from './src/store'
+import { checkAuth } from './src/actions/auth'
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.props.checkAuth()
+  }
+
+  getRenderedComponent = () => {
+    console.log(this.props)
+    if (this.props.Auth.accessToken) {
+      return <AppContainer />
+    } else if (this.props.Auth.checkedAuth) {
+      return <LoginScreen />
+    } else {
+      return null
+    }
+  }
+
   render() {
-    return (
-        <AppContainer />
-    );
+    return this.getRenderedComponent()
   }
 }
+
+const mapStateToProps = state => ({ Auth: state.Auth })
+
+const mapDispatchToProps = dispatch => {
+  return {
+    checkAuth: () => dispatch(checkAuth())
+  }
+}
+
+App = connect(mapStateToProps, mapDispatchToProps)(App)
+
+class AppWrapper extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+  }
+}
+
+export default AppWrapper
 
 class PollInboxScreen extends React.Component {
   render() {
@@ -30,7 +70,7 @@ class PollInboxScreen extends React.Component {
 const bottomTabNavigator = createBottomTabNavigator(
   {
     Published: {
-      screen: LoginScreen,
+      screen: PublishedPollsScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => {
             const iconName = `ios-list`;
