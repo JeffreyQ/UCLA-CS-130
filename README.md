@@ -5,7 +5,7 @@ Our Flask backend and postgres database are containerized using Docker.
 
 To begin, make sure you have [Docker Desktop](https://docs.docker.com/v17.09/docker-for-mac/install/) installed.
 
-Once you have Docker running, use the following commands from the root project directory to setup and run the application:
+Once you have Docker running, use the following commands from the `backend` project directory to setup and run the application:
 
 * `make build`
     * Builds both docker images
