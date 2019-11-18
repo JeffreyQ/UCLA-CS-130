@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { LoginButton } from 'react-native-fbsdk'
+import { LoginButton, AccessToken } from 'react-native-fbsdk'
 
 export default class FBLoginButton extends Component {
   render() {
@@ -14,7 +14,9 @@ export default class FBLoginButton extends Component {
             } else if (result.isCancelled) {
               alert("Login was cancelled")
             } else {
-              alert("Login was successful with permissions: " + result.grantedPermissions)
+              AccessToken.getCurrentAccessToken().then(data => {
+                this.props.setAccessToken(data.accessToken.toString())
+              })
             }
           }
         }
