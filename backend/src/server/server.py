@@ -12,12 +12,14 @@ sys.path.append('.')
 from src.server.models import User, Poll, Response, db
 
 app = Flask(__name__)
+app.config.from_object('config.DevelopmentConfig')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 api = Api(app, version='1.0', title='Polly API',
     description='Polly API',
 )
 
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///polly'
 db.init_app(app)
 
 resp_struct_fields = api.model('Response_Struct', {
@@ -244,5 +246,4 @@ class PollResponseItem(Resource):
 if __name__ == '__main__':
     with app.app_context(), app.test_request_context(), open('polly_api.json', 'w') as outfile:
             json.dump(api.__schema__, outfile)
-    http_server = WSGIServer(('', 5000), app, log=app.logger)
-    http_server.serve_forever()
+    app.run(host='0.0.0.0')

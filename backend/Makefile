@@ -1,6 +1,8 @@
+build:
+	docker-compose build
 
-server:
-	python src/server/server.py
+run:
+	docker-compose up
 
-test:
-	pytest
+clean:
+	docker volume rm ucla-cs-130_polly-data
