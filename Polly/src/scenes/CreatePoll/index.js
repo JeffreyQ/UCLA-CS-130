@@ -116,29 +116,21 @@ class CreatePollScreen extends React.Component {
             <Button
               style={styles.container}
               title="True False"
-              type="clear"
               onPress={() => navigate('MultipleChoicePoll', {name: 'Select All'})}
             />
             <Button
               style={styles.container}
               title="Short Answer"
-              type="clear"
               onPress={() => navigate('ShortAnswerPoll', {name: 'Select All'})}
            />
             <Button
               style={styles.container}
               title="Number Scale"
-              type="clear"
               onPress={() => navigate('NumberScalePoll', {name: 'Select All'})}
             />
             <Button
               style={styles.container}
               title="Select All"
-              type="clear"
-              titleProps={{
-                color: 'black',
-                fontSize: 36
-              }}
               onPress={() => navigate('SelectAllPoll', {name: 'Select All'})}
             />
           </View>
@@ -164,7 +156,12 @@ const theme = {
       margin: 10,
       width: '85%',
       // height: 50,
-    }
+    },
+    titleStyle: {
+      color: 'black',
+      fontSize:36
+    },
+    type: 'clear'
   }
 }
 function elevationShadowStyle(elevation) {
