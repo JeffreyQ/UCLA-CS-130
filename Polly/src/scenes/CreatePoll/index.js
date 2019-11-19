@@ -155,14 +155,15 @@ const theme = {
     containerStyle: {
       margin: 10,
       width: '85%',
-      // height: 50,
     },
     titleStyle: {
       color: 'black',
       fontSize:36
     },
     buttonStyle: {
-      flex: 1
+      flex: 1,
+      backgroundColor: 'white',
+      flexDirection: 'column',
     },
     type: 'clear'
   }
@@ -179,13 +180,7 @@ function elevationShadowStyle(elevation) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    // marginTop: 28,
-    backgroundColor: 'white',
     height: 118,
-    // padding: 7,
-    // borderTopLeftRadius: 50,
-    // borderBottomLeftRadius: 50,
     ...elevationShadowStyle(5)
   },
   heading2Text: {
@@ -206,7 +201,6 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   text: {
-    // fontFamily: "Baskerville",
     fontStyle: "normal",
     fontWeight: "normal",
     fontSize: 36
