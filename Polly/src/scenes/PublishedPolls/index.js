@@ -64,7 +64,6 @@ const RouteConfigs = {
 
 const StackNavigatorConfigs = {
   initialRouteName: 'Polls',
-
 }
 
 
