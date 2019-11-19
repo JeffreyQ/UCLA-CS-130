@@ -161,6 +161,9 @@ const theme = {
       color: 'black',
       fontSize:36
     },
+    buttonStyle: {
+      flex: 1
+    },
     type: 'clear'
   }
 }
@@ -169,9 +172,8 @@ function elevationShadowStyle(elevation) {
     elevation,
     shadowColor: '#0047FF',
     shadowOffset: { width: 0, height: 0.5 * elevation },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.2,
     shadowRadius: 0.8 * elevation,
-    shadowOpacity: 0.12
   };
 }
 
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
     // marginTop: 28,
     backgroundColor: 'white',
     height: 118,
-    padding: 7,
+    // padding: 7,
     // borderTopLeftRadius: 50,
     // borderBottomLeftRadius: 50,
     ...elevationShadowStyle(5)
