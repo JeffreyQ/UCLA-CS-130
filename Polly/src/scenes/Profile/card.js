@@ -1,23 +1,14 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
 
-import { heading2Text, grayBody } from '../../textMixins'
+import { heading2Text, bodyText, grayBody } from '../../textMixins'
 
 export default Card = props => {
   return (
     <TouchableHighlight underlayColor={"#fff"} onPress={props.onPress}>
       <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Text>Image</Text>
-        </View>
-        <View style={styles.infoContainer}>
-          <Text style={styles.heading2Text}>{props.poll.question}</Text>
-          <View style={styles.infoDetailContainer}>
-            <Text style={styles.pollCreator}>{props.poll.owner}</Text>
-            <Text>Expires: {props.poll.expiration}</Text>
-            <Text>{props.poll.answers}</Text>
-          </View>
-        </View>
+        <Text style={{...heading2Text}}>What should I wear?</Text>
+        <Text style={{...bodyText, ...grayBody}}>2 days ago</Text>
       </View>
     </TouchableHighlight>
   )
@@ -39,10 +30,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 28,
     backgroundColor: 'white',
-    height: 118,
-    padding: 7,
-    borderTopLeftRadius: 50,
-    borderBottomLeftRadius: 50,
+    height: 58,
+    padding: 20,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between',
     ...elevationShadowStyle(5)
   },
   imageContainer: {
