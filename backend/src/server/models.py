@@ -7,6 +7,7 @@ alembic pulls the metadata from this file in order to autogenerate migrations
 from sqlalchemy import Boolean, Column, DateTime, MetaData, String, Table, Integer, Enum, JSON
 from flask_sqlalchemy import SQLAlchemy
 import json
+import enum
 
 metadata = MetaData()
 
@@ -15,13 +16,29 @@ db = SQLAlchemy(metadata=metadata)
 form_types = ("multChoice", "selectAll", "numScale", "freeResp")
 form_type_enum = db.Enum(*form_types, name="form_type")
 
+
+class RelationshipStatus(enum.Enum):
+    PENDING = 1
+    ACCEPTED = 2
+
+
+followers = db.Table('followers',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('relationship_status', db.Enum(RelationshipStatus)),
+    db.PrimaryKeyConstraint('user_id', 'follower_id'), 
+)
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120))
     polls = db.relationship("Poll")
     responses = db.relationship("Response")
+    followers = db.relationship('User', secondary=followers, backref='following')
     def __repr__(self):
         return "User {} : {}".format(self.id, self.email)
+
 
 class Poll(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -37,6 +54,7 @@ class Poll(db.Model):
 	def __repr__(self):
 		return "Poll Id: {}, Type: {}, Owner: {}".format(self.id, self.form_type, self.owner_id, self)
 
+
 class Response(db.Model):
 	id = db.Column(db.Integer,primary_key=True)
 	poll_id = db.Column(db.Integer,db.ForeignKey('poll.id'))
@@ -46,3 +64,5 @@ class Response(db.Model):
 
 	def __repr__(self):
 		return "Poll Id: {}, Responder: {}, Answer: {}".format(self.poll_id, self.responder_id, self.answer, self)
+
+
