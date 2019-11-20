@@ -30,12 +30,19 @@ followers = db.Table('followers',
 )
 
 
+user_polls_following = db.Table('user_poll_following',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('poll_id', db.Integer, db.ForeignKey('poll.id'), primary_key=True)
+)
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120))
     polls = db.relationship("Poll")
     responses = db.relationship("Response")
     followers = db.relationship('User', secondary=followers, backref='following')
+    polls_following = db.relationship('Poll', secondary=user_polls_following)
     def __repr__(self):
         return "User {} : {}".format(self.id, self.email)
 
