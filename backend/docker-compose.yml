@@ -12,7 +12,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./:/app
+      - ./:/polly/
   db:
     image: postgres
     ports:

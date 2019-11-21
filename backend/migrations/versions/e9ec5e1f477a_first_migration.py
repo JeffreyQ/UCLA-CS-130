@@ -1,17 +1,17 @@
-"""Response table added
+"""first_migration
 
-Revision ID: 1becad5d7efa
-Revises: f4ad433aa48e
-Create Date: 2019-11-13 01:35:08.417581
+Revision ID: e9ec5e1f477a
+Revises: 
+Create Date: 2019-11-21 09:18:28.724506
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = '1becad5d7efa'
-down_revision = 'f4ad433aa48e'
+revision = 'e9ec5e1f477a'
+down_revision = None
 branch_labels = None
 depends_on = None
 
