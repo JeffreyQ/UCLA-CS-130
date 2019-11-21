@@ -19,7 +19,7 @@ fileConfig(config.config_file_name)
 # add your model's MetaData object here
 # for 'autogenerate' support
 sys.path.append(os.getcwd())
-from server.models import metadata
+from main.models import metadata
 
 target_metadata = metadata
 

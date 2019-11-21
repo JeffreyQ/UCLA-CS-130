@@ -1,5 +1,7 @@
 Flask
 flask_sqlalchemy
+flask_migrate
+flask_script
 alembic
 flask_cors
 psycopg2

@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-cd /app/src
+cd /polly/app
 alembic upgrade head
-cd /app
+cd /polly
 
 exec "$@"
