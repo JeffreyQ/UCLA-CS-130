@@ -11,6 +11,8 @@ Once you have Docker running, use the following commands from the `backend` proj
     * Builds both docker images
 * `make run`
     * Runs the Flask and postgres containers
+* `make setup`
+    * Runs the alembic db upgrade command. Run this whenever you generate a migration
 
 To stop the docker-compose process, press `Ctrl-C`
 
@@ -31,6 +33,8 @@ We are following the outline specified in this [article](https://www.freecodecam
 
 ### Generating a migration
 If you make any update to the models (any of the classes in app/main/models/*), you must generate a migration.
+
+You can do so by running `make migrate message="<your message>"`
 
 
 ## Documentation Generation
