@@ -6,15 +6,25 @@ import { heading1Text, bodyText, grayBody } from '../../textMixins'
 import Card from './card'
 
 import Heading from './heading'
-import ProfileBody from './body'
-import Card from './card'
 
 class ProfileScreen extends React.Component{
+  onCardPress = pollId => {
+    return this.props.navigation.navigate('PollResponse', {
+      pollId
+    })
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <Heading />
-        <ProfileBody />
+        <View style={styles.bodyContainer}>
+          <View style={styles.heading}>
+            <Text style={{...heading1Text}}>My Polls</Text>
+            <Text style={{...bodyText, ...grayBody}}>Filter</Text>
+          </View>
+          <Card onPress={() => this.onCardPress(1)}/>
+        </View>
       </SafeAreaView>
     )
   }
