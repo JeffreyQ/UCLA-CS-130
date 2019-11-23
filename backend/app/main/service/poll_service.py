@@ -17,3 +17,6 @@ def save_new_poll(data):
     }
 
     return response_object, 201
+
+def get_all_polls():
+    return Poll.query.all()

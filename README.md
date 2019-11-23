@@ -26,6 +26,13 @@ N times and see N users when you run
 
 `curl localhost:5000/users`
 
+## Development
+We are following the outline specified in this [article](https://www.freecodecamp.org/news/structuring-a-flask-restplus-web-service-for-production-builds-c2ec676de563/#database-models-and-migration) to organize our Flask app.
+
+### Generating a migration
+If you make any update to the models (any of the classes in app/main/models/*), you must generate a migration.
+
+
 ## Documentation Generation
 ### Online Documentation
 Our backend API documentation is generated automatically using `flask_restplus`, a library extension of `Swagger`.
