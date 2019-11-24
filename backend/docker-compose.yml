@@ -7,6 +7,8 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
       - DATABASE_URL=postgresql://polly:polly-password@db/polly-prod
+      - APP_ID=$APP_ID
+      - APP_SECRET=$APP_SECRET
     ports:
       - "5000:5000"
     depends_on:

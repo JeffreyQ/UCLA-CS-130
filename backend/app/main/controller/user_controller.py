@@ -6,6 +6,7 @@ from app.main.service.user_service import save_new_user, get_all_users, get_a_us
 
 api = UserDto.api
 _user = UserDto.user
+_response = UserDto.response
 
 
 @api.route('/')
@@ -16,7 +17,7 @@ class UserList(Resource):
         """List all registered users"""
         return get_all_users()
 
-    @api.response(201, 'User successfully created.')
+    @api.response(201, 'Success', _response)
     @api.doc('create a new user')
     @api.expect(_user, validate=True)
     def post(self):
