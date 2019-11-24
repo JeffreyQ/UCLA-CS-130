@@ -9,7 +9,7 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-    JWT_SECRET_KEY = 'secret-key'
+    JWT_SECRET_KEY = os.environ['JWT_SECRET_KEY']
     APP_ACCESS_TOKEN = os.environ['APP_ID'] + "|" + os.environ['APP_SECRET']
     DEBUG_TOKEN_URL = GRAPH_API_HOST + "/debug_token?access_token=" + APP_ACCESS_TOKEN + "&input_token={access_token}"
     USER_DETAIL_URL = GRAPH_API_HOST + "/{user_id}?access_token={access_token}&fields=email,name"

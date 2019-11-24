@@ -11,7 +11,7 @@ user_polls_following = db.Table('user_poll_following',
 
 
 followers = db.Table('followers',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('relationship_status', relationship_status_types_enum),
     db.PrimaryKeyConstraint('user_id', 'follower_id'), 
