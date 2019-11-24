@@ -27,7 +27,7 @@ def upgrade():
     op.create_table('followers',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('follower_id', sa.Integer(), nullable=False),
-    sa.Column('relationship_status', postgresql.ENUM('pending', 'accepted', name='relationship_status', create_type=False), nullable=True),
+    sa.Column('relationship_status', sa.Enum('pending', 'accepted', name='relationship_status', create_type=False), nullable=True),
     sa.ForeignKeyConstraint(['follower_id'], ['user.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'follower_id')
@@ -36,7 +36,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=True),
     sa.Column('prompt', sa.String(length=200), nullable=True),
-    sa.Column('form_type', postgresql.ENUM('multChoice', 'selectAll', 'numScale', 'freeResp', name='form_type', create_type=False), nullable=True),
+    sa.Column('form_type', sa.Enum('multChoice', 'selectAll', 'numScale', 'freeResp', name='form_type', create_type=False), nullable=True),
     sa.Column('resp_struct', sa.JSON(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
