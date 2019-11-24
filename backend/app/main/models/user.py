@@ -21,6 +21,8 @@ followers = db.Table('followers',
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120))
+    fb_id = db.Column(db.String(120))
+    name = db.Column(db.String())
     polls = db.relationship("Poll")
     responses = db.relationship("Response")
     followers = db.relationship('User',

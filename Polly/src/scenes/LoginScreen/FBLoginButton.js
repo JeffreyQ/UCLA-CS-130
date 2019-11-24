@@ -6,7 +6,7 @@ export default class FBLoginButton extends Component {
   render() {
     return (
       <LoginButton
-        publishPermissions={["email"]}
+        permissions={["email", "public_profile"]}
         onLoginFinished={
           (error, result) => {
             if (error) {
