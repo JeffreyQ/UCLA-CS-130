@@ -19,6 +19,10 @@ class UserDto:
         'relationship_status': fields.String
     })
 
+    create_follow = api.model('user_follow_create', {
+        'id': fields.Integer(required=True, description='id of the user to follow you')
+    })
+
 
 class PollDto:
     api = Namespace('poll', description='poll related operations')

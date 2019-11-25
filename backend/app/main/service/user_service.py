@@ -55,5 +55,21 @@ def get_all_users():
 
     return [u._asdict() for u in users_and_relationship]
 
+def create_user_follow_request(data):
+    user_requested_id = data['id']
+
+    current_user = get_current_user()
+    user_to_request = User.query.filter_by(id=user_requested_id).first()
+
+    current_user.followers.append(user_to_request)
+    db.session.add(current_user)
+    db.session.commit()
+    
+    response_object = {
+        'status': 'success'
+    }
+
+    return response_object, 201
+
 def get_a_user():
     pass

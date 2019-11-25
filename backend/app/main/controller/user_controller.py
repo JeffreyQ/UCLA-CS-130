@@ -3,7 +3,7 @@ from flask_restplus import Resource
 from flask_jwt_extended import jwt_required
 
 from app.main.util.dto import UserDto
-from app.main.service.user_service import save_new_user, get_all_users, get_a_user
+from app.main.service.user_service import save_new_user, get_all_users, get_a_user, create_user_follow_request
 
 api = UserDto.api
 
@@ -38,3 +38,18 @@ class User(Resource):
             api.abort(404)
         else:
             return user
+
+
+@api.route('/follow')
+class UserFollow(Resource):
+    @api.doc('create a follow request')
+    @api.expect(UserDto.create_follow, validate=True)
+    @jwt_required
+    def post(self):
+        """Creates a follow request"""
+        data = request.json
+        return create_user_follow_request(data)
+        
+
+
+
