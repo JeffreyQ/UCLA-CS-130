@@ -3,7 +3,7 @@ from flask_restplus import Resource
 from flask_jwt_extended import jwt_required
 
 from app.main.util.dto import UserDto
-from app.main.service.user_service import save_new_user, get_all_users, get_a_user, create_user_follow_request
+from app.main.service.user_service import save_new_user, get_all_users, get_a_user, create_user_follow_request, confirm_user_follow_request
 
 api = UserDto.api
 
@@ -52,5 +52,12 @@ class UserFollow(Resource):
         return create_user_follow_request(data)
         
 
-
+@api.route('/confirm')
+class UserConfirm(Resource):
+    @jwt_required
+    @api.doc('confirm a follow request')
+    def post(self):
+        """Confirms a follow request"""
+        data = request.json
+        return confirm_user_follow_request(data)
 

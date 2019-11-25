@@ -1,7 +1,7 @@
 from flask import current_app, jsonify
 from flask_jwt_extended import create_access_token, get_current_user
 import requests
-from app.main.models.user import User, followers
+from app.main.models.user import User, FollowerRelationship
 from app.main import db
 
 def save_new_user(data):
@@ -38,6 +38,7 @@ def save_new_user(data):
         return dict(token=jwt, expires_delta=False), 201
 
     except Exception as e:
+        print(e)
         response_object = {
             'status': 'error',
             'message': 'Internal Error'
@@ -48,8 +49,8 @@ def save_new_user(data):
 def get_all_users():
     user = get_current_user()
     users_and_relationship = db.session \
-        .query(User.id, User.email, User.name, followers.c.relationship_status) \
-        .outerjoin(followers, followers.c.follower_id == User.id) \
+        .query(User.id, User.email, User.name, FollowerRelationship.relationship_status) \
+        .outerjoin(FollowerRelationship, FollowerRelationship.follower_id == User.id) \
         .filter(User.id != user.id) \
         .all()
 
@@ -65,6 +66,23 @@ def create_user_follow_request(data):
     db.session.add(current_user)
     db.session.commit()
     
+    response_object = {
+        'status': 'success'
+    }
+
+    return response_object, 201
+
+def confirm_user_follow_request(data):
+    following_id = data['id']
+    current_user = get_current_user()
+
+    follow_request = db.session.query(FollowerRelationship) \
+        .filter_by(user_id=following_id, follower_id=current_user.id).first()
+
+    follow_request.relationship_status = "accepted"
+    db.session.add(follow_request)
+    db.session.commit()
+
     response_object = {
         'status': 'success'
     }
