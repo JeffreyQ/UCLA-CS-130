@@ -44,6 +44,7 @@ class User(Resource):
 class UserFollow(Resource):
     @api.doc('create a follow request')
     @api.expect(UserDto.create_follow, validate=True)
+    @api.response(201, 'Success', UserDto.create_follow_response)
     @jwt_required
     def post(self):
         """Creates a follow request"""
