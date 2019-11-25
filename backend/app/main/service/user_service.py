@@ -1,7 +1,7 @@
 from flask import current_app, jsonify
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, get_current_user
 import requests
-from app.main.models.user import User
+from app.main.models.user import User, followers
 from app.main import db
 
 def save_new_user(data):
@@ -17,7 +17,7 @@ def save_new_user(data):
         user = User.query.filter_by(fb_id=user_id).first()
         # if user exists, just return new JWT
         if user:
-            jwt = create_access_token(user.id)
+            jwt = create_access_token(user.id, expires_delta=False)
             return dict(token=jwt), 201
             
         user_details_request = requests.get(
@@ -35,7 +35,7 @@ def save_new_user(data):
         db.session.commit()
 
         jwt = create_access_token(user.id)
-        return dict(token=jwt), 201
+        return dict(token=jwt, expires_delta=False), 201
 
     except Exception as e:
         response_object = {
@@ -46,8 +46,14 @@ def save_new_user(data):
         return response_object, 500
 
 def get_all_users():
-    print(current_app.config)
-    return User.query.all()
+    user = get_current_user()
+    users_and_relationship = db.session \
+        .query(User.id, User.email, User.name, followers.c.relationship_status) \
+        .outerjoin(followers, followers.c.follower_id == User.id) \
+        .filter(User.id != user.id) \
+        .all()
+
+    return [u._asdict() for u in users_and_relationship]
 
 def get_a_user():
     pass

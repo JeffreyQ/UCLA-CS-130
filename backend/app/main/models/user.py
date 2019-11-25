@@ -30,5 +30,3 @@ class User(db.Model):
                                 primaryjoin=id==followers.c.user_id,
                                 secondaryjoin=id==followers.c.follower_id)
     polls_following = db.relationship('Poll', secondary=user_polls_following)
-    def __repr__(self):
-        return "User {} : {}".format(self.id, self.email)
