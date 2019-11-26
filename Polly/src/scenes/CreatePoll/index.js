@@ -54,26 +54,45 @@ class ShortAnswerPollCreationScreen extends React.Component {
 }
 
 class NumberScalePollCreationScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Number Scale Poll',
+  };
   render() {
       return(
-      <View style={{flex: 1, alignItems: 'center'}}> 
-        <Text> Number Scale Poll </Text>
-          <TextInput
-              placeholder='Prompt'
-              multiline={true}
-              scrollEnabled={true}
-          />
-          <Input
-            placeholder='Minimum Value'
-          />
-          <Input
-            placeholder='Maximum Value'
-          />
-          <Button
-              title="Next"
-              type="solid"
-          />
-      </View>
+        <ThemeProvider theme={theme}>
+          <View style={{padding: 15, flex:1.5}}>
+            <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                multiline={true}
+                scrollEnabled={true}
+                style={styles.input}
+              />
+            </View>
+          </View>
+          <View style={{padding: 15, flex:1}}>
+            <Text style={{fontSize:20, padding: 10}}>Minimum Label</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                multiline={true}
+                style={styles.input}
+              />
+            </View>
+            <Text style={{fontSize:20, padding: 10}}>Maximum Label</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                multiline={true}
+                style={styles.input}
+              />
+            </View>
+          </View>
+          <View style={styles.bottom}>
+            <Button
+              style={styles.container}
+              title="Create"
+            />
+          </View>
+        </ThemeProvider>
       );
   }
 }
