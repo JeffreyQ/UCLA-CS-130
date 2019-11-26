@@ -70,33 +70,28 @@ class NumberScalePollCreationScreen extends React.Component {
   }
 }
 
-class MultipleChoicePollCreationScreen extends React.Component {
+class TrueFalsePollCreationScreen extends React.Component {
+  static navigationOptions = {
+    title: 'True False Poll',
+  };
   render() {
       return(
         <ThemeProvider theme={theme}>
-          <View style={{flex: 1, alignItems: 'center'}}> 
-            <Text> Multiple Choice Poll </Text>
+          <Text style={{fontSize:20, padding: 15}}>Prompt</Text>
+          <View style={{padding:15, flex:1}}>
+            <View style={styles.inputContainer}>
               <TextInput
-                  placeholder='Prompt'
-                  multiline={true}
-                  scrollEnabled={true}
+                multiline={true}
+                scrollEnabled={true}
+                style={styles.input}
               />
-              <Input
-                  placeholder='Choice 1'
-              />
-              <Input
-                placeholder='Choice 2'
-              />
-              <Input
-                placeholder='Choice 3'
-              />
-              <Input
-                placeholder='Choice 4'
-              />
-              <Button
-                  title="Next"
-                  type="solid"
-              />
+            </View>
+          </View>
+          <View style={styles.bottom}>
+            <Button
+              style={styles.container}
+              title="Create"
+            />
           </View>
         </ThemeProvider>
       );
@@ -142,7 +137,7 @@ class CreatePollScreen extends React.Component {
 const MainNavigator = createStackNavigator({
     CreatePoll: {screen: CreatePollScreen},
     SelectAllPoll: {screen: SelectAllPollCreationScreen},
-    MultipleChoicePoll: {screen: MultipleChoicePollCreationScreen},
+    MultipleChoicePoll: {screen: TrueFalsePollCreationScreen},
     NumberScalePoll: {screen: NumberScalePollCreationScreen},
     ShortAnswerPoll: {screen: ShortAnswerPollCreationScreen},
 });
@@ -158,7 +153,7 @@ const theme = {
     },
     titleStyle: {
       color: 'black',
-      fontSize:36
+      fontSize: 36
     },
     buttonStyle: {
       flex: 1,
@@ -179,6 +174,20 @@ function elevationShadowStyle(elevation) {
 }
 
 const styles = StyleSheet.create({
+  inputContainer: {
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderColor: '#DDDDDD',
+    height: 30,
+    flex: .5,
+    padding: 5
+  },
+  input: {
+    flexDirection: 'row',
+    flex: 1
+  },
   container: {
     height: 118,
     ...elevationShadowStyle(5)
@@ -190,6 +199,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-evenly'
+  },
+  bottom: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: 15
   },
   boxWithShadow: {
     shadowOffset: {
