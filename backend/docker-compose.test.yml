@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  backend-test:
+  backend:
     build: .
     image: polly/backend
     environment:

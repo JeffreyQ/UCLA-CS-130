@@ -20,4 +20,4 @@ clean:
 	docker volume rm polly_polly-data
 
 test:
-	docker-compose -f docker-compose.test.yml up --abort-on-container-exit
+	docker-compose -p polly-test -f docker-compose.test.yml up --abort-on-container-exit
