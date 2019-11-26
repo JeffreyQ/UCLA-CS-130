@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  backend-test:
+    build: .
+    image: polly/backend
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=postgresql://polly:polly-password@db-test/polly-test
+      - APP_ID=$APP_ID
+      - APP_SECRET=$APP_SECRET
+      - JWT_SECRET_KEY=$JWT_SECRET_KEY
+    command: ["python3", "manage.py", "test"]
+    depends_on:
+      - db-test
+    volumes:
+      - ./:/polly/
+  db-test:
+    image: postgres
+    environment:
+      - POSTGRES_USER=polly
+      - POSTGRES_PASSWORD=polly-password
+      - POSTGRES_DB=polly-test
+    volumes:
+      - polly-data-test:/var/lib/postgresql/data
+
+volumes:
+  polly-data-test:

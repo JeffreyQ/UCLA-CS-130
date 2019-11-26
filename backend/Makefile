@@ -1,5 +1,10 @@
+.PHONY: test
+
 build:
 	docker-compose build
+
+build-test:
+	docker-compose -f docker-compose.test.yml build 
 
 # usage: make migrate message="commit message"
 migrate:
@@ -12,4 +17,7 @@ run:
 	docker-compose up
 
 clean:
-	docker volume rm ucla-cs-130_polly-data
+	docker volume rm polly_polly-data
+
+test:
+	docker-compose -f docker-compose.test.yml up --abort-on-container-exit
