@@ -11,7 +11,7 @@ Once you have Docker running, use the following commands from the `backend` proj
     * Builds both docker images
 * `make run`
     * Runs the Flask and postgres containers
-* `make setup`
+* `make upgrade`
     * Runs the alembic db upgrade command. Run this whenever you generate a migration
 
 To stop the docker-compose process, press `Ctrl-C`
@@ -19,14 +19,6 @@ To stop the docker-compose process, press `Ctrl-C`
 Live-reloading of the flask code is enabled, meaning you will be able to edit Python source code and see changes take effect immediately.
 
 Postgres data is persisted to a volume on disk. This means that if you stop the docker-compose process, any data written to the postgres instance will be saved and available the next time you run `make run`. If you want to delete the volume completely, run `make clean`
-
-If it's all working you should be able to run
-
-`curl localhost:5000/add`
-
-N times and see N users when you run
-
-`curl localhost:5000/users`
 
 ## Development
 We are following the outline specified in this [article](https://www.freecodecamp.org/news/structuring-a-flask-restplus-web-service-for-production-builds-c2ec676de563/#database-models-and-migration) to organize our Flask app.
@@ -36,6 +28,10 @@ If you make any update to the models (any of the classes in app/main/models/*), 
 
 You can do so by running `make migrate message="<your message>"`
 
+## Testing
+Tests are written in the app/test/ folder. Test modules should be named in the form `test_<file>.py` for example `app/test/models/test_user.py`.
+
+To run the test suite, run `make test`. This runs a test postgres instance, creating and destroying the db instance on every run.
 
 ## Documentation Generation
 ### Online Documentation
