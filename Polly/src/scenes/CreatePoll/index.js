@@ -6,23 +6,61 @@ import {createStackNavigator} from 'react-navigation-stack'
 import { heading2Text } from '../../textMixins'
 
 class SelectAllPollCreationScreen extends React.Component {
-    render() {
-        return(
-        <View style={{flex: 1, alignItems: 'center'}}> 
-          <Text> Select All Poll </Text>
-            <TextInput
-                placeholder='Prompt'
+  static navigationOptions = {
+    title: 'Select All Poll',
+  };
+  render() {
+      return(
+        <ThemeProvider theme={theme}>
+          <View style={{padding: 15, flex:1}}>
+            <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
                 multiline={true}
                 scrollEnabled={true}
-            />
-          
+                style={styles.input}
+              />
+            </View>
+          </View>
+          <View style={{padding: 15, flex:2}}>
+            <Text style={{fontSize:14, paddingBottom:6}}>Option 1</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                multiline={true}
+                style={styles.optionInput}
+              />
+            </View>
+            <Text style={{fontSize:14, paddingTop: 6, paddingBottom:6}}>Option 2</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                multiline={true}
+                style={styles.optionInput}
+              />
+            </View>
+            <Text style={{fontSize:14, paddingTop: 6, paddingBottom:6}}>Option 3</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                multiline={true}
+                style={styles.optionInput}
+              />
+            </View>
+            <Text style={{fontSize:14, paddingTop: 6, paddingBottom:6}}>Option 4</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                multiline={true}
+                style={styles.optionInput}
+              />
+            </View>
+          </View>
+          <View style={styles.bottom}>
             <Button
-                title="Next"
-                type="solid"
+              style={styles.container}
+              title="Create"
             />
-        </View>
-        );
-    }
+          </View>
+        </ThemeProvider>
+      );
+  }
 }
 
 class ShortAnswerPollCreationScreen extends React.Component {
@@ -32,8 +70,8 @@ class ShortAnswerPollCreationScreen extends React.Component {
   render() {
       return(
         <ThemeProvider theme={theme}>
-          <Text style={{fontSize:20, padding: 15}}>Prompt</Text>
           <View style={{padding:15, flex:1}}>
+            <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
             <View style={styles.inputContainer}>
               <TextInput
                 multiline={true}
@@ -104,8 +142,8 @@ class TrueFalsePollCreationScreen extends React.Component {
   render() {
       return(
         <ThemeProvider theme={theme}>
-          <Text style={{fontSize:20, padding: 15}}>Prompt</Text>
           <View style={{padding:15, flex:1}}>
+            <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
             <View style={styles.inputContainer}>
               <TextInput
                 multiline={true}
@@ -208,12 +246,15 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: '#DDDDDD',
     height: 30,
-    flex: .5,
+    flex: 1,
     padding: 5
   },
   input: {
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
+  },
+  optionInput: {
+    height: 30
   },
   container: {
     height: 118,
