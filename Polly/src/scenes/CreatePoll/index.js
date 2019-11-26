@@ -26,21 +26,29 @@ class SelectAllPollCreationScreen extends React.Component {
 }
 
 class ShortAnswerPollCreationScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Short Answer Poll',
+  };
   render() {
       return(
-      <View style={{flex: 1, alignItems: 'center'}}> 
-        <Text> Short Answer Poll </Text>
-          <TextInput
-              placeholder='Prompt'
-              multiline={true}
-              scrollEnabled={true}
-          />
-        
-          <Button
-              title="Next"
-              type="solid"
-          />
-      </View>
+        <ThemeProvider theme={theme}>
+          <Text style={{fontSize:20, padding: 15}}>Prompt</Text>
+          <View style={{padding:15, flex:1}}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                multiline={true}
+                scrollEnabled={true}
+                style={styles.input}
+              />
+            </View>
+          </View>
+          <View style={styles.bottom}>
+            <Button
+              style={styles.container}
+              title="Create"
+            />
+          </View>
+        </ThemeProvider>
       );
   }
 }
