@@ -9,7 +9,7 @@ api = UserDto.api
 
 @api.route('/')
 class UserList(Resource):
-    @api.doc('list_of_registered_users')
+    @api.doc('list_of_registered_users', security='Bearer Auth')
     @api.marshal_list_with(UserDto.get_response, envelope='data')
     @jwt_required
     def get(self):
@@ -50,7 +50,7 @@ class UserFollow(Resource):
         """Creates a follow request"""
         data = request.json
         return create_user_follow_request(data)
-        
+
 
 @api.route('/confirm')
 class UserConfirm(Resource):
@@ -60,4 +60,3 @@ class UserConfirm(Resource):
         """Confirms a follow request"""
         data = request.json
         return confirm_user_follow_request(data)
-
