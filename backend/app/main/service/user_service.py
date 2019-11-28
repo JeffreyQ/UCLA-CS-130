@@ -25,11 +25,11 @@ def save_new_user(data):
         )
         user_detail_json = user_details_request.json()
 
-        email = user_detail_json['email']
         name = user_detail_json['name']
+        #email = user_detail_json['email']
         fb_id = user_detail_json['id']
         
-        user = User(email=email, fb_id=fb_id, name=name)
+        user = User(fb_id=fb_id, name=name)
 
         db.session.add(user)
         db.session.commit()
@@ -91,3 +91,23 @@ def confirm_user_follow_request(data):
 
 def get_a_user():
     pass
+
+def get_user_subscribers():
+    current_user = get_current_user()
+    #right now just getting followers name and id
+    mysubscribers = db.session.query(User.name, FollowerRelationship.follower_id )\
+    .outerjoin(FollowerRelationship,FollowerRelationship.follower_id == User.id)\
+    .filter(FollowerRelationship.user_id == current_user.id)\
+    .filter(FollowerRelationship.relationship_status == "accepted")\
+    .all()
+    return [u._asdict() for u in mysubscribers]
+
+def get_user_subscribedto():
+    
+
+    subscribedto = db.session.query(User.name, FollowerRelationship.user_id )\
+    .outerjoin(FollowerRelationship,FollowerRelationship.user_id == User.id)\
+    .filter(FollowerRelationship.follower_id == 7)\
+    .filter(FollowerRelationship.relationship_status == "accepted")\
+    .all()
+    return [u._asdict() for u in subscribedto]
