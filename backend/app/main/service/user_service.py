@@ -104,10 +104,11 @@ def get_user_subscribers():
 
 def get_user_subscribedto():
     
+    current_user = get_current_user()
 
     subscribedto = db.session.query(User.name, FollowerRelationship.user_id )\
     .outerjoin(FollowerRelationship,FollowerRelationship.user_id == User.id)\
-    .filter(FollowerRelationship.follower_id == 7)\
+    .filter(FollowerRelationship.follower_id == current_user.id)\
     .filter(FollowerRelationship.relationship_status == "accepted")\
     .all()
     return [u._asdict() for u in subscribedto]
