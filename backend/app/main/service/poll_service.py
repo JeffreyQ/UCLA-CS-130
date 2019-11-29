@@ -39,7 +39,21 @@ def get_all_polls():
 def get_user_polls(user_id):
     try:
         polls = Poll.query.filter_by(owner_id=user_id).all()
-        return [poll.as_dict() for poll in polls], 201
+        return [poll.as_dict() for poll in polls], 200
+    except Exception as e:
+        print(e)
+    return {
+        'status': 'failure',
+        'message': 'Failed to get polls'
+    }, 404
+
+def get_polls_following(user_id):
+    try:
+        following = db.session.query(user_polls_following).filter_by(user_id=user_id).all()
+        polls_following = [f for _,f in following]
+        print(polls_following)
+        polls = Poll.query.filter(Poll.id.in_(polls_following)).all()
+        return [poll.as_dict() for poll in polls], 200
     except Exception as e:
         print(e)
     return {

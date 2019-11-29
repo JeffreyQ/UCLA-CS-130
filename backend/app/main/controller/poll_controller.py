@@ -23,8 +23,18 @@ class Poll(Resource):
 
     @jwt_required
     @api.marshal_list_with(_poll.poll_fields)
-    @api.doc('list of polls', security='Bearer Auth')
+    @api.doc('list of polls created by user', security='Bearer Auth')
     def get(self):
         user = get_current_user()
         print(user)
         return poll_service.get_user_polls(user.id)
+
+@api.route('/following')
+class PollsFollowing(Resource):
+    @jwt_required
+    @api.marshal_list_with(_poll.poll_fields)
+    @api.doc('list of polls user is following', security='Bearer Auth')
+    def get(self):
+        user = get_current_user()
+        print(user)
+        return poll_service.get_polls_following(user.id)
