@@ -55,6 +55,7 @@ class UserFollow(Resource):
 @api.route('/confirm')
 class UserConfirm(Resource):
     @jwt_required
+    @api.expect(UserDto.confirm_follow, validate=True)
     @api.doc('confirm a follow request', security='Bearer Auth')
     def post(self):
         """Confirms a follow request"""

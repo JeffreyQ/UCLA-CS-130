@@ -23,6 +23,10 @@ class UserDto:
         'id': fields.Integer(required=True, description='id of the user to follow you')
     })
 
+    confirm_follow = api.model('user_follow_create', {
+        'id': fields.Integer(required=True, description='id of the user to follow')
+    })
+
     create_follow_response = api.model('create_follow_response', {
         'status': fields.String
     })

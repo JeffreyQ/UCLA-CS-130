@@ -2,6 +2,7 @@ from flask import current_app, jsonify
 from flask_jwt_extended import create_access_token, get_current_user
 import requests
 from app.main.models.user import User, FollowerRelationship
+from app.main.models.poll import Poll
 from app.main import db
 
 def save_new_user(data):
@@ -10,7 +11,7 @@ def save_new_user(data):
 
         debug_token_request = requests.get(
             current_app.config['DEBUG_TOKEN_URL'].format(access_token=access_token))
-       
+
         debug_token_json = debug_token_request.json()
         user_id = debug_token_json['data']['user_id']
 
@@ -19,7 +20,7 @@ def save_new_user(data):
         if user:
             jwt = create_access_token(user.id, expires_delta=False)
             return dict(token=jwt), 201
-            
+
         user_details_request = requests.get(
             url=current_app.config['USER_DETAIL_URL'].format(access_token=access_token, user_id=user_id)
         )
@@ -28,7 +29,7 @@ def save_new_user(data):
         name = user_detail_json['name']
         #email = user_detail_json['email']
         fb_id = user_detail_json['id']
-        
+
         user = User(fb_id=fb_id, name=name)
 
         db.session.add(user)
@@ -65,7 +66,7 @@ def create_user_follow_request(data):
     current_user.followers.append(user_to_request)
     db.session.add(current_user)
     db.session.commit()
-    
+
     response_object = {
         'status': 'success'
     }
@@ -81,6 +82,12 @@ def confirm_user_follow_request(data):
 
     follow_request.relationship_status = "accepted"
     db.session.add(follow_request)
+
+    polls_following = Poll.query.filter_by(owner_id=following_id).all()
+    user = User.query.filter_by(id=current_user.id).first()
+    user.polls_following.extend(polls_following)
+    db.session.add(user)
+
     db.session.commit()
 
     response_object = {
@@ -103,7 +110,7 @@ def get_user_subscribers():
     return [u._asdict() for u in mysubscribers]
 
 def get_user_subscribedto():
-    
+
     current_user = get_current_user()
 
     subscribedto = db.session.query(User.name, FollowerRelationship.user_id )\
