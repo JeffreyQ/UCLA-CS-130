@@ -40,6 +40,7 @@ class PollItem(Resource):
         user = get_current_user()
         return poll_service.get_poll_by_id(user.id, poll_id)
 
+
 @api.route('/following')
 class PollsFollowing(Resource):
     @jwt_required

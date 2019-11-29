@@ -49,8 +49,14 @@ def get_user_polls(user_id):
 
 def get_poll_by_id(user_id, poll_id):
     try:
-        poll = Poll.query.filter_by(owner_id=user_id, id=poll_id).first()
-        return poll.as_dict(), 200
+        poll = Poll.query.filter_by(id=poll_id).first()
+        if (poll.owner_id == user_id):
+            return poll.as_dict(), 200
+        else:
+            return {
+                'status': 'failure',
+                'message': "Do not have permission, user does not own poll %s" % poll_id
+            }, 401
     except Exception as e:
         print(e)
     return {
