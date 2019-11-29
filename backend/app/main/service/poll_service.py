@@ -47,6 +47,17 @@ def get_user_polls(user_id):
         'message': 'Failed to get polls'
     }, 404
 
+def get_poll_by_id(user_id, poll_id):
+    try:
+        poll = Poll.query.filter_by(owner_id=user_id, id=poll_id).first()
+        return poll.as_dict(), 200
+    except Exception as e:
+        print(e)
+    return {
+        'status': 'failure',
+        'message': 'Failed to get poll'
+    }, 404
+
 def get_polls_following(user_id):
     try:
         polls = db.session.query(Poll) \

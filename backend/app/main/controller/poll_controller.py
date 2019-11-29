@@ -9,7 +9,7 @@ import app.main.service.poll_service as poll_service
 api = _poll.api
 
 @api.route('/')
-class Poll(Resource):
+class PollCollection(Resource):
     @api.response(201, 'Poll successfully create')
     @api.doc('create a new poll', security='Bearer Auth')
     @api.expect(_poll.create_poll_fields, validate=True)
@@ -28,6 +28,17 @@ class Poll(Resource):
         user = get_current_user()
         print(user)
         return poll_service.get_user_polls(user.id)
+
+@api.route('/<poll_id>')
+class PollItem(Resource):
+    @api.response(201, 'Poll successfully updated')
+    @api.doc('Update a poll\'s is_open status', security='Bearer Auth')
+    @api.marshal_with(_poll.poll_fields)
+    @jwt_required
+    def get(self, poll_id):
+        """Gets poll specified by poll_id"""
+        user = get_current_user()
+        return poll_service.get_poll_by_id(user.id, poll_id)
 
 @api.route('/following')
 class PollsFollowing(Resource):

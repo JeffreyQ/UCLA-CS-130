@@ -54,6 +54,7 @@ class PollDto:
     	'prompt': fields.String(required=True, description='poll question prompt'),
     	'form_type': fields.String(required=True, description='form type', enum=['multChoice', 'selectAll', 'numScale', 'freeResp']),
     	'resp_struct': fields.Nested(resp_struct_fields, description='poll response structure'),
+        'is_open': fields.Boolean(required=True, description='Status of whether poll is still open')
     })
 
     resp_fields = api.model('Response_Fields', {
