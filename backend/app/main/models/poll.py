@@ -8,9 +8,10 @@ form_type_enum = Enum(*form_types, name="form_type")
 class Poll(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer,db.ForeignKey('user.id'))
-    prompt = db.Column(db.String(200))
-    form_type = db.Column(form_type_enum)
+    prompt = db.Column(db.String(200), default="")
+    form_type = db.Column(form_type_enum, default="freeResp")
     resp_struct = db.Column(db.JSON)
+    is_open = db.Column(db.Boolean, default=True)
     responses = db.relationship("Response")
 
     def as_dict(self):
