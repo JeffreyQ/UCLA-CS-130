@@ -1,20 +1,20 @@
-import { SET_ACCESS_TOKEN, SET_ACCESS_TOKEN_FAILURE, CHECKED_AUTH } from '../constants/auth'
+import { SET_JSON_WEB_TOKEN, SET_JSON_WEB_TOKEN_FAILURE, CHECKED_AUTH } from '../constants/auth'
 
 const defaultState = {
   checkedAuth: false,
-  accessToken: null,
+  JSONWebToken: null,
   error: null
 }
 
 const Auth = (state = defaultState, action) => {
   switch (action.type) {
-    case SET_ACCESS_TOKEN:
+    case SET_JSON_WEB_TOKEN:
       return {
         ...state,
         checkedAuth: true,
-        accessToken: action.accessToken
+        JSONWebToken: action.JSONWebToken
       }
-    case SET_ACCESS_TOKEN_FAILURE:
+    case SET_JSON_WEB_TOKEN_FAILURE:
       return {
         ...state,
         error: action.error

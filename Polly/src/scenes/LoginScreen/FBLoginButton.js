@@ -2,6 +2,24 @@ import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { LoginButton, AccessToken } from 'react-native-fbsdk'
 
+
+function createNewUserRequest(accessToken, props) {
+  return fetch('http://localhost:5000/user/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "accessToken": accessToken,
+    }),
+  }).then((response) => response.json())
+    .then((responseJson) => responseJson.token)
+    .then((jsonWebToken) => props.setJSONWebToken(jsonWebToken))
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
 export default class FBLoginButton extends Component {
   render() {
     return (
@@ -15,7 +33,9 @@ export default class FBLoginButton extends Component {
               alert("Login was cancelled")
             } else {
               AccessToken.getCurrentAccessToken().then(data => {
-                this.props.setAccessToken(data.accessToken.toString())
+                return data.accessToken.toString();
+              }).then(accessToken => {
+                return createNewUserRequest(accessToken, this.props);
               })
             }
           }

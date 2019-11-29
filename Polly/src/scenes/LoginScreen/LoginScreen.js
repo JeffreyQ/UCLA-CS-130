@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import FBLoginButton from './FBLoginButton'
 import { heading1Text } from '../../textMixins'
-import { setAccessToken } from '../../actions/auth'
+import { setJSONWebToken } from '../../actions/auth'
 
 class LoginScreen extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class LoginScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.heroContainer} />
         <Text style={styles.welcomeText}>Welcome To Polly!</Text>
-        <FBLoginButton setAccessToken={this.props.setAccessToken}/>
+        <FBLoginButton setJSONWebToken={this.props.setJSONWebToken}/>
       </View>
     )
   }
@@ -20,7 +20,7 @@ class LoginScreen extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setAccessToken: accessToken => dispatch(setAccessToken(accessToken))
+    setJSONWebToken: JSONWebToken => dispatch(setJSONWebToken(JSONWebToken))
   }
 }
 
