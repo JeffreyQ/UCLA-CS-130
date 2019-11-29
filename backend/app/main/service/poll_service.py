@@ -1,4 +1,5 @@
 from app.main.models.poll import Poll
+from app.main.models.user import User, user_polls_following
 from app.main import db
 
 def save_new_poll(user_id, data):
@@ -9,6 +10,12 @@ def save_new_poll(user_id, data):
 
         poll = Poll(owner_id=user_id, prompt=prompt, form_type=form_type, resp_struct=resp_struct)
         db.session.add(poll)
+
+        current_user = User.query.filter_by(id=user_id).first()
+        subscribed_users = current_user.followers
+        for user in subscribed_users:
+            user.polls_following.extend([poll])
+        db.session.bulk_save_objects(subscribed_users)
         db.session.commit()
         return {"id": poll.id}, 201
     except Exception as e:
