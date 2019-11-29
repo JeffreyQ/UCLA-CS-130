@@ -19,7 +19,7 @@ class Poll(Resource):
         """Creates a new Poll"""
         user = get_current_user()
         data = request.json
-        return poll_service.create_new_poll(user.id, data)
+        return poll_service.save_new_poll(user.id, data)
 
     @jwt_required
     @api.marshal_list_with(_poll.poll_fields)
@@ -27,4 +27,4 @@ class Poll(Resource):
     def get(self):
         user = get_current_user()
         print(user)
-        return poll_service.get_all_polls()
+        return poll_service.get_user_polls(user.id)
