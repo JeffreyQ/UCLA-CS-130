@@ -27,10 +27,10 @@ def save_new_user(data):
         user_detail_json = user_details_request.json()
 
         name = user_detail_json['name']
-        #email = user_detail_json['email']
+        email = user_detail_json['email']
         fb_id = user_detail_json['id']
 
-        user = User(fb_id=fb_id, name=name)
+        user = User(fb_id=fb_id, name=name, email=email)
 
         db.session.add(user)
         db.session.commit()
