@@ -31,8 +31,7 @@ class PollCollection(Resource):
 
 @api.route('/<poll_id>')
 class PollItem(Resource):
-    @api.response(201, 'Poll successfully updated')
-    @api.doc('Update a poll\'s is_open status', security='Bearer Auth')
+    @api.doc('Get a poll by poll_id', security='Bearer Auth')
     @api.marshal_with(_poll.poll_fields)
     @jwt_required
     def get(self, poll_id):
@@ -40,6 +39,15 @@ class PollItem(Resource):
         user = get_current_user()
         return poll_service.get_poll_by_id(user.id, poll_id)
 
+    @api.response(201, 'Poll successfully patched')
+    @api.doc('Update a poll\'s is_open status', security='Bearer Auth')
+    @api.expect(_poll.update_poll_fields, validate=True)
+    @jwt_required
+    def patch(self, poll_id):
+        """Updates a Poll"""
+        user = get_current_user()
+        data = request.json
+        return poll_service.update_poll(user.id, poll_id, data)
 
 @api.route('/following')
 class PollsFollowing(Resource):

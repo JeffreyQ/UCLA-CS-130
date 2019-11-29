@@ -57,6 +57,10 @@ class PollDto:
         'is_open': fields.Boolean(required=True, description='Status of whether poll is still open')
     })
 
+    update_poll_fields = api.model('Update_Poll_Fields', {
+        'is_open': fields.Boolean(required=True, description='Status of whether poll is still open')
+    })
+
     resp_fields = api.model('Response_Fields', {
         'poll_id': fields.Integer(required=True, description='poll id'),
         'responder_id': fields.Integer(required=True, description='poll responder id'),

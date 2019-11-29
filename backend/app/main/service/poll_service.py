@@ -64,6 +64,30 @@ def get_poll_by_id(user_id, poll_id):
         'message': 'Failed to get poll'
     }, 404
 
+def update_poll(user_id, poll_id, data):
+    try:
+        poll = Poll.query.filter_by(id=poll_id).first()
+        if (poll.owner_id == user_id):
+            poll.is_open = data['is_open']
+            db.session.add(poll)
+            db.session.commit()
+            return {
+                'status': 'success',
+                'message': 'Successfully updated poll'
+            }, 201
+        else:
+            return {
+                'status': 'failure',
+                'message': "Do not have permission, user does not own poll %s" % poll_id
+            }, 401
+    except Exception as e:
+        print("test")
+        print(e)
+    return {
+        'status': 'failure',
+        'message': 'Failed to update poll'
+    }, 404
+
 def get_polls_following(user_id):
     try:
         polls = db.session.query(Poll) \
