@@ -1,14 +1,14 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import { SET_ACCESS_TOKEN, SET_ACCESS_TOKEN_FAILURE, CHECKED_AUTH } from '../constants/auth'
+import { SET_JSON_WEB_TOKEN, SET_JSON_WEB_TOKEN_FAILURE, CHECKED_AUTH } from '../constants/auth'
 
 export const checkAuth = () => {
   return async dispatch => {
     try {
-      const accessToken = await AsyncStorage.getItem("accessToken")
-      if (accessToken) {
+      const JSONWebToken = await AsyncStorage.getItem("JSONWebToken")
+      if (JSONWebToken) {
         return dispatch({
-          type: SET_ACCESS_TOKEN,
-          accessToken
+          type: SET_JSON_WEB_TOKEN,
+          JSONWebToken
         })
       } else {
         return dispatch({
@@ -17,27 +17,53 @@ export const checkAuth = () => {
       }
     } catch (error) {
       return dispatch({
-        type: SET_ACCESS_TOKEN_FAILURE,
+        type: SET_JSON_WEB_TOKEN_FAILURE,
         error
       })
     }
   }
 }
 
-export const setAccessToken = accessToken => {
+export const setJSONWebToken = JSONWebToken => {
   return async dispatch => {
     try {
-      await AsyncStorage.setItem("accessToken", accessToken)
+      await AsyncStorage.setItem("JSONWebToken", JSONWebToken)
       dispatch({
-        type: SET_ACCESS_TOKEN,
-        accessToken
+        type: SET_JSON_WEB_TOKEN,
+        JSONWebToken
       })
     } catch (error) {
       dispatch({
-        type: SET_ACCESS_TOKEN_FAILURE,
+        type: SET_JSON_WEB_TOKEN_FAILURE,
         error
       })
     }
   }
 }
 
+export const createNewUserRequest = accessToken => {
+  return async dispatch => {
+    try {
+      let response = await fetch('http://localhost:5000/user/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            accessToken,
+          }),
+      })
+      // TODO 
+      // if (response.status != 201) {
+      //   // throw an error
+      // }
+
+      let responseJson = await response.json()
+      let JSONWebToken = responseJson.token
+      return dispatch(setJSONWebToken(JSONWebToken))
+    } catch (error) {
+      // dispatch({error})
+      console.log(error)
+    }
+  }
+}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
 import { LoginButton, AccessToken } from 'react-native-fbsdk'
 
 export default class FBLoginButton extends Component {
@@ -15,7 +14,7 @@ export default class FBLoginButton extends Component {
               alert("Login was cancelled")
             } else {
               AccessToken.getCurrentAccessToken().then(data => {
-                this.props.setAccessToken(data.accessToken.toString())
+                this.props.createNewUserRequest(data.accessToken.toString())
               })
             }
           }
