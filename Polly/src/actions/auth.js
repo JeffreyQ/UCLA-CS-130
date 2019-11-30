@@ -41,21 +41,29 @@ export const setJSONWebToken = JSONWebToken => {
   }
 }
 
-export const createNewUserRequest = async (accessToken, props) => {
-  try {
-    let response = await fetch('http://localhost:5000/user/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          "accessToken": accessToken,
-        }),
-    })
-    let responseJson = await response.json()
-    let JSONWebToken = await responseJson.token
-    return props.setJSONWebToken(JSONWebToken)
-  } catch (error) {
-    console.log(error)
+export const createNewUserRequest = accessToken => {
+  return async dispatch => {
+    try {
+      let response = await fetch('http://localhost:5000/user/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            accessToken,
+          }),
+      })
+      // TODO 
+      // if (response.status != 201) {
+      //   // throw an error
+      // }
+
+      let responseJson = await response.json()
+      let JSONWebToken = responseJson.token
+      return dispatch(setJSONWebToken(JSONWebToken))
+    } catch (error) {
+      // dispatch({error})
+      console.log(error)
+    }
   }
 }

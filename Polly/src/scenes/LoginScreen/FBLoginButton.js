@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { LoginButton, AccessToken } from 'react-native-fbsdk'
-import { createNewUserRequest } from '../../../src/actions/auth'
 
 export default class FBLoginButton extends Component {
   render() {
@@ -17,7 +16,7 @@ export default class FBLoginButton extends Component {
               AccessToken.getCurrentAccessToken().then(data => {
                 return data.accessToken.toString();
               }).then(accessToken => {
-                return createNewUserRequest(accessToken, this.props);
+                return this.props.createNewUserRequest(accessToken);
               })
             }
           }
