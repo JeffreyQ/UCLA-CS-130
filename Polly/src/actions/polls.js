@@ -1,3 +1,5 @@
+import { POLL_CREATION_FAILURE, POLL_CREATION_SUCCESS } from '../constants/polls'
+
 export const createPoll = (pollData, JSONWebToken) => {
   return async dispatch => {
     try {
@@ -14,10 +16,21 @@ export const createPoll = (pollData, JSONWebToken) => {
           "resp_struct": respStruct
         }),
       })
+      if (response.status != 201) {
+        throw "Unable to create poll."
+      }
+      
       let responseJson = await response.json()
-      return responseJson
+      let pollID = responseJson.id
+      return dispatch({
+        type: POLL_CREATION_SUCCESS,
+        pollID
+      })
     } catch (error) {
-      console.log(error)
+      return dispatch({
+        type: POLL_CREATION_FAILURE,
+        error
+      })
     }
   }
 }

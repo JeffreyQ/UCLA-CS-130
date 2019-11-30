@@ -28,12 +28,12 @@ export const setJSONWebToken = JSONWebToken => {
   return async dispatch => {
     try {
       await AsyncStorage.setItem("JSONWebToken", JSONWebToken)
-      dispatch({
+      return dispatch({
         type: SET_JSON_WEB_TOKEN,
         JSONWebToken
       })
     } catch (error) {
-      dispatch({
+      return dispatch({
         type: SET_JSON_WEB_TOKEN_FAILURE,
         error
       })
