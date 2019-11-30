@@ -14,9 +14,7 @@ export default class FBLoginButton extends Component {
               alert("Login was cancelled")
             } else {
               AccessToken.getCurrentAccessToken().then(data => {
-                return data.accessToken.toString();
-              }).then(accessToken => {
-                return this.props.createNewUserRequest(accessToken);
+                this.props.createNewUserRequest(data.accessToken.toString())
               })
             }
           }
