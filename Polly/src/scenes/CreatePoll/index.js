@@ -4,9 +4,7 @@ import { ThemeProvider, Button, Input } from 'react-native-elements'
 import {createAppContainer} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import { heading2Text } from '../../textMixins'
-import { createPoll } from '../../actions/pollCreation'
-import { createNewUserRequest } from '../../actions/auth'
-import { connect } from 'react-redux'
+import CreatePollScreen from './CreatePollScreen'
 
 class SelectAllPollCreationScreen extends React.Component {
   static navigationOptions = {
@@ -160,51 +158,11 @@ class TrueFalsePollCreationScreen extends React.Component {
             style={styles.container}
             title="Create"
             onPress={this.props.navigation.getParam('otherParam')}
-            // onPress={() => console.log(createNewUserRequest)}
           />
         </View>
       </ThemeProvider>
     );
   }
-}
-TrueFalsePollCreationScreen = connect(null, mapDispatchToProps)(TrueFalsePollCreationScreen)
-
-function asdf() {
-  return console.log('1234fdsa')
-}
-class CreatePollScreen extends React.Component {
-    static navigationOptions = {
-      title: 'Create New Poll',
-    };
-    render() {
-      const {navigate} = this.props.navigation;
-      return(
-        <ThemeProvider theme={theme}>
-          <View style={styles.view}> 
-            <Button
-              style={styles.container}
-              title="True False"
-              onPress={() => navigate('TrueFalsePoll', {name: 'TrueFalse', otherParam: asdf})}
-            />
-            <Button
-              style={styles.container}
-              title="Short Answer"
-              onPress={() => navigate('ShortAnswerPoll', {name: 'ShortAnswer'})}
-           />
-            <Button
-              style={styles.container}
-              title="Number Scale"
-              onPress={() => navigate('NumberScalePoll', {name: 'NumberScale'})}
-            />
-            <Button
-              style={styles.container}
-              title="Select All"
-              onPress={() => navigate('SelectAllPoll', {name: 'SelectAll'})}
-            />
-          </View>
-        </ThemeProvider>
-      );
-    }
 }
 
 const MainNavigator = createStackNavigator({
@@ -214,17 +172,6 @@ const MainNavigator = createStackNavigator({
     NumberScalePoll: {screen: NumberScalePollCreationScreen},
     ShortAnswerPoll: {screen: ShortAnswerPollCreationScreen},
 });
-
-const mapDispatchToProps = dispatch => {
-  return {
-    createNewUserRequest: accessToken => dispatch(createNewUserRequest(accessToken))
-  }
-}
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     createPoll: (pollData, JSONWebToken) => dispatch(createPoll(pollData, JSONWebToken))
-//   }
-// }
 
 export default createAppContainer(MainNavigator)
 

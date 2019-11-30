@@ -1,5 +1,5 @@
 export const createPoll = (pollData, JSONWebToken) => {
-  console.log('asdf1234')
+  console.log('asdf1234 fok ye')
   return async dispatch => {
     try {
       const { formType, prompt, respStruct } = pollData
