@@ -67,6 +67,7 @@ class UserConfirm(Resource):
 class UserSubscribers(Resource):
     @jwt_required
     @api.doc('get subscribers', security='Bearer Auth')
+    @api.marshal_list_with(UserDto.get_my_subscribers)
     def get(self):
         """get subscribers"""
         return get_user_subscribers()
@@ -75,6 +76,7 @@ class UserSubscribers(Resource):
 class UserSubscribedTo(Resource):
     @api.doc('get people user is subscribed to', security='Bearer Auth')
     @jwt_required
+    @api.marshal_list_with(UserDto.get_subscribed_to)
     def get(self):
         """get people user is subscribed to"""
         return get_user_subscribedto()

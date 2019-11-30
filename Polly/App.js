@@ -20,7 +20,8 @@ class App extends React.Component {
   }
 
   getRenderedComponent = () => {
-    if (this.props.Auth.JSONWebToken) {
+    //if (this.props.Auth.JSONWebToken) {
+    if (true) {
       return <AppContainer />
     } else if (this.props.Auth.checkedAuth) {
       return <LoginScreen />

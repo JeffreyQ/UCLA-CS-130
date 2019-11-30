@@ -31,7 +31,15 @@ class UserDto:
         'status': fields.String
     })
 
+    get_my_subscribers = api.model('get_my_subscribers' , {
+        'follower_id' : fields.Integer(description = 'id of a follower'),
+        'name': fields.String(description='name of your follower')
+    })
 
+    get_subscribed_to = api.model('get_subscribed_to', {
+        'user_id' : fields.Integer(description = 'id of who I am following'),
+        'name': fields.String(description='name of who I am following')
+    })
 class PollDto:
     api = Namespace('poll', description='poll related operations')
 
@@ -62,16 +70,11 @@ class PollDto:
     })
 
     resp_fields = api.model('Response_Fields', {
-        'poll_id': fields.Integer(required=True, description='poll id'),
-        'responder_id': fields.Integer(required=True, description='poll responder id'),
-        'answer': fields.Integer(description='integer value for answer'),
+        'answer': fields.Integer(required=True,description='integer value for answer'),
         'comment': fields.String(description='string value of comments')
     })
 
     aggregate_answers= api.model('Aggregated_Answers',{
         'answer':fields.Integer(description='answer value'),
         'votes':fields.Integer(description='number of counts for the corresponding answer value'),
-    })
-    resp_answers = api.model('Response_Answers',{
-        'aggregates':fields.List(fields.Nested(aggregate_answers)),
     })

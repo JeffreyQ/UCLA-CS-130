@@ -1,11 +1,11 @@
 import React from 'react'
 import { createStackNavigator } from 'react-navigation-stack'
-import { StyleSheet, Text, SafeAreaView, View } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, View,Button } from 'react-native'
 import PollResponse from '../PollResponse'
 import { heading1Text, bodyText, grayBody } from '../../textMixins'
 import Card from './card'
-
 import Heading from './heading'
+import {SubscriptionScreen, SubscriberScreen} from './subscribe'
 
 class ProfileScreen extends React.Component{
   onCardPress = pollId => {
@@ -15,9 +15,10 @@ class ProfileScreen extends React.Component{
   }
 
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <SafeAreaView style={styles.container}>
-        <Heading />
+        <Heading subscriberPress={() => navigate('SubscriberScreen')} subscriptionPress={() => navigate('SubscriptionScreen')} />
         <View style={styles.bodyContainer}>
           <View style={styles.heading}>
             <Text style={{...heading1Text}}>My Polls</Text>
@@ -57,7 +58,13 @@ const RouteConfigs = {
   },
   PollResponse: {
     screen: PollResponse
-  }
+  },
+  SubscriptionScreen: {
+    screen: SubscriptionScreen
+  },
+  SubscriberScreen:{
+    screen: SubscriberScreen
+  },
 }
 
 const StackNavigatorConfigs = {
