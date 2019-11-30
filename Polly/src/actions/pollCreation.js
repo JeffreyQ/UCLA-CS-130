@@ -7,12 +7,12 @@ export const createPoll = (pollData, JSONWebToken) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + JSONWebToken,
-          "resp_struct": respStruct
+          'Authorization': 'Bearer ' + JSONWebToken
         },
         body: JSON.stringify({
           "form_type": formType,
-          "prompt": prompt
+          "prompt": prompt,
+          "resp_struct": respStruct
         }),
       })
       let responseJson = await response.json()

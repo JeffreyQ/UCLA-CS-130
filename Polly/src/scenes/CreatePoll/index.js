@@ -159,8 +159,8 @@ class TrueFalsePollCreationScreen extends React.Component {
           <Button
             style={styles.container}
             title="Create"
-            // onPress={this.props.navigation.getParam('createPoll')}
-            onPress={() => console.log(createNewUserRequest)}
+            onPress={this.props.navigation.getParam('otherParam')}
+            // onPress={() => console.log(createNewUserRequest)}
           />
         </View>
       </ThemeProvider>
@@ -168,12 +168,15 @@ class TrueFalsePollCreationScreen extends React.Component {
   }
 }
 TrueFalsePollCreationScreen = connect(null, mapDispatchToProps)(TrueFalsePollCreationScreen)
+
+function asdf() {
+  return console.log('1234fdsa')
+}
 class CreatePollScreen extends React.Component {
     static navigationOptions = {
       title: 'Create New Poll',
     };
     render() {
-      console.log('asdf', this.props)
       const {navigate} = this.props.navigation;
       return(
         <ThemeProvider theme={theme}>
@@ -181,7 +184,7 @@ class CreatePollScreen extends React.Component {
             <Button
               style={styles.container}
               title="True False"
-              onPress={() => navigate('TrueFalsePoll', {name: 'TrueFalse'})}
+              onPress={() => navigate('TrueFalsePoll', {name: 'TrueFalse', otherParam: asdf})}
             />
             <Button
               style={styles.container}
