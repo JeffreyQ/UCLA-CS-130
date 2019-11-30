@@ -15,6 +15,7 @@ const Polls = (state = defaultState, action) => {
     case POLL_CREATION_FAILURE:
       return {
         ...state,
+        lastPollCreated: -1,
         error: action.error
       }
     default:
