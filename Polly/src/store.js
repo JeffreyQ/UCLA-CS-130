@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
 import Auth from './reducers/auth'
@@ -7,7 +7,9 @@ const rootReducer = combineReducers({
   Auth
 })
 
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)))
 
 export const dummyPoll = {
   question: 'What do i wear tomorrow',

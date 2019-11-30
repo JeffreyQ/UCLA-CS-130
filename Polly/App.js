@@ -20,7 +20,6 @@ class App extends React.Component {
   }
 
   getRenderedComponent = () => {
-    console.log(this.props)
     if (this.props.Auth.accessToken) {
       return <AppContainer />
     } else if (this.props.Auth.checkedAuth) {
