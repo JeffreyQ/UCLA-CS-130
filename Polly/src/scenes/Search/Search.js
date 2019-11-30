@@ -46,7 +46,7 @@ class SearchScreen extends React.Component {
     const { search } = this.state
 
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <View style={styles.searchContainer}>
           <SearchBar
             placeholder="Search for friends"
@@ -60,11 +60,10 @@ class SearchScreen extends React.Component {
             style={{
               height:'100%',
               alignSelf:'stretch',
-              paddingRight: 20,
-              paddingLeft: 20
+              padding: 20,
             }}>
-              {users.map(user => <SearchEntry user={user} />)}
-            </ScrollView>>
+            {users.map(user => <SearchEntry user={user} />)}
+          </ScrollView>
         </View>
       </SafeAreaView>
     )
@@ -72,6 +71,9 @@ class SearchScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
 })
 
 export default SearchScreen
