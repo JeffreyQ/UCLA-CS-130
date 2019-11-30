@@ -56,6 +56,7 @@ class SelectAllPollCreationScreen extends React.Component {
             <Button
               style={styles.container}
               title="Create"
+              onPress={this.props.navigation.getParam('createPoll')}
             />
           </View>
         </ThemeProvider>
@@ -84,6 +85,7 @@ class ShortAnswerPollCreationScreen extends React.Component {
             <Button
               style={styles.container}
               title="Create"
+              onPress={this.props.navigation.getParam('createPoll')}
             />
           </View>
         </ThemeProvider>
@@ -128,6 +130,7 @@ class NumberScalePollCreationScreen extends React.Component {
             <Button
               style={styles.container}
               title="Create"
+              onPress={this.props.navigation.getParam('createPoll')}
             />
           </View>
         </ThemeProvider>
@@ -156,7 +159,7 @@ class TrueFalsePollCreationScreen extends React.Component {
           <Button
             style={styles.container}
             title="Create"
-            onPress={this.props.navigation.getParam('otherParam')}
+            onPress={this.props.navigation.getParam('createPoll')}
           />
         </View>
       </ThemeProvider>
