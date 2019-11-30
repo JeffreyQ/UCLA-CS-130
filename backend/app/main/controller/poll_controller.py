@@ -58,3 +58,18 @@ class PollsFollowing(Resource):
         user = get_current_user()
         print(user)
         return poll_service.get_polls_following(user.id)
+
+@api.route('/response/<poll_id>')
+class PollResponse(Resource):
+    '''gets responses of poll at this id'''
+    @jwt_required
+    def get(self,poll_id):
+        user = get_current_user()
+        return poll_service.get_polls_responses(user.id,poll_id)
+    '''post a response to given poll id'''
+    @jwt_required
+    def post(self,poll_id):
+        data = request.json
+        user = get_current_user()
+        return poll_service.respond_to_poll(6,poll_id,data)
+

@@ -1,5 +1,6 @@
 from app.main.models.poll import Poll
 from app.main.models.user import User, user_polls_following
+from app.main.models.response import Response
 from app.main import db
 
 def save_new_poll(user_id, data):
@@ -101,3 +102,52 @@ def get_polls_following(user_id):
         'status': 'failure',
         'message': 'Failed to get polls'
     }, 404
+
+def get_polls_responses(user_id,poll_id):
+    try:            
+        #allowing anyone to see poll responses
+
+        aggregates = db.session.query(Response.answer,db.func.count(Response.answer))\
+            .filter(Response.poll_id == poll_id)\
+            .group_by(Response.answer)\
+            .all()
+
+        aggregate_dict = []
+        for pair in aggregates:
+            pair_dict = {
+                'answer':pair[0],
+                'votes':pair[1]
+            }
+            aggregate_dict.append(pair_dict)
+        return aggregate_dict,200
+        
+    except Exception as e:
+        print(e)
+        return 401
+
+def respond_to_poll(user_id,poll_id,data):
+    try:
+        #need to prevent duplicate responses from same person
+        query = db.session.query(Response.poll_id)\
+            .filter(Response.poll_id == poll_id)\
+            .filter(Response.responder_id == user_id)\
+            .first()
+        #if they haven't responded yet
+        if not query: 
+            responder_id = user_id
+            answer = data['answer']
+            comment = None if 'comment' not in data else data['comment']
+            response = Response(poll_id=poll_id,responder_id=responder_id,answer=answer,comment=comment)
+            db.session.add(response)
+            db.session.commit()
+            return {
+                'status': 'success',
+                'message': 'Response posted successfully'
+            },200
+        return {
+            'status':'failure',
+            'message':'You have already answered this poll'
+        },401
+    except Exception as e:
+        print(e)
+        return 401
