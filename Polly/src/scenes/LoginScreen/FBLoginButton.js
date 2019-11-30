@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
 import { LoginButton, AccessToken } from 'react-native-fbsdk'
 import { createNewUserRequest } from '../../../src/actions/auth'
 
