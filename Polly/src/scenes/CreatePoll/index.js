@@ -1,9 +1,8 @@
 import React from 'react'
 import { Text, View, TextInput, StyleSheet } from 'react-native'
-import { ThemeProvider, Button, Input } from 'react-native-elements'
+import { ThemeProvider, Button } from 'react-native-elements'
 import {createAppContainer} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
-import { heading2Text } from '../../textMixins'
 import CreatePollScreen from './CreatePollScreen'
 
 class SelectAllPollCreationScreen extends React.Component {
@@ -225,9 +224,6 @@ const styles = StyleSheet.create({
     height: 118,
     ...elevationShadowStyle(5)
   },
-  heading2Text: {
-    ...heading2Text
-  },
   view: {
     flex: 1,
     alignItems: 'center',
@@ -238,25 +234,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingBottom: 15
-  },
-  boxWithShadow: {
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowOpacity: 0.43,
-    shadowRadius: 9.51,
-    elevation: 10
-  },
-  text: {
-    fontStyle: "normal",
-    fontWeight: "normal",
-    fontSize: 36
-  },
-  button: {
-    height: 118,
-    width: 303,
-    left: 36,
-    top: 77
   }
 });

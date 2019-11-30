@@ -16,22 +16,22 @@ class CreatePollScreen extends React.Component {
             <Button
               style={styles.container}
               title="True False"
-              onPress={() => navigate('TrueFalsePoll', {name: 'TrueFalse', otherParam: this.props.createPoll})}
+              onPress={() => navigate('TrueFalsePoll', {name: 'TrueFalse', createPoll: this.props.createPoll})}
             />
             <Button
               style={styles.container}
               title="Short Answer"
-              onPress={() => navigate('ShortAnswerPoll', {name: 'ShortAnswer'})}
+              onPress={() => navigate('ShortAnswerPoll', {name: 'ShortAnswer', createPoll: this.props.createPoll})}
            />
             <Button
               style={styles.container}
               title="Number Scale"
-              onPress={() => navigate('NumberScalePoll', {name: 'NumberScale'})}
+              onPress={() => navigate('NumberScalePoll', {name: 'NumberScale', createPoll: this.props.createPoll})}
             />
             <Button
               style={styles.container}
               title="Select All"
-              onPress={() => navigate('SelectAllPoll', {name: 'SelectAll'})}
+              onPress={() => navigate('SelectAllPoll', {name: 'SelectAll', createPoll: this.props.createPoll})}
             />
           </View>
         </ThemeProvider>
