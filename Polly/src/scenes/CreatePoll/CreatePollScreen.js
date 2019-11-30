@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { ThemeProvider, Button } from 'react-native-elements'
 import { View, StyleSheet } from 'react-native'
 import { createPoll } from '../../actions/pollCreation'
+import { theme, elevationShadowStyle } from './index'
 
 class CreatePollScreen extends React.Component {
     static navigationOptions = {
@@ -39,33 +40,6 @@ class CreatePollScreen extends React.Component {
     }
 }
 
-const theme = {
-  Button: {
-    containerStyle: {
-      margin: 10,
-      width: '85%',
-    },
-    titleStyle: {
-      color: 'black',
-      fontSize: 36
-    },
-    buttonStyle: {
-      flex: 1,
-      backgroundColor: 'white',
-      flexDirection: 'column',
-    },
-    type: 'clear'
-  }
-}
-function elevationShadowStyle(elevation) {
-  return {
-    elevation,
-    shadowColor: '#0047FF',
-    shadowOffset: { width: 0, height: 0.5 * elevation },
-    shadowOpacity: 0.2,
-    shadowRadius: 0.8 * elevation,
-  };
-}
 const styles = StyleSheet.create({
   container: {
     height: 118,

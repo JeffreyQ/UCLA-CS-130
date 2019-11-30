@@ -1,171 +1,11 @@
-import React from 'react'
-import { Text, View, TextInput, StyleSheet } from 'react-native'
-import { ThemeProvider, Button } from 'react-native-elements'
+import { StyleSheet } from 'react-native'
 import {createAppContainer} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import CreatePollScreen from './CreatePollScreen'
-
-class SelectAllPollCreationScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Select All Poll',
-  };
-  render() {
-      return(
-        <ThemeProvider theme={theme}>
-          <View style={{padding: 15, flex:1}}>
-            <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                scrollEnabled={true}
-                style={styles.input}
-              />
-            </View>
-          </View>
-          <View style={{padding: 15, flex:2}}>
-            <Text style={{fontSize:14, paddingBottom:6}}>Option 1</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                style={styles.optionInput}
-              />
-            </View>
-            <Text style={{fontSize:14, paddingTop: 6, paddingBottom:6}}>Option 2</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                style={styles.optionInput}
-              />
-            </View>
-            <Text style={{fontSize:14, paddingTop: 6, paddingBottom:6}}>Option 3</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                style={styles.optionInput}
-              />
-            </View>
-            <Text style={{fontSize:14, paddingTop: 6, paddingBottom:6}}>Option 4</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                style={styles.optionInput}
-              />
-            </View>
-          </View>
-          <View style={styles.bottom}>
-            <Button
-              style={styles.container}
-              title="Create"
-              onPress={this.props.navigation.getParam('createPoll')}
-            />
-          </View>
-        </ThemeProvider>
-      );
-  }
-}
-
-class ShortAnswerPollCreationScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Short Answer Poll',
-  };
-  render() {
-      return(
-        <ThemeProvider theme={theme}>
-          <View style={{padding:15, flex:1}}>
-            <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                scrollEnabled={true}
-                style={styles.input}
-              />
-            </View>
-          </View>
-          <View style={styles.bottom}>
-            <Button
-              style={styles.container}
-              title="Create"
-              onPress={this.props.navigation.getParam('createPoll')}
-            />
-          </View>
-        </ThemeProvider>
-      );
-  }
-}
-
-class NumberScalePollCreationScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Number Scale Poll',
-  };
-  render() {
-      return(
-        <ThemeProvider theme={theme}>
-          <View style={{padding: 15, flex:1.5}}>
-            <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                scrollEnabled={true}
-                style={styles.input}
-              />
-            </View>
-          </View>
-          <View style={{padding: 15, flex:1}}>
-            <Text style={{fontSize:20, padding: 10}}>Minimum Label</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                style={styles.input}
-              />
-            </View>
-            <Text style={{fontSize:20, padding: 10}}>Maximum Label</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                style={styles.input}
-              />
-            </View>
-          </View>
-          <View style={styles.bottom}>
-            <Button
-              style={styles.container}
-              title="Create"
-              onPress={this.props.navigation.getParam('createPoll')}
-            />
-          </View>
-        </ThemeProvider>
-      );
-  }
-}
-
-class TrueFalsePollCreationScreen extends React.Component {
-  static navigationOptions = {
-    title: 'True False Poll',
-  };
-  render() {
-    return(
-      <ThemeProvider theme={theme}>
-        <View style={{padding:15, flex:1}}>
-          <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              multiline={true}
-              scrollEnabled={true}
-              style={styles.input}
-            />
-          </View>
-        </View>
-        <View style={styles.bottom}>
-          <Button
-            style={styles.container}
-            title="Create"
-            onPress={this.props.navigation.getParam('createPoll')}
-          />
-        </View>
-      </ThemeProvider>
-    );
-  }
-}
+import TrueFalsePollCreationScreen from './TrueFalsePollCreationScreen'
+import NumberScalePollCreationScreen from './NumberScalePollCreationScreen'
+import ShortAnswerPollCreationScreen from './ShortAnswerPollCreationScreen'
+import SelectAllPollCreationScreen from './SelectAllPollCreationScreen'
 
 const MainNavigator = createStackNavigator({
     CreatePoll: {screen: CreatePollScreen},
@@ -177,7 +17,7 @@ const MainNavigator = createStackNavigator({
 
 export default createAppContainer(MainNavigator)
 
-const theme = {
+export const theme = {
   Button: {
     containerStyle: {
       margin: 10,
@@ -195,7 +35,8 @@ const theme = {
     type: 'clear'
   }
 }
-function elevationShadowStyle(elevation) {
+
+export function elevationShadowStyle(elevation) {
   return {
     elevation,
     shadowColor: '#0047FF',
@@ -205,7 +46,7 @@ function elevationShadowStyle(elevation) {
   };
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   inputContainer: {
     borderLeftWidth: 1,
     borderRightWidth: 1,
