@@ -15,6 +15,7 @@ export const createPoll = (pollData, JSONWebToken) => {
         }),
       })
       let responseJson = await response.json()
+      return responseJson
     } catch (error) {
       console.log(error)
     }

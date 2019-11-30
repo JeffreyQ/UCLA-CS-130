@@ -1,13 +1,24 @@
 import React from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Alert } from 'react-native'
 import { ThemeProvider, Button } from 'react-native-elements'
 import { theme, elevationShadowStyle } from './index'
 
 export default class TrueFalsePollCreationScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      formType: 'multChoice',
+      prompt: '',
+      respStruct: { 'choice': '' }
+    }
+  }
+  
   static navigationOptions = {
     title: 'True False Poll',
   };
   render() {
+    JSONWebToken = this.props.navigation.getParam('JSONWebToken')
+    createPoll = this.props.navigation.getParam('createPoll')
     return(
       <ThemeProvider theme={theme}>
         <View style={{padding:15, flex:1}}>
@@ -17,6 +28,7 @@ export default class TrueFalsePollCreationScreen extends React.Component {
               multiline={true}
               scrollEnabled={true}
               style={styles.input}
+              onChangeText={prompt => this.setState({prompt})}
             />
           </View>
         </View>
@@ -24,7 +36,7 @@ export default class TrueFalsePollCreationScreen extends React.Component {
           <Button
             style={styles.container}
             title="Create"
-            onPress={this.props.navigation.getParam('createPoll')}
+            onPress={() => createPoll(this.state, JSONWebToken)}
           />
         </View>
       </ThemeProvider>
