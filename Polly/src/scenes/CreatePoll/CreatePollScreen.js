@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { ThemeProvider, Button } from 'react-native-elements'
 import { View, StyleSheet } from 'react-native'
-import { createPoll } from '../../actions/pollCreation'
+import { createPoll } from '../../actions/polls'
 import { theme, elevationShadowStyle } from './index'
 
 class CreatePollScreen extends React.Component {
