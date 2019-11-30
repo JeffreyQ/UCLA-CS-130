@@ -4,6 +4,9 @@ import { ThemeProvider, Button, Input } from 'react-native-elements'
 import {createAppContainer} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import { heading2Text } from '../../textMixins'
+import { createPoll } from '../../actions/pollCreation'
+import { createNewUserRequest } from '../../actions/auth'
+import { connect } from 'react-redux'
 
 class SelectAllPollCreationScreen extends React.Component {
   static navigationOptions = {
@@ -140,35 +143,37 @@ class TrueFalsePollCreationScreen extends React.Component {
     title: 'True False Poll',
   };
   render() {
-      return(
-        <ThemeProvider theme={theme}>
-          <View style={{padding:15, flex:1}}>
-            <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                multiline={true}
-                scrollEnabled={true}
-                style={styles.input}
-              />
-            </View>
-          </View>
-          <View style={styles.bottom}>
-            <Button
-              style={styles.container}
-              title="Create"
+    return(
+      <ThemeProvider theme={theme}>
+        <View style={{padding:15, flex:1}}>
+          <Text style={{fontSize:20, paddingBottom: 10}}>Prompt</Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              multiline={true}
+              scrollEnabled={true}
+              style={styles.input}
             />
           </View>
-        </ThemeProvider>
-      );
+        </View>
+        <View style={styles.bottom}>
+          <Button
+            style={styles.container}
+            title="Create"
+            // onPress={this.props.navigation.getParam('createPoll')}
+            onPress={() => console.log(createNewUserRequest)}
+          />
+        </View>
+      </ThemeProvider>
+    );
   }
 }
-
-
+TrueFalsePollCreationScreen = connect(null, mapDispatchToProps)(TrueFalsePollCreationScreen)
 class CreatePollScreen extends React.Component {
     static navigationOptions = {
       title: 'Create New Poll',
     };
     render() {
+      console.log('asdf', this.props)
       const {navigate} = this.props.navigation;
       return(
         <ThemeProvider theme={theme}>
@@ -176,22 +181,22 @@ class CreatePollScreen extends React.Component {
             <Button
               style={styles.container}
               title="True False"
-              onPress={() => navigate('MultipleChoicePoll', {name: 'Select All'})}
+              onPress={() => navigate('TrueFalsePoll', {name: 'TrueFalse'})}
             />
             <Button
               style={styles.container}
               title="Short Answer"
-              onPress={() => navigate('ShortAnswerPoll', {name: 'Select All'})}
+              onPress={() => navigate('ShortAnswerPoll', {name: 'ShortAnswer'})}
            />
             <Button
               style={styles.container}
               title="Number Scale"
-              onPress={() => navigate('NumberScalePoll', {name: 'Select All'})}
+              onPress={() => navigate('NumberScalePoll', {name: 'NumberScale'})}
             />
             <Button
               style={styles.container}
               title="Select All"
-              onPress={() => navigate('SelectAllPoll', {name: 'Select All'})}
+              onPress={() => navigate('SelectAllPoll', {name: 'SelectAll'})}
             />
           </View>
         </ThemeProvider>
@@ -202,11 +207,21 @@ class CreatePollScreen extends React.Component {
 const MainNavigator = createStackNavigator({
     CreatePoll: {screen: CreatePollScreen},
     SelectAllPoll: {screen: SelectAllPollCreationScreen},
-    MultipleChoicePoll: {screen: TrueFalsePollCreationScreen},
+    TrueFalsePoll: {screen: TrueFalsePollCreationScreen},
     NumberScalePoll: {screen: NumberScalePollCreationScreen},
     ShortAnswerPoll: {screen: ShortAnswerPollCreationScreen},
 });
 
+const mapDispatchToProps = dispatch => {
+  return {
+    createNewUserRequest: accessToken => dispatch(createNewUserRequest(accessToken))
+  }
+}
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     createPoll: (pollData, JSONWebToken) => dispatch(createPoll(pollData, JSONWebToken))
+//   }
+// }
 
 export default createAppContainer(MainNavigator)
 
