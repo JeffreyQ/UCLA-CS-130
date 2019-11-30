@@ -17,6 +17,6 @@ RUN chmod 777 /usr/local/bin/docker-entrypoint.sh \
 
 COPY ./manage.py /polly
 
-# start server
+# start server use run for dev and deploy for prod
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD [ "python3", "manage.py", "run" ]
