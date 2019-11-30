@@ -71,5 +71,5 @@ class PollResponse(Resource):
     def post(self,poll_id):
         data = request.json
         user = get_current_user()
-        return poll_service.respond_to_poll(6,poll_id,data)
+        return poll_service.respond_to_poll(user.id,poll_id,data)
 
