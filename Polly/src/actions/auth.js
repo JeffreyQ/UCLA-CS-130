@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import { SET_JSON_WEB_TOKEN, SET_JSON_WEB_TOKEN_FAILURE, CHECKED_AUTH } from '../constants/auth'
+import { SET_JSON_WEB_TOKEN, SET_JSON_WEB_TOKEN_FAILURE, CHECKED_AUTH, INVALID_JWT_FAILURE } from '../constants/auth'
 
 export const checkAuth = () => {
   return async dispatch => {
@@ -44,6 +44,7 @@ export const setJSONWebToken = JSONWebToken => {
 export const createNewUserRequest = accessToken => {
   return async dispatch => {
     try {
+      // TODO: Move fetch endpoint to config file
       let response = await fetch('http://localhost:5000/user/', {
           method: 'POST',
           headers: {
@@ -53,17 +54,18 @@ export const createNewUserRequest = accessToken => {
             accessToken,
           }),
       })
-      // TODO 
-      // if (response.status != 201) {
-      //   // throw an error
-      // }
+      if (response.status != 201) {
+        throw "Unable to create user."
+      }
 
       let responseJson = await response.json()
       let JSONWebToken = responseJson.token
       return dispatch(setJSONWebToken(JSONWebToken))
     } catch (error) {
-      // dispatch({error})
-      console.log(error)
+      dispatch({
+        type: INVALID_JWT_FAILURE,
+        error
+      })
     }
   }
 }
