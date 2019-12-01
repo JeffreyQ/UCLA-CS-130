@@ -103,10 +103,6 @@ def get_a_user(public_id):
     response = user._asdict()
     return response
 
-def get_user():
-    current_user = get_current_user()
-    return get_a_user(current_user.id)
-
 def get_user_subscribers():
     current_user = get_current_user()
     #right now just getting followers name and id

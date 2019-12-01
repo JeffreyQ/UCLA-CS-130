@@ -1,9 +1,9 @@
 from flask import request
 from flask_restplus import Resource
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_current_user
 
 from app.main.util.dto import UserDto
-from app.main.service.user_service import save_new_user, get_all_users, get_a_user, create_user_follow_request, confirm_user_follow_request, get_user_subscribers,get_user_subscribedto, get_user
+from app.main.service.user_service import save_new_user, get_all_users, get_a_user, create_user_follow_request, confirm_user_follow_request, get_user_subscribers,get_user_subscribedto
 
 api = UserDto.api
 
@@ -79,11 +79,16 @@ class UserSubscribedTo(Resource):
         """get people user is subscribed to"""
         return get_user_subscribedto()
 
-
-
 @api.route('/me')
 class UserDetails(Resource):
     @api.doc('get user details', security='Bearer Auth')
     @jwt_required
     def get(self):
-        return get_user()
+        user = get_current_user()
+        response = {
+                "id": user.id,
+                "email": user.email,
+                "name": user.name,
+                "fb_id": user.fb_id,
+        }
+        return response
