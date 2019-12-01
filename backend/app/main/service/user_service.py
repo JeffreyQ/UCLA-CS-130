@@ -24,6 +24,7 @@ def save_new_user(data):
         user_details_request = requests.get(
             url=current_app.config['USER_DETAIL_URL'].format(access_token=access_token, user_id=user_id)
         )
+
         user_detail_json = user_details_request.json()
 
         name = user_detail_json['name']
@@ -39,7 +40,7 @@ def save_new_user(data):
         return dict(token=jwt, expires_delta=False), 201
 
     except Exception as e:
-        print(e)
+        raise ValueError(e)
         response_object = {
             'status': 'error',
             'message': 'Internal Error'
@@ -55,7 +56,7 @@ def get_all_users():
         .filter(User.id != user.id) \
         .all()
 
-    return [u._asdict() for u in users_and_relationship]
+    return [u._asdict() for u in users_and_relationship], 201
 
 def create_user_follow_request(data):
     user_requested_id = data['id']
@@ -101,7 +102,7 @@ def get_a_user(public_id):
             .filter(User.id == public_id) \
             .first()
     response = user._asdict()
-    return response
+    return response, 201
 
 def get_user_subscribers():
     current_user = get_current_user()
@@ -111,7 +112,7 @@ def get_user_subscribers():
     .filter(FollowerRelationship.user_id == current_user.id)\
     .filter(FollowerRelationship.relationship_status == "accepted")\
     .all()
-    return [u._asdict() for u in mysubscribers]
+    return [u._asdict() for u in mysubscribers], 201
 
 def get_user_subscribedto():
 
@@ -122,4 +123,4 @@ def get_user_subscribedto():
     .filter(FollowerRelationship.follower_id == current_user.id)\
     .filter(FollowerRelationship.relationship_status == "accepted")\
     .all()
-    return [u._asdict() for u in subscribedto]
+    return [u._asdict() for u in subscribedto], 201
