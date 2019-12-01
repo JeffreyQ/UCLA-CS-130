@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, TextInput } from 'react-native'
 import { ThemeProvider, Button } from 'react-native-elements'
-import { theme, styles } from './index'
+import { theme, styles } from './style'
 
 export default class ShortAnswerPollCreationScreen extends React.Component {
   constructor(props) {

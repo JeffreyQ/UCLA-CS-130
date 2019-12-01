@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { ThemeProvider, Button } from 'react-native-elements'
-import { theme, elevationShadowStyle } from './index'
+import { theme, elevationShadowStyle } from './style'
 
 export default class TrueFalsePollCreationScreen extends React.Component {
   constructor(props) {
