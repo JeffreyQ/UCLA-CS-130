@@ -56,7 +56,7 @@ def get_all_users():
         .filter(User.id != user.id) \
         .all()
 
-    return [u._asdict() for u in users_and_relationship], 201
+    return [u._asdict() for u in users_and_relationship], 200
 
 def create_user_follow_request(data):
     user_requested_id = data['id']
@@ -102,7 +102,7 @@ def get_a_user(public_id):
             .filter(User.id == public_id) \
             .first()
     response = user._asdict()
-    return response, 201
+    return response, 200
 
 def get_user_subscribers():
     current_user = get_current_user()
@@ -112,7 +112,7 @@ def get_user_subscribers():
     .filter(FollowerRelationship.user_id == current_user.id)\
     .filter(FollowerRelationship.relationship_status == "accepted")\
     .all()
-    return [u._asdict() for u in mysubscribers], 201
+    return [u._asdict() for u in mysubscribers], 200
 
 def get_user_subscribedto():
 
@@ -123,4 +123,4 @@ def get_user_subscribedto():
     .filter(FollowerRelationship.follower_id == current_user.id)\
     .filter(FollowerRelationship.relationship_status == "accepted")\
     .all()
-    return [u._asdict() for u in subscribedto], 201
+    return [u._asdict() for u in subscribedto], 200
