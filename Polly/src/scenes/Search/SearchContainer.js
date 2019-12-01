@@ -9,8 +9,15 @@ class SearchContainer extends React.Component {
     return (
       <Search
         createInviteRequest={this.props.createInviteRequest}
+        users={this.props.users}
       />
     )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    user: state.User.users
   }
 }
 
