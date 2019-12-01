@@ -5,33 +5,6 @@ import { ScrollView } from 'react-navigation'
 
 import SearchEntry from './searchEntry'
 
-const users = [
-  {
-    name: 'Stephanie Y',
-    image: './profile.jpg',
-    status: null
-  },
-  {
-    name: 'Ram G.',
-    image: './profile.jpg',
-    status: null
-  },
-  {
-    name: 'Jeff Q.',
-    image: './profile.jpg',
-    status: 'Request Sent'
-  },
-  {
-    name: 'Jesse C.',
-    image: './profile.jpg',
-    status: 'Added'
-  },
-  {
-    name: 'Lawrence C.',
-    image: './profile.jpg',
-    status: null
-  },
-]
 
 class SearchScreen extends React.Component {
   state = {
