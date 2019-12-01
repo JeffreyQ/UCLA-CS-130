@@ -57,7 +57,14 @@ const User = (state: State = defaultState, action: Action): State => {
       const users = action.users
       return {
         ...state,
-        users
+        users: action.users.map(user => {
+          const newUser = {
+            ...user,
+            relationshipStatus: user.relationship_status
+          }
+          delete newUser['relationship_status']
+          return newUser
+        })
       }
     }
     case FETCH_USERS_FAILURE: {

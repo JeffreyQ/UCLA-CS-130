@@ -2,9 +2,14 @@ import React from 'react'
 import Search from './Search'
 import { connect } from 'react-redux'
 
-import { createInviteRequest } from '../../actions/user' 
+import { createInviteRequest, getUsers } from '../../actions/user' 
 
 class SearchContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    props.getUsers()
+  }
+
   render() {
     return (
       <Search
@@ -17,12 +22,13 @@ class SearchContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.User.users
+    users: state.User.users
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  createInviteRequest: userId => dispatch(createInviteRequest(userId))
+  createInviteRequest: userId => dispatch(createInviteRequest(userId)),
+  getUsers: () => dispatch(getUsers())
 })
 
-export default connect(null, mapDispatchToProps)(SearchContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer)

@@ -6,20 +6,24 @@ export const getUsers = () => {
     const state = getState()
     const { JSONWebToken } = state.Auth
 
+    headers = {
+        'Authorization': `Bearer ${JSONWebToken}`
+    }
     try {
-      const response = await fetch("http://localhost:5000/user", {
-        headers: {
-          'Authorization': `Bearer ${JSONWebToken}`
-        }
+      const response = await fetch("http://localhost:5000/user/", {
+        headers
       })
 
       if (response.status != 200) {
+        console.log(await response.json())
         throw new Error("Failed to fetch users")
       }
 
+      const json = await response.json()
+
       return dispatch({
         type: userConstants.FETCH_USERS_SUCCESS,
-        users: response.data
+        users: json.data
       })
 
     } catch (error) {

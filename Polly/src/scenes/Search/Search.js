@@ -62,7 +62,13 @@ class SearchScreen extends React.Component {
               alignSelf:'stretch',
               padding: 20,
             }}>
-            {users.map(user => <SearchEntry user={user} />)}
+              {this.props.users.map(user =>
+                <SearchEntry
+                  key={user.id}
+                  user={user}
+                  createInviteRequest={this.props.createInviteRequest}
+                />
+              )}
           </ScrollView>
         </View>
       </SafeAreaView>

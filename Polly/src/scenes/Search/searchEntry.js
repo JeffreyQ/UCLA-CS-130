@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, View, Text, StyleSheet } from 'react-native'
+import { Image, View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { heading2Text, bodyText, grayBody } from '../../textMixins'
 import { shadowStyle } from '../../styles'
 
@@ -11,10 +11,12 @@ export default props => {
         <Image source={require('./profile.jpg')} style={styles.image}/>
         <Text>{user.name}</Text>
       </View>
-      { user.status ? <Text style={styles.statusText}>{user.status}</Text> : 
-      <View style={styles.addButton}>
-        <Text>Add</Text>
-      </View>
+      { user.relationshipStatus ? <Text style={styles.statusText}>{user.relationshipStatus}</Text> : 
+      <TouchableHighlight underlayColor={"#fff"} onPress={() => props.createInviteRequest(user.id)}>
+        <View style={styles.addButton}>
+          <Text>Add</Text>
+        </View>
+      </TouchableHighlight>
       }
     </View>
   )

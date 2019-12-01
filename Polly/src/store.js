@@ -7,7 +7,7 @@ import User from './reducers/user'
 
 const rootReducer = combineReducers({
   Auth,
-  Polls
+  Polls,
   User
 })
 
