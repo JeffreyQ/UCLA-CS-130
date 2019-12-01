@@ -4,7 +4,7 @@ export const createPoll = (pollData, JSONWebToken) => {
   return async dispatch => {
     try {
       const { formType, prompt, respStruct } = pollData
-      let response = await fetch('http://localhost:5000/poll/', {
+      let response = await fetch('http://ec2-54-225-3-241.compute-1.amazonaws.com:5000/poll/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -17,6 +17,7 @@ export const createPoll = (pollData, JSONWebToken) => {
         }),
       })
       if (response.status != 201) {
+        console.log(response.json())
         throw "Unable to create poll."
       }
       

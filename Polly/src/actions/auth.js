@@ -45,7 +45,7 @@ export const createNewUserRequest = accessToken => {
   return async dispatch => {
     try {
       // TODO: Move fetch endpoint to config file
-      let response = await fetch('http://localhost:5000/user/', {
+      let response = await fetch('http://ec2-54-225-3-241.compute-1.amazonaws.com:5000/user/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -57,9 +57,10 @@ export const createNewUserRequest = accessToken => {
       if (response.status != 201) {
         throw "Unable to create user."
       }
-
+      
       let responseJson = await response.json()
       let JSONWebToken = responseJson.token
+      // console.log(JSONWebToken)
       return dispatch(setJSONWebToken(JSONWebToken))
     } catch (error) {
       dispatch({
