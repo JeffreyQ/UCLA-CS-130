@@ -18,7 +18,6 @@ export default class ShortAnswerPollCreationScreen extends React.Component {
   };
   
   render() {
-    JSONWebToken = this.props.navigation.getParam('JSONWebToken')
     createPoll = this.props.navigation.getParam('createPoll')
     return(
       <ThemeProvider theme={theme}>
@@ -37,7 +36,10 @@ export default class ShortAnswerPollCreationScreen extends React.Component {
           <Button
             style={styles.container}
             title="Create"
-            onPress={() => createPoll(this.state, JSONWebToken)}
+            onPress={() => {
+              createPoll(this.state)
+              this.props.navigation.goBack()
+            }}
           />
         </View>
       </ThemeProvider>

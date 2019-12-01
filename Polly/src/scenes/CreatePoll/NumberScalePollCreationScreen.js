@@ -18,7 +18,6 @@ export default class NumberScalePollCreationScreen extends React.Component {
     title: 'Number Scale Poll',
   };
   render() {
-    JSONWebToken = this.props.navigation.getParam('JSONWebToken')
     createPoll = this.props.navigation.getParam('createPoll')
     const { minLabel, maxLabel } = this.state
     return(
@@ -56,13 +55,16 @@ export default class NumberScalePollCreationScreen extends React.Component {
           <Button
             style={styles.container}
             title="Create"
-            onPress={() => createPoll({
-              ...this.state,
-              respStruct: {
-                low: minLabel,
-                high: maxLabel
-              }
-            }, JSONWebToken)}
+            onPress={() => {
+              createPoll({
+                ...this.state,
+                respStruct: {
+                  low: minLabel,
+                  high: maxLabel
+                }
+              })
+              this.props.navigation.goBack()
+            }}
           />
         </View>
       </ThemeProvider>

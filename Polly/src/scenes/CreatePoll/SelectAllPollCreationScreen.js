@@ -20,7 +20,6 @@ export default class SelectAllPollCreationScreen extends React.Component {
     title: 'Select All Poll',
   };
   render() {
-    JSONWebToken = this.props.navigation.getParam('JSONWebToken')
     createPoll = this.props.navigation.getParam('createPoll')
     const { option1, option2, option3, option4 } = this.state
     return(
@@ -74,15 +73,18 @@ export default class SelectAllPollCreationScreen extends React.Component {
           <Button
             style={styles.container}
             title="Create"
-            onPress={() => createPoll({
-              ...this.state,
-              respStruct: {
-                option1: option1,
-                option2: option2,
-                option3: option3,
-                option4: option4
-              }
-            }, JSONWebToken)}
+            onPress={() => {
+              createPoll({
+                ...this.state,
+                respStruct: {
+                  option1: option1,
+                  option2: option2,
+                  option3: option3,
+                  option4: option4
+                }
+              })
+              this.props.navigation.goBack()
+            }}
           />
         </View>
       </ThemeProvider>

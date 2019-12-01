@@ -5,8 +5,8 @@
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/
 
-; Ignore polyfills
-node_modules/react-native/Libraries/polyfills/.*
+; Ignore everything in node_modules
+node_modules/*
 
 ; These should not be required directly
 ; require from fbjs/lib instead: require('fbjs/lib/warning')
@@ -72,4 +72,4 @@ untyped-import
 untyped-type-import
 
 [version]
-^0.105.0
+^0.112.0
