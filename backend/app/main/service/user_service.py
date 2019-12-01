@@ -96,8 +96,12 @@ def confirm_user_follow_request(data):
 
     return response_object, 201
 
-def get_a_user():
-    pass
+def get_a_user(public_id):
+    user = db.session.query(User.id, User.email, User.fb_id, User.name) \
+            .filter(User.id == public_id) \
+            .first()
+    response = user._asdict()
+    return response
 
 def get_user_subscribers():
     current_user = get_current_user()

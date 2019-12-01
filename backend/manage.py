@@ -1,6 +1,6 @@
 import os
 import unittest
-
+from gevent.pywsgi import WSGIServer
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
@@ -20,6 +20,12 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def run():
     app.run("0.0.0.0")
+
+@manager.command
+def deploy():
+    http_server = WSGIServer(('', 5000), app)
+    http_server.serve_forever()
+
 
 @manager.command
 def test():
