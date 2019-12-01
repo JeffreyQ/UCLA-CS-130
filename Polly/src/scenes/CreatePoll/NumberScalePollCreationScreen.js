@@ -4,10 +4,23 @@ import { ThemeProvider, Button } from 'react-native-elements'
 import { theme, styles } from './index'
 
 export default class NumberScalePollCreationScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      formType: 'numScale',
+      prompt: '',
+      minLabel: '',
+      maxLabel: ''
+    }
+  }
+  
   static navigationOptions = {
     title: 'Number Scale Poll',
   };
   render() {
+    JSONWebToken = this.props.navigation.getParam('JSONWebToken')
+    createPoll = this.props.navigation.getParam('createPoll')
+    const { minLabel, maxLabel } = this.state
     return(
       <ThemeProvider theme={theme}>
         <View style={{padding: 15, flex:1.5}}>
@@ -17,6 +30,7 @@ export default class NumberScalePollCreationScreen extends React.Component {
               multiline={true}
               scrollEnabled={true}
               style={styles.input}
+              onChangeText={prompt => this.setState({prompt})}
             />
           </View>
         </View>
@@ -26,6 +40,7 @@ export default class NumberScalePollCreationScreen extends React.Component {
             <TextInput
               multiline={true}
               style={styles.input}
+              onChangeText={minLabel => this.setState({minLabel})}
             />
           </View>
           <Text style={{fontSize:20, padding: 10}}>Maximum Label</Text>
@@ -33,6 +48,7 @@ export default class NumberScalePollCreationScreen extends React.Component {
             <TextInput
               multiline={true}
               style={styles.input}
+              onChangeText={maxLabel => this.setState({maxLabel})}
             />
           </View>
         </View>
@@ -40,7 +56,13 @@ export default class NumberScalePollCreationScreen extends React.Component {
           <Button
             style={styles.container}
             title="Create"
-            onPress={this.props.navigation.getParam('createPoll')}
+            onPress={() => createPoll({
+              ...this.state,
+              respStruct: {
+                low: minLabel,
+                high: maxLabel
+              }
+            }, JSONWebToken)}
           />
         </View>
       </ThemeProvider>

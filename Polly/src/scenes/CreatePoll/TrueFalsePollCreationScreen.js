@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TextInput, StyleSheet, Alert } from 'react-native'
+import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { ThemeProvider, Button } from 'react-native-elements'
 import { theme, elevationShadowStyle } from './index'
 
