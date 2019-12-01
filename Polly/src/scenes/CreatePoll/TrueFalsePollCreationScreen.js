@@ -17,7 +17,6 @@ export default class TrueFalsePollCreationScreen extends React.Component {
     title: 'True False Poll',
   };
   render() {
-    JSONWebToken = this.props.navigation.getParam('JSONWebToken')
     createPoll = this.props.navigation.getParam('createPoll')
     return(
       <ThemeProvider theme={theme}>
@@ -36,7 +35,10 @@ export default class TrueFalsePollCreationScreen extends React.Component {
           <Button
             style={styles.container}
             title="Create"
-            onPress={() => createPoll(this.state, JSONWebToken)}
+            onPress={() => {
+              createPoll(this.state)
+              this.props.navigation.goBack()
+            }}
           />
         </View>
       </ThemeProvider>
