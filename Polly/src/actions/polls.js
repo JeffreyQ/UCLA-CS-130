@@ -1,8 +1,10 @@
 import { POLL_CREATION_FAILURE, POLL_CREATION_SUCCESS } from '../constants/polls'
 
-export const createPoll = (pollData, JSONWebToken) => {
-  return async dispatch => {
+export const createPoll = pollData => {
+  return async (dispatch, getState) => {
     try {
+      const state = getState()
+      const { JSONWebToken } = state.Auth
       const { formType, prompt, respStruct } = pollData
       let response = await fetch('http://ec2-54-225-3-241.compute-1.amazonaws.com:5000/poll/', {
         method: 'POST',

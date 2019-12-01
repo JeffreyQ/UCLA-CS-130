@@ -17,22 +17,22 @@ class CreatePollScreen extends React.Component {
             <Button
               style={styles.container}
               title="True False"
-              onPress={() => navigate('TrueFalsePoll', {name: 'TrueFalse', createPoll: this.props.createPoll, JSONWebToken: this.props.Auth.JSONWebToken})}
+              onPress={() => navigate('TrueFalsePoll', {name: 'TrueFalse', createPoll: this.props.createPoll})}
             />
             <Button
               style={styles.container}
               title="Short Answer"
-              onPress={() => navigate('ShortAnswerPoll', {name: 'ShortAnswer', createPoll: this.props.createPoll, JSONWebToken: this.props.Auth.JSONWebToken})}
+              onPress={() => navigate('ShortAnswerPoll', {name: 'ShortAnswer', createPoll: this.props.createPoll})}
            />
             <Button
               style={styles.container}
               title="Number Scale"
-              onPress={() => navigate('NumberScalePoll', {name: 'NumberScale', createPoll: this.props.createPoll, JSONWebToken: this.props.Auth.JSONWebToken})}
+              onPress={() => navigate('NumberScalePoll', {name: 'NumberScale', createPoll: this.props.createPoll})}
             />
             <Button
               style={styles.container}
               title="Select All"
-              onPress={() => navigate('SelectAllPoll', {name: 'SelectAll', createPoll: this.props.createPoll, JSONWebToken: this.props.Auth.JSONWebToken})}
+              onPress={() => navigate('SelectAllPoll', {name: 'SelectAll', createPoll: this.props.createPoll})}
             />
           </View>
         </ThemeProvider>
@@ -52,10 +52,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ Auth: state.Auth })
-
 const mapDispatchToProps = dispatch => {
-  return {createPoll: (pollData, JSONWebToken) => dispatch(createPoll(pollData, JSONWebToken))}
+  return {createPoll: pollData => dispatch(createPoll(pollData))}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePollScreen)
+export default connect(null, mapDispatchToProps)(CreatePollScreen)
