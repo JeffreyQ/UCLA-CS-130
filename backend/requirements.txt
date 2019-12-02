@@ -27,6 +27,7 @@ parso==0.5.1
 psycopg2==2.8.4
 PyJWT==1.7.1
 pyrsistent==0.15.5
+pytest
 python-dateutil==2.8.1
 python-editor==1.0.4
 pytz==2019.3
