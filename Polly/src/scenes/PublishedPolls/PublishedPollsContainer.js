@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { getPollsSubscribedTo } from '../../actions/polls'
+import { getPollsSubscribedTo, submitAnswer } from '../../actions/polls'
 import PublishedPollsScreen from './PublishedPollsScreen'
 
 class PublishedPollsContainer extends React.Component {
@@ -14,6 +14,7 @@ class PublishedPollsContainer extends React.Component {
     return (
       <PublishedPollsScreen
         pollsSubscribedTo={this.props.pollsSubscribedTo}
+        submitAnswer={this.props.submitAnswer}
       />
     )
   }
@@ -27,7 +28,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getPollsSubscribedTo: () => dispatch(getPollsSubscribedTo())
+    getPollsSubscribedTo: () => dispatch(getPollsSubscribedTo()),
+    submitAnswer: (answer, pollId) => dispatch(submitAnswer(answer, pollId))
   }
 }
 

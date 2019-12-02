@@ -1,4 +1,11 @@
-import { POLL_CREATION_FAILURE, POLL_CREATION_SUCCESS, GET_POLLS_SUBSCRIBED_TO_SUCCESS, GET_POLLS_SUBSCRIBED_TO_FAILURE } from '../constants/polls'
+import {
+  POLL_CREATION_FAILURE,
+  POLL_CREATION_SUCCESS,
+  GET_POLLS_SUBSCRIBED_TO_SUCCESS,
+  GET_POLLS_SUBSCRIBED_TO_FAILURE,
+  ANSWER_POLL_SUCCESS,
+  ANSWER_POLL_FAILURE
+} from '../constants/polls'
 
 export const createPoll = pollData => {
   return async (dispatch, getState) => {
@@ -67,5 +74,35 @@ export const getPollsSubscribedTo = () => {
         error
       })
     } 
+  }
+}
+
+export const submitAnswer = (answer, pollId) => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    const { JSONWebToken } = state.Auth
+    try {
+      const response = await fetch(`http://localhost:5000/poll/response/${pollId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${JSONWebToken}`
+        },
+        body: JSON.stringify(answer)
+      })
+
+      if (response.status != 201) {
+        throw new Error("Failed to submit answer")
+      }
+
+      return dispatch({
+        type: ANSWER_POLL_SUCCESS
+      })
+    } catch (error) {
+      dispatch({
+        type: ANSWER_POLL_FAILURE,
+        error
+      }) 
+    }
   }
 }

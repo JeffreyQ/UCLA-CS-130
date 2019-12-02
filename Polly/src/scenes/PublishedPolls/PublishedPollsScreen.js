@@ -7,13 +7,16 @@ import Heading from './heading'
 import Card from './card'
 
 class PublishedPollsScreen extends React.Component {
-  onCardPress = pollId => {
+  onCardPress = poll => {
+    const { submitAnswer } = this.props
     return this.props.navigation.navigate('PollDetails', {
-      pollId
+      poll,
+      submitAnswer
     })
   }
 
   render() {
+    const { pollsSubscribedTo } = this.props
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.viewContainer}>
@@ -27,12 +30,12 @@ class PublishedPollsScreen extends React.Component {
                 paddingRight: 20,
                 paddingLeft: 20
               }}>
-              <Card poll={dummyPoll} onPress={() => this.onCardPress(1)}/>
-              <Card poll={dummyPoll} />
-              <Card poll={dummyPoll} />
-              <Card poll={dummyPoll} />
-              <Card poll={dummyPoll} />
-              <Card poll={dummyPoll} />
+                {pollsSubscribedTo.map(poll =>
+                  <Card
+                    poll={poll}
+                    onPress={() => this.onCardPress(poll)}
+                  />
+                )}
             </ScrollView>
           </View>
         </View>

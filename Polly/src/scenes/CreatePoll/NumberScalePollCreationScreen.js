@@ -39,7 +39,7 @@ export default class NumberScalePollCreationScreen extends React.Component {
             <TextInput
               multiline={true}
               style={styles.input}
-              onChangeText={minLabel => this.setState({minLabel})}
+              onChangeText={minLabel => this.setState({minLabel: Number(minLabel)})}
             />
           </View>
           <Text style={{fontSize:20, padding: 10}}>Maximum Label</Text>
@@ -47,7 +47,7 @@ export default class NumberScalePollCreationScreen extends React.Component {
             <TextInput
               multiline={true}
               style={styles.input}
-              onChangeText={maxLabel => this.setState({maxLabel})}
+              onChangeText={maxLabel => this.setState({maxLabel: Number(maxLabel)})}
             />
           </View>
         </View>
