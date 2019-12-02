@@ -37,10 +37,11 @@ import SubscribeEntry from './subscribeEntry'
   class SubscriptionScreen extends React.Component{
   
     render() {
+      console.log(this.props);
       return (
         <SafeAreaView style={styles.container}>
           <View style ={styles.headingContainer}>
-              <Text style={styles.heading}> {this.props.users.length} Pollers </Text>
+              <Text style={styles.heading}> {this.props.navigation.getParam('subscribed').length} Pollers </Text>
           </View>
           <View style={styles.scrollContainer}>
             <ScrollView
@@ -49,7 +50,7 @@ import SubscribeEntry from './subscribeEntry'
                 alignSelf:'stretch',
                 padding: 20,
               }}>
-                {this.props.users.map(user =><SubscribeEntry key={user.id}user={user}/>)}
+                {this.props.navigation.getParam('subscribed').map(user =><SubscribeEntry key={user.id}user={user}/>)}
                 {/* {users.map(user => <SubscribeEntry key={user.id} user={user}/>)} */}
             </ScrollView>
           </View>

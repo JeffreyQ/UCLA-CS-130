@@ -34,36 +34,12 @@ const users = [
 ]
 const numUsers = users.length
 
-// class SubscriptionScreen extends React.Component{
-
-//   render() {
-//     return (
-//       <SafeAreaView style={styles.container}>
-//         <View style ={styles.headingContainer}>
-//             <Text style={styles.heading}> {numUsers} Pollers </Text>
-//         </View>
-//         <View style={styles.scrollContainer}>
-//           <ScrollView
-//             style={{
-//               height:'100%',
-//               alignSelf:'stretch',
-//               padding: 20,
-//             }}>
-//               {users.map(user => <SubscribeEntry key={user.id} user={user}/>)}
-//           </ScrollView>
-//         </View>
-//       </SafeAreaView>
-//     )
-//   }
-// }
-
 class SubscriberScreen extends React.Component{
-
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <View style ={styles.headingContainer}>
-            <Text style={styles.heading}> {this.props.users.length} Pollees </Text>
+            <Text style={styles.heading}> {this.props.navigation.getParam('subscribers').length} Pollees </Text>
         </View>
         <View style={styles.scrollContainer}>
           <ScrollView
@@ -72,7 +48,7 @@ class SubscriberScreen extends React.Component{
               alignSelf:'stretch',
               padding: 20,
             }}>
-              {this.props.users.map(user =><SubscribeEntry key={user.id}user={user}/>)}
+              {this.props.navigation.getParam('subscribers').map(user =><SubscribeEntry key={user.id}user={user}/>)}
           </ScrollView>
         </View>
       </SafeAreaView>

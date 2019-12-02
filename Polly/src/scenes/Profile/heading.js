@@ -14,13 +14,13 @@ class Heading extends React.Component {
         </View>
         <TouchableHighlight underlayColor={"#fff"} onPress={this.props.subscriberPress}>
           <View style={styles.count}>
-            <Text style={{...heading2Text}}>{this.props.getSubscribers.length}</Text>
+            <Text style={{...heading2Text}}>{this.props.subscribers.length}</Text>
             <Text style={{...bodyText}}>Pollees</Text>
           </View>
         </TouchableHighlight>
         <TouchableHighlight underlayColor={"#fff"} onPress={this.props.subscriptionPress}>
           <View style={styles.count}>
-            <Text style={{...heading2Text}}>{this.props.getSubscribedTo.length}</Text>
+            <Text style={{...heading2Text}}>{this.props.subscribed.length}</Text>
             <Text style={{...bodyText}}>Pollers</Text>
           </View>
         </TouchableHighlight>
