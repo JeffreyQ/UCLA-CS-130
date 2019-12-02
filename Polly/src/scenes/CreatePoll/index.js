@@ -1,3 +1,1 @@
-import CreatePollContainer from './CreatePollContainer'
-
-export default CreatePollContainer
+export { default } from './CreatePoll'
