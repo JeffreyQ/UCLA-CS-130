@@ -1,3 +1,3 @@
-import CreatePollContainer from './CreatePollContainer'
+import CreatePollNavigator from './CreatePoll'
 
-export default CreatePollContainer
+export default CreatePollNavigator

@@ -7,12 +7,17 @@ import NumberScalePollCreationScreen from './NumberScalePollCreationScreen'
 import ShortAnswerPollCreationScreen from './ShortAnswerPollCreationScreen'
 import SelectAllPollCreationScreen from './SelectAllPollCreationScreen'
 
-const MainNavigator = createStackNavigator({
-    CreatePoll: {screen: CreatePollScreen},
-    SelectAllPoll: {screen: SelectAllPollCreationScreen},
-    TrueFalsePoll: {screen: TrueFalsePollCreationScreen},
-    NumberScalePoll: {screen: NumberScalePollCreationScreen},
-    ShortAnswerPoll: {screen: ShortAnswerPollCreationScreen},
-})
+const RouteConfigs = {
+  CreatePoll: {screen: CreatePollScreen},
+  SelectAllPoll: {screen: SelectAllPollCreationScreen},
+  TrueFalsePoll: {screen: TrueFalsePollCreationScreen},
+  NumberScalePoll: {screen: NumberScalePollCreationScreen},
+  ShortAnswerPoll: {screen: ShortAnswerPollCreationScreen},
+}
 
-export default createAppContainer(MainNavigator)
+const StackNavigatorConfig = {
+  initialRouteName: 'CreatePoll'
+}
+
+export default createStackNavigator(RouteConfigs, StackNavigatorConfig)
+
