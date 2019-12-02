@@ -36,6 +36,7 @@ const numUsers = users.length
 
 class SubscriberScreen extends React.Component{
   render() {
+    console.log(this.props.getParam('susbscribers'));
     return (
       <SafeAreaView style={styles.container}>
         <View style ={styles.headingContainer}>
