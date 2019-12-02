@@ -13,7 +13,7 @@ export default Card = props => {
         <View style={styles.infoContainer}>
           <Text style={styles.heading2Text}>{props.poll.prompt}</Text>
           <View style={styles.infoDetailContainer}>
-            <Text style={styles.pollCreator}>{props.poll.owner_id}</Text>
+            <Text style={styles.pollCreator}>{props.user.name}</Text>
           </View>
         </View>
       </View>
