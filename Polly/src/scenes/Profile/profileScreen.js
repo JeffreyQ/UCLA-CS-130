@@ -4,6 +4,7 @@ import { StyleSheet, Text, SafeAreaView, View,Button } from 'react-native'
 import PollResponse from '../PollResponse'
 import { heading1Text, bodyText, grayBody } from '../../textMixins'
 import Card from './card'
+import MyPollResponseScreen from './myPollResponse'
 import Heading from './heading'
 import SubscriptionScreen  from './subscriptionScreen'
 import SubscriberScreen from './subscriberScreen'
@@ -37,7 +38,7 @@ class ProfileScreen extends React.Component{
             <Text style={{...heading1Text}}>My Polls</Text>
             <Text style={{...bodyText, ...grayBody}}>Filter</Text>
           </View>
-          <Card onPress={() => this.onCardPress(1)}/>
+          <Card onPress={() => navigate('MyPollResponseScreen')}/>
         </View>
       </SafeAreaView>
     )

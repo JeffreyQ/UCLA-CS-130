@@ -5,6 +5,7 @@ import SubscriptionScreen  from './subscriptionScreen'
 import SubscriberScreen from './subscriberScreen'
 import PollResponse from '../PollResponse'
 import ProfileScreen from './profileScreen'
+import MyPollResponseScreen from './myPollResponse'
 
 const RouteConfigs = {
     Profile: {
@@ -18,6 +19,9 @@ const RouteConfigs = {
     },
     SubscriberScreen:{
       screen: SubscriberScreen
+    },
+    MyPollResponseScreen:{
+      screen: MyPollResponseScreen
     },
   }
   
