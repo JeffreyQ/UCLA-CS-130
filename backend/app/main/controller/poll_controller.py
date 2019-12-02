@@ -10,7 +10,6 @@ api = _poll.api
 
 @api.route('/')
 class PollCollection(Resource):
-    @api.response(201, 'Poll successfully create')
     @api.doc('create a new poll', security='Bearer Auth')
     @api.expect(_poll.create_poll_fields, validate=True)
     @api.marshal_with(_poll.create_poll_response, code=201)

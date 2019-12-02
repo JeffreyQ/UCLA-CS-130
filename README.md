@@ -44,9 +44,9 @@ Every time you run the server via `python server.py`, an updated JSON file descr
 
 Then I am using an open source software called `swagger2markup` to generate AsciiDocs from the swagger OpenAPI JSON files, which you can install [here](https://github.com/Swagger2Markup/swagger2markup-cli).
 
-To generate up-to-date AsciiDoc, run `swagger2markup convert -i polly_api.json -f ./polly_api_documentation`
+To generate up-to-date AsciiDoc, run `swagger2markup convert -i polly_api.json -f ./polly_api_documentation` in the `/backend` folder.
 
-The generated AsciiDoc should be located in the same folder [here](https://github.com/JeffreyQ/UCLA-CS-130/blob/master/backend/src/server/polly_api_documentation.adoc)
+The generated AsciiDoc should be located in the same folder [here](https://github.com/JeffreyQ/UCLA-CS-130/blob/master/backend/polly_api_documentation.adoc)
 
 
 ## React-Native Setup
