@@ -122,3 +122,31 @@ export const getSubscribedTo = () => {
     }
   }
 }
+
+export const getMe = () => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    const { JSONWebToken } = state.Auth
+
+    headers = {
+      'Authorization': `Bearer ${JSONWebToken}`
+    }
+    try {
+      const response = await fetch("http://localhost:5000/user/me", {
+        headers
+      })
+
+      const json = await response.json()
+
+      dispatch({
+        type: userConstants.GET_ME_SUCCESS,
+        users:json.data
+      })
+    } catch (error) {
+      dispatch({
+        type: userConstants.GET_ME_FAILURE,
+        error
+      })
+    }
+  }
+}
