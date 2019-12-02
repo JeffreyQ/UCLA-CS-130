@@ -32,7 +32,7 @@ class TestUserService(BaseTestCase):
         expected = [{'email': None, 'name': 'Jane', 'id': 2, 'relationship_status': None}, {'email': None, 'name': 'Jake', 'id': 1, 'relationship_status': None}] 
         
         assert user_list == expected
-        assert status_code == 201
+        assert status_code == 200
 
     @cleared_db
     @patch('app.main.service.user_service.get_current_user')
@@ -61,7 +61,6 @@ class TestUserService(BaseTestCase):
         db.session.commit()
 
         mock.return_value = user_2
-
         resp, status_code = user_service.confirm_user_follow_request({"id": 1})
 
         assert status_code == 201
@@ -73,8 +72,10 @@ class TestUserService(BaseTestCase):
         db.session.commit()
 
         resp, status_code = user_service.get_a_user(1)
+        expected = {'fb_id': '123', 'email': None, 'id': 1, 'name': 'Jake'}
 
-        assert status_code == 201
+        assert resp == expected
+        assert status_code == 200
 
     @cleared_db
     @patch('app.main.service.user_service.get_current_user')
@@ -87,27 +88,13 @@ class TestUserService(BaseTestCase):
         db.session.add(user_2)
         db.session.commit()
 
-        mock.return_value = user_2
+        mock.side_effect = [user_2, user_1]
         user_service.confirm_user_follow_request({"id": 1})
+        resp, status_code = user_service.get_user_subscribers()
+        expected = [{'follower_id': 2, 'name': 'Jane'}]
 
-        sub_list, status_code = user_service.get_user_subscribers()
-        assert status_code == 201
-    @cleared_db
-    @patch('app.main.service.user_service.get_current_user')
-    def test_get_user_subscribers(self, mock):
-        user_1 =  User(fb_id='123', email=None, name='Jake')
-        user_2 = User(fb_id='123', email=None, name='Jane')
-        
-        user_1.followers.append(user_2)
-        db.session.add(user_1)
-        db.session.add(user_2)
-        db.session.commit()
-
-        mock.return_value = user_2
-        user_service.confirm_user_follow_request({"id": 1})
-
-        sub_list, status_code = user_service.get_user_subscribers()
-        assert status_code == 201
+        assert resp == expected
+        assert status_code == 200
 
     @cleared_db
     @patch('app.main.service.user_service.get_current_user')
@@ -123,9 +110,11 @@ class TestUserService(BaseTestCase):
         mock.return_value = user_2
         user_service.confirm_user_follow_request({"id": 1})
 
-        sub_list, status_code = user_service.get_user_subscribedto()
+        resp, status_code = user_service.get_user_subscribedto()
+        expected = [{ "name": "Jake", "user_id": 1 }]
 
-        assert status_code == 201
+        assert resp == expected
+        assert status_code == 200
 
     @cleared_db
     @patch('app.main.service.user_service.requests.get')
