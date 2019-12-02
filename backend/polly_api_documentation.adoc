@@ -621,7 +621,7 @@ __required__|The User identifier|string
 [options="header", cols=".^3a,.^11a,.^4a"]
 |===
 |Name|Description|Schema
-|**answer** +
+|**option** +
 __optional__|answer value|integer
 |**votes** +
 __optional__|number of counts for the corresponding answer value|integer

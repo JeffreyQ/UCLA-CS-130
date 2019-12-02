@@ -20,8 +20,6 @@ manager.add_command('db', MigrateCommand)
 
 @manager.command
 def run():
-    with app.app_context(), app.test_request_context(), open('polly_api.json', 'w') as outfile:
-        json.dump(api.__schema__, outfile)
     app.run("0.0.0.0")
 
 @manager.command
@@ -38,6 +36,11 @@ def test():
     if result.wasSuccessful():
         return 0
     return 1
+
+@manager.command
+def generate_json():
+    with app.app_context(), app.test_request_context(), open('polly_api.json', 'w') as outfile:
+        json.dump(api.__schema__, outfile)
 
 if __name__ == '__main__':
     manager.run()

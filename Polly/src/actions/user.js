@@ -43,7 +43,6 @@ export const createInviteRequest = userId => {
       const response = await fetch("http://localhost:5000/user/follow", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           "Authorization": `Bearer ${JSONWebToken}`
         },
         body: JSON.stringify({
@@ -68,3 +67,86 @@ export const createInviteRequest = userId => {
   }
 }
 
+export const getSubscribers = () => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    const { JSONWebToken } = state.Auth
+
+    headers = {
+      'Authorization': `Bearer ${JSONWebToken}`
+    }
+    try {
+      const response = await fetch("http://localhost:5000/user/me/subscribers", {
+        headers
+      })
+
+      const json = await response.json()
+
+      dispatch({
+        type: userConstants.GET_SUBSCRIBERS_SUCCESS,
+        subscribers: json
+      })
+    } catch (error) {
+      dispatch({
+        type: userConstants.GET_SUBSCRIBERS_FAILURE,
+        error
+      })
+    }
+  }
+}
+
+export const getSubscribedTo = () => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    const { JSONWebToken } = state.Auth
+
+    headers = {
+      'Authorization': `Bearer ${JSONWebToken}`
+    }
+    try {
+      const response = await fetch("http://localhost:5000/user/me/subscribedto", {
+        headers
+      })
+
+      const json = await response.json()
+
+      dispatch({
+        type: userConstants.GET_SUBSCRIBEDTO_SUCCESS,
+        subscribed:json
+      })
+    } catch (error) {
+      dispatch({
+        type: userConstants.GET_SUBSCRIBEDTO_FAILURE,
+        error
+      })
+    }
+  }
+}
+
+export const getMe = () => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    const { JSONWebToken } = state.Auth
+
+    headers = {
+      'Authorization': `Bearer ${JSONWebToken}`
+    }
+    try {
+      const response = await fetch("http://localhost:5000/user/me", {
+        headers
+      })
+
+      const json = await response.json()
+
+      dispatch({
+        type: userConstants.GET_ME_SUCCESS,
+        users:json.data
+      })
+    } catch (error) {
+      dispatch({
+        type: userConstants.GET_ME_FAILURE,
+        error
+      })
+    }
+  }
+}
