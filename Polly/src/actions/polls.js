@@ -1,4 +1,11 @@
-import { POLL_CREATION_FAILURE, POLL_CREATION_SUCCESS } from '../constants/polls'
+import {
+  POLL_CREATION_FAILURE,
+  POLL_CREATION_SUCCESS,
+  GET_POLLS_SUBSCRIBED_TO_SUCCESS,
+  GET_POLLS_SUBSCRIBED_TO_FAILURE,
+  ANSWER_POLL_SUCCESS,
+  ANSWER_POLL_FAILURE
+} from '../constants/polls'
 
 export const createPoll = pollData => {
   return async (dispatch, getState) => {
@@ -35,6 +42,67 @@ export const createPoll = pollData => {
         type: POLL_CREATION_FAILURE,
         error
       })
+    }
+  }
+}
+
+export const getPollsSubscribedTo = () => {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const { JSONWebToken } = state.Auth
+
+      const response = await fetch('http://localhost:5000/poll/following', {
+        headers: {
+          'Authorization': `Bearer ${JSONWebToken}`
+        }
+      })
+
+      if (response.status != 200) {
+        throw new Error("Failed to get polls subscribed to")
+      }
+
+      const polls = await response.json()
+
+      return dispatch({
+        type: GET_POLLS_SUBSCRIBED_TO_SUCCESS,
+        polls
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_POLLS_SUBSCRIBED_TO_FAILURE,
+        error
+      })
+    } 
+  }
+}
+
+export const submitAnswer = (answer, pollId) => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    const { JSONWebToken } = state.Auth
+    try {
+      const response = await fetch(`http://localhost:5000/poll/response/${pollId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${JSONWebToken}`
+        },
+        body: JSON.stringify(answer)
+      })
+
+      if (response.status != 201) {
+        throw new Error("Failed to submit answer")
+      }
+
+      return dispatch({
+        type: ANSWER_POLL_SUCCESS
+      })
+    } catch (error) {
+      dispatch({
+        type: ANSWER_POLL_FAILURE,
+        error
+      }) 
     }
   }
 }
