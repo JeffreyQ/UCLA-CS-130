@@ -11,11 +11,9 @@ export default Card = props => {
           <Text>Image</Text>
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.heading2Text}>{props.poll.question}</Text>
+          <Text style={styles.heading2Text}>{props.poll.prompt}</Text>
           <View style={styles.infoDetailContainer}>
-            <Text style={styles.pollCreator}>{props.poll.owner}</Text>
-            <Text>Expires: {props.poll.expiration}</Text>
-            <Text>{props.poll.answers}</Text>
+            <Text style={styles.pollCreator}>{props.poll.owner_id}</Text>
           </View>
         </View>
       </View>
