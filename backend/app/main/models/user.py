@@ -1,5 +1,6 @@
 from .. import db
-from sqlalchemy import Enum
+import datetime
+from sqlalchemy import Enum, DateTime
 
 relationship_status_types = ("pending", "accepted")
 relationship_status_types_enum = Enum(*relationship_status_types, name="relationship_status")
@@ -25,6 +26,7 @@ class User(db.Model):
     email = db.Column(db.String(120))
     fb_id = db.Column(db.String(120))
     name = db.Column(db.String())
+    created_date = db.Column(DateTime, default=datetime.datetime.utcnow)
     polls = db.relationship("Poll")
     responses = db.relationship("Response")
     followers = db.relationship('User',

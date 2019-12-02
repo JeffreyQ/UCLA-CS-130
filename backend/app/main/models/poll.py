@@ -1,5 +1,6 @@
 from .. import db
-from sqlalchemy import Enum
+import datetime
+from sqlalchemy import Enum, DateTime
 
 form_types = ("multChoice", "selectAll", "numScale", "freeResp")
 form_type_enum = Enum(*form_types, name="form_type")
@@ -12,6 +13,7 @@ class Poll(db.Model):
     form_type = db.Column(form_type_enum, default="freeResp")
     resp_struct = db.Column(db.JSON)
     is_open = db.Column(db.Boolean, default=True)
+    created_date = db.Column(DateTime, default=datetime.datetime.utcnow)
     responses = db.relationship("Response")
 
     def as_dict(self):

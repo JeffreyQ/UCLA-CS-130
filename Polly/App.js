@@ -9,6 +9,7 @@ import PublishedPollsScreen from './src/scenes/PublishedPolls'
 import CreatePollScreen from './src/scenes/CreatePoll'
 import ProfileScreen from './src/scenes/Profile'
 import LoginScreen from './src/scenes/LoginScreen'
+import SearchScreen from './src/scenes/Search'
 
 import store from './src/store'
 import { checkAuth } from './src/actions/auth'
@@ -86,6 +87,15 @@ const bottomTabNavigator = createBottomTabNavigator(
         },
       },
     },
+    Search: {
+      screen: SearchScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => {
+            const iconName = `ios-search`;
+            return <Ionicons name={iconName} size={25} color={tintColor} />;
+        },
+      },
+    },
     Profile: {
       screen: ProfileScreen,
       navigationOptions: {
@@ -98,7 +108,7 @@ const bottomTabNavigator = createBottomTabNavigator(
   },
   {
     initialRouteName: 'Published',
-    order: ['Published', 'Create', 'Profile'],
+    order: ['Published', 'Create', 'Search', 'Profile'],
     tabBarOptions: { showIcon: true, }
   }
 );
