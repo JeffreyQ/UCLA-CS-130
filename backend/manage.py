@@ -1,10 +1,11 @@
 import os
 import unittest
+import json
 from gevent.pywsgi import WSGIServer
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
-from app import blueprint
+from app import blueprint, api
 from app.main import create_app, db
 from app.main.models import user, poll, response
 
@@ -19,6 +20,8 @@ manager.add_command('db', MigrateCommand)
 
 @manager.command
 def run():
+    with app.app_context(), app.test_request_context(), open('polly_api.json', 'w') as outfile:
+        json.dump(api.__schema__, outfile)
     app.run("0.0.0.0")
 
 @manager.command

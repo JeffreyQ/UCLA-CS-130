@@ -1,0 +1,808 @@
+= Polly API
+
+
+[[_overview]]
+== Overview
+Polly API
+
+
+=== Version information
+[%hardbreaks]
+__Version__ : 1.0
+
+
+=== URI scheme
+[%hardbreaks]
+__BasePath__ : /
+
+
+=== Tags
+
+* poll : poll related operations
+* user : user related operations
+
+
+=== Consumes
+
+* `application/json`
+
+
+=== Produces
+
+* `application/json`
+
+
+
+
+[[_paths]]
+== Paths
+
+[[_create_a_new_poll]]
+=== Creates a new Poll
+....
+POST /poll/
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|**Body**|**payload** +
+__required__||<<_create_poll_fields,Create_Poll_Fields>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Poll successfully create|No Content
+|===
+
+
+==== Tags
+
+* poll
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_list_of_polls_created_by_user]]
+=== GET /poll/
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|< <<_poll_fields,Poll_Fields>> > array
+|===
+
+
+==== Tags
+
+* poll
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_list_of_polls_user_is_following]]
+=== GET /poll/following
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|< <<_poll_fields,Poll_Fields>> > array
+|===
+
+
+==== Tags
+
+* poll
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_vote_for_answer_comment_optional]]
+=== post a response to given poll id
+....
+POST /poll/response/{poll_id}
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Path**|**poll_id** +
+__required__|string
+|**Body**|**payload** +
+__required__|<<_response_fields,Response_Fields>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Response successfully posted|No Content
+|===
+
+
+==== Tags
+
+* poll
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_votes_for_each_answer_to_a_poll]]
+=== gets responses of poll at this id
+....
+GET /poll/response/{poll_id}
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|**Path**|**poll_id** +
+__required__||string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|< <<_aggregated_answers,Aggregated_Answers>> > array
+|===
+
+
+==== Tags
+
+* poll
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_get_a_poll_by_poll_id]]
+=== Gets poll specified by poll_id
+....
+GET /poll/{poll_id}
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|**Path**|**poll_id** +
+__required__||string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|<<_poll_fields,Poll_Fields>>
+|===
+
+
+==== Tags
+
+* poll
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_33493839c5fbdfe1ed05c549c19c3070]]
+=== Updates a Poll
+....
+PATCH /poll/{poll_id}
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Path**|**poll_id** +
+__required__|string
+|**Body**|**payload** +
+__required__|<<_update_poll_fields,Update_Poll_Fields>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Poll successfully patched|No Content
+|===
+
+
+==== Tags
+
+* poll
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_create_a_new_user]]
+=== Creates a new User
+....
+POST /user/
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Body**|**payload** +
+__required__|<<_user_create,user_create>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Success|<<_user_create_response,user_create_response>>
+|===
+
+
+==== Tags
+
+* user
+
+
+[[_list_of_registered_users]]
+=== List all registered users
+....
+GET /user/
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|< <<_user_get,user_get>> > array
+|===
+
+
+==== Tags
+
+* user
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_confirm_a_follow_request]]
+=== Confirms a follow request
+....
+POST /user/confirm
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Body**|**payload** +
+__required__|<<_user_follow_create,user_follow_create>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|No Content
+|===
+
+
+==== Tags
+
+* user
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_create_a_follow_request]]
+=== Creates a follow request
+....
+POST /user/follow
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^4a"]
+|===
+|Type|Name|Schema
+|**Body**|**payload** +
+__required__|<<_user_follow_create,user_follow_create>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**201**|Success|<<_create_follow_response,create_follow_response>>
+|===
+
+
+==== Tags
+
+* user
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_get_user_details]]
+=== GET /user/me
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|No Content
+|===
+
+
+==== Tags
+
+* user
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_get_people_user_is_subscribed_to]]
+=== get people user is subscribed to
+....
+GET /user/me/subscribedto
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|< <<_get_subscribed_to,get_subscribed_to>> > array
+|===
+
+
+==== Tags
+
+* user
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_get_subscribers]]
+=== get subscribers
+....
+GET /user/me/subscribers
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|< <<_get_my_subscribers,get_my_subscribers>> > array
+|===
+
+
+==== Tags
+
+* user
+
+
+==== Security
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Type|Name
+|**apiKey**|**<<_bearer_auth,Bearer Auth>>**
+|===
+
+
+[[_get_a_user]]
+=== get a user given its identifier
+....
+GET /user/{public_id}
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2a,.^3a,.^9a,.^4a"]
+|===
+|Type|Name|Description|Schema
+|**Header**|**X-Fields** +
+__optional__|An optional fields mask|string (mask)
+|**Path**|**public_id** +
+__required__|The User identifier|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2a,.^14a,.^4a"]
+|===
+|HTTP Code|Description|Schema
+|**200**|Success|<<_user_get,user_get>>
+|**404**|User not found.|No Content
+|===
+
+
+==== Tags
+
+* user
+
+
+
+
+[[_definitions]]
+== Definitions
+
+[[_aggregated_answers]]
+=== Aggregated_Answers
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**answer** +
+__optional__|answer value|integer
+|**votes** +
+__optional__|number of counts for the corresponding answer value|integer
+|===
+
+
+[[_create_poll_fields]]
+=== Create_Poll_Fields
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**form_type** +
+__required__|form type +
+**Example** : `"multChoice"`|enum (multChoice, selectAll, numScale, freeResp)
+|**prompt** +
+__required__|poll question prompt|string
+|**resp_struct** +
+__optional__||<<_response_struct,Response_Struct>>
+|===
+
+
+[[_poll_fields]]
+=== Poll_Fields
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**form_type** +
+__required__|form type +
+**Example** : `"multChoice"`|enum (multChoice, selectAll, numScale, freeResp)
+|**id** +
+__required__|poll id|integer
+|**is_open** +
+__required__|Status of whether poll is still open|boolean
+|**owner_id** +
+__required__|poll owner id|integer
+|**prompt** +
+__required__|poll question prompt|string
+|**resp_struct** +
+__optional__||<<_response_struct,Response_Struct>>
+|===
+
+
+[[_response_fields]]
+=== Response_Fields
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**answer** +
+__required__|integer value for answer|integer
+|**comment** +
+__optional__|string value of comments|string
+|===
+
+
+[[_response_struct]]
+=== Response_Struct
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**high** +
+__optional__|label for high value on scale|string
+|**low** +
+__optional__|label for low value on scale|string
+|**options** +
+__optional__|list of answer options|< string > array
+|===
+
+
+[[_update_poll_fields]]
+=== Update_Poll_Fields
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**is_open** +
+__required__|Status of whether poll is still open|boolean
+|===
+
+
+[[_create_follow_response]]
+=== create_follow_response
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**status** +
+__optional__|string
+|===
+
+
+[[_get_my_subscribers]]
+=== get_my_subscribers
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**follower_id** +
+__optional__|id of a follower|integer
+|**name** +
+__optional__|name of your follower|string
+|===
+
+
+[[_get_subscribed_to]]
+=== get_subscribed_to
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**name** +
+__optional__|name of who I am following|string
+|**user_id** +
+__optional__|id of who I am following|integer
+|===
+
+
+[[_user_create]]
+=== user_create
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**accessToken** +
+__required__|facebook access token|string
+|===
+
+
+[[_user_create_response]]
+=== user_create_response
+
+[options="header", cols=".^3a,.^4a"]
+|===
+|Name|Schema
+|**token** +
+__optional__|string
+|===
+
+
+[[_user_follow_create]]
+=== user_follow_create
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**id** +
+__required__|id of the user to follow|integer
+|===
+
+
+[[_user_get]]
+=== user_get
+
+[options="header", cols=".^3a,.^11a,.^4a"]
+|===
+|Name|Description|Schema
+|**email** +
+__optional__|user email|string
+|**id** +
+__required__|user id|integer
+|**name** +
+__required__|name|string
+|**relationship_status** +
+__optional__||string
+|===
+
+
+
+
+[[_securityscheme]]
+== Security
+
+[[_bearer_auth]]
+=== Bearer Auth
+[%hardbreaks]
+__Type__ : apiKey
+__Name__ : Authorization
+__In__ : HEADER
+
+
+

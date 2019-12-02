@@ -29,7 +29,7 @@ def save_new_poll(user_id, data):
 def get_all_polls():
     try:
         polls = Poll.query.all()
-        return [poll.as_dict() for poll in polls], 201
+        return [poll.as_dict() for poll in polls], 200
     except Exception as e:
         print(e)
     return {
@@ -75,7 +75,7 @@ def update_poll(user_id, poll_id, data):
             return {
                 'status': 'success',
                 'message': 'Successfully updated poll'
-            }, 201
+            }, 200
         else:
             return {
                 'status': 'failure',
@@ -104,7 +104,7 @@ def get_polls_following(user_id):
     }, 404
 
 def get_polls_responses(user_id,poll_id):
-    try:            
+    try:
         #allowing anyone to see poll responses
 
         aggregates = db.session.query(Response.answer,db.func.count(Response.answer))\
@@ -120,7 +120,7 @@ def get_polls_responses(user_id,poll_id):
             }
             aggregate_dict.append(pair_dict)
         return aggregate_dict,200
-        
+
     except Exception as e:
         print(e)
         return 401
@@ -133,7 +133,7 @@ def respond_to_poll(user_id,poll_id,data):
             .filter(Response.responder_id == user_id)\
             .first()
         #if they haven't responded yet
-        if not query: 
+        if not query:
             responder_id = user_id
             answer = data['answer']
             comment = None if 'comment' not in data else data['comment']
@@ -143,7 +143,7 @@ def respond_to_poll(user_id,poll_id,data):
             return {
                 'status': 'success',
                 'message': 'Response posted successfully'
-            },200
+            },201
         return {
             'status':'failure',
             'message':'You have already answered this poll'

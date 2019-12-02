@@ -13,7 +13,7 @@ class PollCollection(Resource):
     @api.response(201, 'Poll successfully create')
     @api.doc('create a new poll', security='Bearer Auth')
     @api.expect(_poll.create_poll_fields, validate=True)
-    @api.marshal_with(_poll.create_poll_response)
+    @api.marshal_with(_poll.create_poll_response, code=201)
     @jwt_required
     def post(self):
         """Creates a new Poll"""
@@ -39,7 +39,7 @@ class PollItem(Resource):
         user = get_current_user()
         return poll_service.get_poll_by_id(user.id, poll_id)
 
-    @api.response(201, 'Poll successfully patched')
+    @api.response(200, 'Poll successfully patched')
     @api.doc('Update a poll\'s is_open status', security='Bearer Auth')
     @api.expect(_poll.update_poll_fields, validate=True)
     @jwt_required
@@ -63,13 +63,14 @@ class PollsFollowing(Resource):
 class PollResponse(Resource):
     @jwt_required
     @api.marshal_list_with(_poll.aggregate_answers)
-    @api.doc('Votes for each answer to a poll', security='Bearer Auth')
+    @api.doc('Votes for each answer to a poll', security={'Bearer Auth':''})
     def get(self,poll_id):
         '''gets responses of poll at this id'''
         user = get_current_user()
         return poll_service.get_polls_responses(user.id,poll_id)
 
     @jwt_required
+    @api.response(201, 'Response successfully posted')
     @api.expect(_poll.resp_fields,validate=True)
     @api.doc('Vote for answer, comment optional', security='Bearer Auth')
     def post(self,poll_id):
@@ -77,4 +78,3 @@ class PollResponse(Resource):
         data = request.json
         user = get_current_user()
         return poll_service.respond_to_poll(user.id,poll_id,data)
-

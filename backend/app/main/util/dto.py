@@ -51,7 +51,7 @@ class PollDto:
     create_poll_fields = api.model('Create_Poll_Fields', {
     	'prompt': fields.String(required=True, description='poll question prompt'),
     	'form_type': fields.String(required=True, description='form type', enum=['multChoice', 'selectAll', 'numScale', 'freeResp']),
-    	'resp_struct': fields.Nested(resp_struct_fields, description='poll response structure'),
+    	'resp_struct': fields.Nested(resp_struct_fields),
     })
     create_poll_response = api.model('Poll_Id', {
         "id": fields.Integer(required=True, description='poll id')
@@ -61,7 +61,7 @@ class PollDto:
     	'owner_id': fields.Integer(required=True, description='poll owner id'),
     	'prompt': fields.String(required=True, description='poll question prompt'),
     	'form_type': fields.String(required=True, description='form type', enum=['multChoice', 'selectAll', 'numScale', 'freeResp']),
-    	'resp_struct': fields.Nested(resp_struct_fields, description='poll response structure'),
+    	'resp_struct': fields.Nested(resp_struct_fields),
         'is_open': fields.Boolean(required=True, description='Status of whether poll is still open')
     })
 
