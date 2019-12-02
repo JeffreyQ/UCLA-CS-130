@@ -7,7 +7,7 @@ export default SubscribeEntry = props => {
   return (
     <View>
       <View style={styles.container}>
-        <Image source={user.image} style={styles.image} />
+        <Image source={require('./profile.jpg')} style={styles.image} />
         <Text>{user.name}</Text>
       </View>
     </View>
