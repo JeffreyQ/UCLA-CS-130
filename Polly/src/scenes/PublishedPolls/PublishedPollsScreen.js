@@ -32,6 +32,7 @@ class PublishedPollsScreen extends React.Component {
               }}>
                 {pollsSubscribedTo.map(poll =>
                   <Card
+                    key={poll.id}
                     poll={poll}
                     onPress={() => this.onCardPress(poll)}
                     user={this.props.users.find(user => user.id === poll.id)}
