@@ -70,7 +70,7 @@ class PollDto:
     })
 
     resp_fields = api.model('Response_Fields', {
-        'answer': fields.Integer(required=True,description='integer value for answer'),
+        'option': fields.Integer(required=True,description='integer value for answer'),
         'comment': fields.String(description='string value of comments')
     })
 
