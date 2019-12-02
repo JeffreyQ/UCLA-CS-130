@@ -1,3 +1,1 @@
-import CreatePollNavigator from './CreatePoll'
-
-export default CreatePollNavigator
+export { default } from './CreatePoll'
