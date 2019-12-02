@@ -135,9 +135,9 @@ def respond_to_poll(user_id,poll_id,data):
         #if they haven't responded yet
         if not query:
             responder_id = user_id
-            answer = data['answer']
+            option = data['option']
             comment = None if 'comment' not in data else data['comment']
-            response = Response(poll_id=poll_id,responder_id=responder_id,answer=answer,comment=comment)
+            response = Response(poll_id=poll_id,responder_id=responder_id,answer=option,comment=comment)
             db.session.add(response)
             db.session.commit()
             return {
