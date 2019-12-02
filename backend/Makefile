@@ -4,7 +4,7 @@ build:
 	docker-compose build
 
 build-test:
-	docker-compose -f docker-compose.test.yml build 
+	docker-compose -f docker-compose.test.yml build
 
 # usage: make migrate message="commit message"
 migrate:
@@ -12,6 +12,10 @@ migrate:
 
 upgrade:
 	docker exec -i -t `docker ps -q --filter status=running --filter ancestor=polly/backend:latest` /bin/bash -c "python3 manage.py db upgrade"
+
+doc:
+	docker exec -i -t `docker ps -q --filter status=running --filter ancestor=polly/backend:latest` /bin/bash -c "python3 manage.py generate_json"
+	swagger2markup convert -i ./polly_api.json -f ./polly_api_documentation
 
 run:
 	docker-compose up

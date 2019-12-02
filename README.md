@@ -40,14 +40,13 @@ Our backend API documentation is generated automatically using `flask_restplus`,
 While the Python server is running, visit `http://localhost:5000/` in a browser to check out nice looking interactive API documentation, and also try out the endpoints with test requests.
 
 ### Offline Documentation
-Every time you run the server via `python server.py`, an updated JSON file describing the API is generated in `/src/server/polly_api.json`.
+To generate an offline documentation for the API, simply call `make doc` inside the `backend` directory while the Docker server instance is running.
 
-Then I am using an open source software called `swagger2markup` to generate AsciiDocs from the swagger OpenAPI JSON files, which you can install [here](https://github.com/Swagger2Markup/swagger2markup-cli).
+This requires the installation of open source software called `swagger2markup` to generate AsciiDocs from the swagger OpenAPI JSON files, which you can install [here](https://github.com/Swagger2Markup/swagger2markup-cli).
 
-To generate up-to-date AsciiDoc, run `swagger2markup convert -i polly_api.json -f ./polly_api_documentation` in the `/backend` folder.
+Otherwise, the command will throw an error, but will at least generate a new polly_api.json file that describes the new interfaces.
 
-The generated AsciiDoc should be located in the same folder [here](https://github.com/JeffreyQ/UCLA-CS-130/blob/master/backend/polly_api_documentation.adoc)
-
+The generated AsciiDoc should be located at `backend/polly_api_documentation.adoc` [here](https://github.com/JeffreyQ/UCLA-CS-130/blob/master/backend/polly_api_documentation.adoc)
 
 ## React-Native Setup
 To run the react-native mobile app we are following the instructions [here](https://facebook.github.io/react-native/docs/getting-started).
