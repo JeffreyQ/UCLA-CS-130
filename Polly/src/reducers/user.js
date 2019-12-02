@@ -1,6 +1,6 @@
 // @flow
 
-import { CREATE_INVITE_REQUEST_SUCCESS, CREATE_INVITE_REQUEST_FAILURE, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE, GET_SUBSCRIBERS_SUCCESS, GET_SUBSCRIBERS_FAILURE,GET_SUBSCRIBEDTO_SUCCESS,GET_SUBSCRIBEDTO_FAILURE} from '../constants/user'
+import { CREATE_INVITE_REQUEST_SUCCESS, CREATE_INVITE_REQUEST_FAILURE, FETCH_USERS_SUCCESS, FETCH_USERS_FAILURE, GET_SUBSCRIBERS_SUCCESS, GET_SUBSCRIBERS_FAILURE,GET_SUBSCRIBEDTO_SUCCESS,GET_SUBSCRIBEDTO_FAILURE,GET_ME_SUCCESS,GET_ME_FAILURE} from '../constants/user'
 import { ActionSheetIOS, ActivityIndicatorComponent } from 'react-native';
 
 type Me = {
@@ -59,6 +59,14 @@ type GetSubscribedToFailureAction = {
   type: typeof GET_SUBSCRIBEDTO_FAILURE,
   error: Error
 }
+type GetMeSuccessAction = {
+  type: typeof GET_ME_SUCCESS,
+}
+
+type GetMeFailureAction = {
+  type: typeof GET_ME_FAILURE,
+  error: Error
+}
 
 type Action =
   | CreateInviteRequestFailureAction
@@ -69,6 +77,8 @@ type Action =
   | GetSubscribersFailureAction
   | GetSubscribedToSuccessAction
   | GetSubscribedToFailureAction
+  | GetMeSuccessAction
+  | GetMeFailureAction
 
 const defaultState: State = {
   me: {},
@@ -123,7 +133,7 @@ const User = (state: State = defaultState, action: Action): State => {
     case GET_SUBSCRIBERS_SUCCESS: {
       return {
         ...state,
-        subscribers: action.users,
+        subscribers: action.subscribers,
       }
     }
     case GET_SUBSCRIBERS_FAILURE: {
@@ -136,10 +146,23 @@ const User = (state: State = defaultState, action: Action): State => {
       const users = action.users
       return {
         ...state,
-        subscribed: action.users
+        subscribed: action.subscribed
       }
     }
     case GET_SUBSCRIBEDTO_FAILURE: {
+      return {
+        ...state,
+        error: action.error
+      }
+    }
+    case GET_ME_SUCCESS: {
+      const users = action.users
+      return {
+        ...state,
+        me: action.me
+      }
+    }
+    case GET_ME_FAILURE: {
       return {
         ...state,
         error: action.error

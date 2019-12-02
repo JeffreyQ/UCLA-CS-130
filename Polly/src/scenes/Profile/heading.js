@@ -1,54 +1,40 @@
 import React from 'react'
 import { View, StyleSheet, Text, Image, TouchableHighlight } from 'react-native'
 import { heading2Text, bodyText, grayBody } from '../../textMixins'
+import { getSubscribers, getSubscribedTo } from '../../actions/user'
+import { connect } from 'react-redux'
 
-// class Heading extends React.Component{
-//   render(props) {
-//     return(
-//       <View style={styles.container}>
-//       <View style={styles.profilePicContainer}>
-//         <Image source={require('./profile.jpg')} style={styles.profilePic}/>
-//         <Text style={styles.name}>Stephanie</Text>
-//       </View>
-      // <TouchableHighlight underlayColor={"#fff"} onPress={props.onPress}>
-      //   <View style={styles.count}>
-      //     <Text style={{...heading2Text}}>89</Text>
-      //     <Text style={{...bodyText}}>Pollees</Text>
-      //   </View>
-      // </TouchableHighlight>
-//       <View style={styles.count}>
-//         <Text style={{...heading2Text}}>89</Text>
-//         <Text style={{...bodyText}}>Pollers</Text>
-//       </View>
-//     </View>
-//     )
-//   }
-// }
-
-// export default Heading
-
-export default Heading = props => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.profilePicContainer}>
-        <Image source={require('./profile.jpg')} style={styles.profilePic}/>
-        <Text style={styles.name}>Stephanie</Text>
+class Heading extends React.Component {
+  render(){
+    return (
+      <View style={styles.container}>
+        <View style={styles.profilePicContainer}>
+          <Image source={require('./profile.jpg')} style={styles.profilePic}/>
+          <Text style={styles.name}>Stephanie</Text>
+        </View>
+        <TouchableHighlight underlayColor={"#fff"} onPress={this.props.subscriberPress}>
+          <View style={styles.count}>
+            <Text style={{...heading2Text}}>{this.props.getSubscribers.length}</Text>
+            <Text style={{...bodyText}}>Pollees</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight underlayColor={"#fff"} onPress={this.props.subscriptionPress}>
+          <View style={styles.count}>
+            <Text style={{...heading2Text}}>{this.props.getSubscribedTo.length}</Text>
+            <Text style={{...bodyText}}>Pollers</Text>
+          </View>
+        </TouchableHighlight>
       </View>
-      <TouchableHighlight underlayColor={"#fff"} onPress={props.subscriberPress}>
-        <View style={styles.count}>
-          <Text style={{...heading2Text}}>89</Text>
-          <Text style={{...bodyText}}>Pollees</Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableHighlight underlayColor={"#fff"} onPress={props.subscriptionPress}>
-        <View style={styles.count}>
-          <Text style={{...heading2Text}}>89</Text>
-          <Text style={{...bodyText}}>Pollers</Text>
-        </View>
-      </TouchableHighlight>
-    </View>
-  )
+    )
+  }
 }
+
+const mapDispatchToProps = dispatch => ({
+  getSubscribers: () => dispatch(getSubscribers()),
+  getSubscribedTo: () => dispatch(getSubscribedTo())
+})
+
+export default connect(null, mapDispatchToProps)(Heading)
 
 const styles = StyleSheet.create({
   container: {
