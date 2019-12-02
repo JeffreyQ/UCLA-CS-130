@@ -84,7 +84,7 @@ export const getSubscribers = () => {
 
       dispatch({
         type: userConstants.GET_SUBSCRIBERS_SUCCESS,
-        users:json.data
+        subscribers: json
       })
     } catch (error) {
       dispatch({
@@ -112,7 +112,7 @@ export const getSubscribedTo = () => {
 
       dispatch({
         type: userConstants.GET_SUBSCRIBEDTO_SUCCESS,
-        users:json.data
+        subscribed:json
       })
     } catch (error) {
       dispatch({
