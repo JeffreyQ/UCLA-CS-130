@@ -75,6 +75,6 @@ class PollDto:
     })
 
     aggregate_answers= api.model('Aggregated_Answers',{
-        'answer':fields.Integer(description='answer value'),
+        'option':fields.Integer(description='answer value'),
         'votes':fields.Integer(description='number of counts for the corresponding answer value'),
     })

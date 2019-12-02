@@ -115,7 +115,7 @@ def get_polls_responses(user_id,poll_id):
         aggregate_dict = []
         for pair in aggregates:
             pair_dict = {
-                'answer':pair[0],
+                'option':pair[0],
                 'votes':pair[1]
             }
             aggregate_dict.append(pair_dict)
