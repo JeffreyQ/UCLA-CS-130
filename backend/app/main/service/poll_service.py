@@ -119,7 +119,13 @@ def get_polls_responses(user_id,poll_id):
                 'votes':pair[1]
             }
             aggregate_dict.append(pair_dict)
-        return aggregate_dict,200
+
+        individuals = db.session.query(Response)\
+           .filter(Response.poll_id == poll_id)\
+           .all()
+
+        result = {"aggregates":aggregate_dict, "responses":[u.as_dict() for u in individuals]}
+        return result,200
 
     except Exception as e:
         print(e)
@@ -143,11 +149,11 @@ def respond_to_poll(user_id,poll_id,data):
             return {
                 'status': 'success',
                 'message': 'Response posted successfully'
-            },201
+            },200
         return {
             'status':'failure',
             'message':'You have already answered this poll'
-        },401
+        },404
     except Exception as e:
         print(e)
-        return 401
+        return 404

@@ -61,7 +61,7 @@ class PollsFollowing(Resource):
 @api.route('/response/<poll_id>')
 class PollResponse(Resource):
     @jwt_required
-    @api.marshal_list_with(_poll.aggregate_answers)
+    @api.marshal_with(_poll.get_all_responses_poll)
     @api.doc('Votes for each answer to a poll', security={'Bearer Auth':''})
     def get(self,poll_id):
         '''gets responses of poll at this id'''
@@ -76,4 +76,4 @@ class PollResponse(Resource):
         '''post a response to given poll id'''
         data = request.json
         user = get_current_user()
-        return poll_service.respond_to_poll(user.id,poll_id,data)
+        return poll_service.respond_to_poll(2,poll_id,data)

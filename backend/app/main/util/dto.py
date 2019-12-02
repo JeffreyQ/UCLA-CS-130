@@ -78,3 +78,16 @@ class PollDto:
         'option':fields.Integer(description='answer value'),
         'votes':fields.Integer(description='number of counts for the corresponding answer value'),
     })
+
+    single_responses = api.model('single_responses',{
+        "answer": fields.Integer(description="option selected"),
+        "comment": fields.String(description="The responders comment"),
+        "poll_id": fields.Integer(description="The poll id"),
+        "created_date": fields.String(description="String formatted datetime"),
+        "responder_id":fields.Integer(description="Id of the responder"),
+        "id": fields.Integer(description="primary key ")
+    })
+    get_all_responses_poll = api.model('get_all_responses_poll',{
+        "aggregates": fields.List(fields.Nested(aggregate_answers)),
+        "responses": fields.List(fields.Nested(single_responses))
+    })
