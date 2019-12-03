@@ -8,10 +8,12 @@ import Card from './card'
 
 class PublishedPollsScreen extends React.Component {
   onCardPress = poll => {
-    const { submitAnswer } = this.props
+    const { submitAnswer, checkRespondedToPoll } = this.props
+    checkRespondedToPoll(poll.id)
     return this.props.navigation.navigate('PollDetails', {
       poll,
-      submitAnswer
+      submitAnswer,
+      checkRespondedToPoll
     })
   }
 
