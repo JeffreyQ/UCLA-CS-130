@@ -77,3 +77,12 @@ class PollResponse(Resource):
         data = request.json
         user = get_current_user()
         return poll_service.respond_to_poll(user.id,poll_id,data)
+
+@api.route('/<poll_id>/responded')
+class UserResponded(Resource):
+    @jwt_required
+    @api.marshal_with(_poll.did_respond)
+    @api.doc('Has current user responded to poll', security={'Bearer Auth':''})
+    def get(self,poll_id):
+        user = get_current_user();
+        return poll_service.has_responded_to_poll(user.id,poll_id)

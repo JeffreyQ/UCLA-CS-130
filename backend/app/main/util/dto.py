@@ -91,3 +91,6 @@ class PollDto:
         "aggregates": fields.List(fields.Nested(aggregate_answers)),
         "responses": fields.List(fields.Nested(single_responses))
     })
+    did_respond = api.model('did_respond',{
+        "responded":fields.Boolean(description="has this user responded to the poll")
+    })
