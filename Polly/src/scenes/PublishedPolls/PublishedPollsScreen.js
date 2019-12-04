@@ -10,7 +10,6 @@ class PublishedPollsScreen extends React.Component {
   onCardPress = pollId => {
     const { submitAnswer, checkRespondedToPoll } = this.props
     checkRespondedToPoll(pollId)
-    console.log(pollId)
     return this.props.navigation.navigate('PollDetails', {
       pollId,
       submitAnswer,
