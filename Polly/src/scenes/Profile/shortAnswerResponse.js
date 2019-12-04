@@ -3,15 +3,14 @@ import { StyleSheet, Text, SafeAreaView, View } from 'react-native'
 import { ScrollView } from 'react-navigation'
 import { heading1Text,heading2Text, bodyText, grayBody } from '../../textMixins'
 // import {  } from '../../actions/poll' 
-import GeneralResponseScreen from './generalResponse'
-import OptionCard from './optionCard'
+import Accordion from './accordion'
 import { connect } from 'react-redux'
 
 const responses = [ 
     {
         "answer": 1,
         "poll_id": 3,
-        "comment": null,
+        "comment": "woohoo",
         "id": 10,
         "responder_id": 7,
         "created_date": "2019-12-02 08:01:30.968771"
@@ -27,7 +26,7 @@ const responses = [
     {
         "answer": 2,
         "poll_id": 3,
-        "comment": null,
+        "comment": "short answer",
         "id": 12,
         "responder_id": 2,
         "created_date": "2019-12-02 08:02:50.283949"
@@ -41,10 +40,6 @@ const aggregates = [
 {
     "votes": 2,
     "option": 2
-},
-{
-    "votes": 4,
-    "option": 3
 }
 ]
 
@@ -80,7 +75,7 @@ const users = [
       response: 1
     },
   ]
-class MultipleChoiceResponseScreen extends React.Component{
+class ShortAnswerResponseScreen extends React.Component{
     render() {
         const {navigate} = this.props.navigation
         return(
@@ -95,11 +90,7 @@ class MultipleChoiceResponseScreen extends React.Component{
                         alignSelf:'stretch',
                         padding: 20,
                         }}>
-                        {aggregates.map(aggregate => <OptionCard option={"Option "+ aggregate.option} votes={aggregate.votes} 
-                        onPress={() => 
-                            navigate('GeneralResponseScreen',
-                            {option:"Option "+ aggregate.option , 
-                        responses:responses.filter(response => response.answer === aggregate.option),users:users})}/>)}
+                        {responses.map(response => <Accordion data={response.comment} user={(users.filter(user => user.id === response.responder_id))[0]}/>)}
                     </ScrollView>
                 </View>
             </SafeAreaView>
@@ -144,4 +135,4 @@ const styles = StyleSheet.create({
     },
   })
 
-  export default MultipleChoiceResponseScreen
+  export default ShortAnswerResponseScreen

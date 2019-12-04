@@ -6,38 +6,6 @@ import { heading1Text,heading2Text, bodyText, grayBody } from '../../textMixins'
 import ResponseEntry from './responseEntry'
 import { connect } from 'react-redux'
 
-const users = [
-    {
-      id:1,
-      name: 'Stephanie Y',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-    {
-      id:2,
-      name: 'Ram G.',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-    {
-      id:3,
-      name: 'Jeff Q.',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-    {
-      id:4,
-      name: 'Jesse C.',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-    {
-      id:5,
-      name: 'Lawrence C.',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-  ]
 class GeneralResponseScreen extends React.Component{
     render() {
         return(

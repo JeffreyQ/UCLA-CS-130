@@ -11,7 +11,7 @@ const responses = [
     {
         "answer": 1,
         "poll_id": 3,
-        "comment": "woohoo",
+        "comment": null,
         "id": 10,
         "responder_id": 7,
         "created_date": "2019-12-02 08:01:30.968771"
@@ -27,7 +27,7 @@ const responses = [
     {
         "answer": 2,
         "poll_id": 3,
-        "comment": "short answer",
+        "comment": null,
         "id": 12,
         "responder_id": 2,
         "created_date": "2019-12-02 08:02:50.283949"
@@ -41,6 +41,10 @@ const aggregates = [
 {
     "votes": 2,
     "option": 2
+},
+{
+    "votes": 4,
+    "option": 3
 }
 ]
 
@@ -76,7 +80,7 @@ const users = [
       response: 1
     },
   ]
-class TrueFalseResponseScreen extends React.Component{
+class SelectAllResponseScreen extends React.Component{
     render() {
         const {navigate} = this.props.navigation
         return(
@@ -91,10 +95,10 @@ class TrueFalseResponseScreen extends React.Component{
                         alignSelf:'stretch',
                         padding: 20,
                         }}>
-                        {aggregates.map(aggregate => <OptionCard option={(aggregate.option===1) ? 'True' : 'False'} votes={aggregate.votes} 
+                        {aggregates.map(aggregate => <OptionCard option={"Option "+ aggregate.option} votes={aggregate.votes} 
                         onPress={() => 
                             navigate('GeneralResponseScreen',
-                            {option:(aggregate.option===1) ? 'True' : 'False', 
+                            {option:"Option "+ aggregate.option , 
                         responses:responses.filter(response => response.answer === aggregate.option),users:users})}/>)}
                     </ScrollView>
                 </View>
@@ -140,4 +144,4 @@ const styles = StyleSheet.create({
     },
   })
 
-  export default TrueFalseResponseScreen
+  export default SelectAllResponseScreen

@@ -30,6 +30,32 @@ class ProfileScreen extends React.Component{
       pollId
     })
   }
+  checkPoll=(param)=>{
+ 
+    switch(param) {
+ 
+      case 'multChoice':
+        return 'TrueFalseResponseScreen';
+        break;
+      
+      case 'selectAll':
+        return 'SelectAllResponseScreen';
+        break;
+ 
+      case 'freeResp':
+        return 'ShortAnswerResponseScreen';
+        break;
+ 
+      case 'numScale':
+        return 'NumberScaleResponseScreen';
+        break;
+ 
+      default:
+        return 'NumberScaleResponseScreen';
+    
+      }
+ 
+  }
 
   render() {
     const {navigate} = this.props.navigation;
@@ -53,7 +79,7 @@ class ProfileScreen extends React.Component{
                 alignSelf:'stretch',
                 padding: 20,
               }}>
-                {this.props.myPolls.map( poll => <Card key={poll.id} poll={poll} onPress={() => navigate('MultipleChoiceResponseScreen',{prompt:poll.prompt})}/>)}
+                {this.props.myPolls.map( poll => <Card key={poll.id} poll={poll} onPress={() => navigate(this.checkPoll(poll.form_type),{prompt:poll.prompt})}/>)}
             </ScrollView>
           </View>
         </View>

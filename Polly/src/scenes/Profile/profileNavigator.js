@@ -8,7 +8,8 @@ import ProfileScreen from './profileScreen'
 import MyPollResponseScreen from './myPollResponse'
 import NumberScaleResponseScreen from './numberScaleResponse'
 import TrueFalseResponseScreen from './trueFalseResponseScreen'
-import MultipleChoiceResponseScreen from './multipleChoiceResponse'
+import SelectAllResponseScreen from './selectAllResponse'
+import ShortAnswerResponseScreen from './shortAnswerResponse'
 import GeneralResponseScreen from './generalResponse'
 
 const RouteConfigs = {
@@ -33,8 +34,11 @@ const RouteConfigs = {
     TrueFalseResponseScreen:{
       screen: TrueFalseResponseScreen
     },
-    MultipleChoiceResponseScreen:{
-      screen: MultipleChoiceResponseScreen
+    SelectAllResponseScreen:{
+      screen: SelectAllResponseScreen
+    },
+    ShortAnswerResponseScreen:{
+      screen: ShortAnswerResponseScreen
     },
     GeneralResponseScreen:{
       screen: GeneralResponseScreen
