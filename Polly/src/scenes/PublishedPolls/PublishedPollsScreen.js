@@ -35,7 +35,7 @@ class PublishedPollsScreen extends React.Component {
                     key={poll.id}
                     poll={poll}
                     onPress={() => this.onCardPress(poll)}
-                    user={this.props.users.find(user => user.id === poll.id)}
+                    user={this.props.users.find(user => user.id === poll.owner_id)}
                   />
                 )}
             </ScrollView>
