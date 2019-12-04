@@ -6,6 +6,9 @@ import SubscriberScreen from './subscriberScreen'
 import PollResponse from '../PollResponse'
 import ProfileScreen from './profileScreen'
 import MyPollResponseScreen from './myPollResponse'
+import NumberScaleResponseScreen from './numberScaleResponse'
+import TrueFalseResponseScreen from './trueFalseResponseScreen'
+import GeneralResponseScreen from './generalResponse'
 
 const RouteConfigs = {
     Profile: {
@@ -23,6 +26,15 @@ const RouteConfigs = {
     MyPollResponseScreen:{
       screen: MyPollResponseScreen
     },
+    NumberScaleResponseScreen:{
+      screen: NumberScaleResponseScreen
+    },
+    TrueFalseResponseScreen:{
+      screen: TrueFalseResponseScreen
+    },
+    GeneralResponseScreen:{
+      screen: GeneralResponseScreen
+    }
   }
   
   const StackNavigatorConfigs = {

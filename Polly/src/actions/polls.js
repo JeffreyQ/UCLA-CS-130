@@ -6,7 +6,9 @@ import {
   ANSWER_POLL_SUCCESS,
   ANSWER_POLL_FAILURE,
   GET_MY_POLLS_SUCCESS,
-  GET_MY_POLLS_FAILURE
+  GET_MY_POLLS_FAILURE,
+  GET_POLL_RESPONSE_SUCCESS,
+  GET_POLL_RESPONSE_FAILURE
 } from '../constants/polls'
 
 export const createPoll = pollData => {
@@ -135,6 +137,37 @@ export const getMyPolls = () => {
     } catch (error) {
       dispatch({
         type: GET_MY_POLLS_FAILURE,
+        error
+      })
+    } 
+  }
+}
+
+export const getPollResponse = (pollId) => {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const { JSONWebToken } = state.Auth
+
+      const response = await fetch('http://localhost:5000/poll/', {
+        headers: {
+          'Authorization': `Bearer ${JSONWebToken}`
+        }
+      })
+
+      if (response.status != 200) {
+        throw new Error("Failed to get polls subscribed to")
+      }
+
+      const polls = await response.json()
+
+      return dispatch({
+        type: GET_POLL_RESPONSE_SUCCESS,
+        polls
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_POLL_RESPONSE_FAILURE,
         error
       })
     } 

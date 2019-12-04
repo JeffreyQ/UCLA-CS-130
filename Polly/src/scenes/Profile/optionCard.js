@@ -3,12 +3,12 @@ import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
 
 import { heading2Text, bodyText, grayBody } from '../../textMixins'
 
-export default Card = props => {
+export default OptionCard = props => {
   return (
     <TouchableHighlight underlayColor={"#fff"} onPress={props.onPress}>
       <View style={styles.container}>
-        <Text style={{...heading2Text}}>{props.poll.prompt}</Text>
-        <Text style={{...bodyText, ...grayBody}}>2 days ago</Text>
+        <Text style={{...heading2Text}}>{props.option}</Text>
+        <Text style={styles.average}>{props.votes}</Text>
       </View>
     </TouchableHighlight>
   )
@@ -37,6 +37,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     ...elevationShadowStyle(5)
   },
+  average:{
+    fontWeight: 'bold',
+},
   imageContainer: {
     flex: 1,
     justifyContent: 'center',

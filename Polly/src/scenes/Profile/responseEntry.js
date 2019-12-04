@@ -9,7 +9,7 @@ export default ResponseEntry = props => {
       <View style={styles.container}>
         <Image source={require('./profile.jpg')} style={styles.image} />
         <Text>{user.name}</Text>
-        <Text>{user.response}</Text>
+        <Text>{props.response.answer}</Text>
       </View>
     </View>
   )
