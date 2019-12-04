@@ -4,10 +4,11 @@ import { View, StyleSheet, Text, TouchableHighlight } from 'react-native'
 import { heading2Text, bodyText, grayBody } from '../../textMixins'
 
 export default Card = props => {
+  const { poll} = props
   return (
     <TouchableHighlight underlayColor={"#fff"} onPress={props.onPress}>
       <View style={styles.container}>
-        <Text style={{...heading2Text}}>What should I wear?</Text>
+        <Text style={{...heading2Text}}>{poll.prompt}</Text>
         <Text style={{...bodyText, ...grayBody}}>2 days ago</Text>
       </View>
     </TouchableHighlight>

@@ -2,13 +2,16 @@ import {
   POLL_CREATION_FAILURE,
   POLL_CREATION_SUCCESS,
   GET_POLLS_SUBSCRIBED_TO_SUCCESS,
-  GET_POLLS_SUBSCRIBED_TO_FAILURE
+  GET_POLLS_SUBSCRIBED_TO_FAILURE,
+  GET_MY_POLLS_SUCCESS,
+  GET_MY_POLLS_FAILURE
 } from '../constants/polls'
 
 const defaultState = {
   lastPollCreated: -1,
   error: null,
-  pollsSubscribedTo: []
+  pollsSubscribedTo: [],
+  myPolls:[]
 }
 
 const Polls = (state = defaultState, action) => {
@@ -34,6 +37,16 @@ const Polls = (state = defaultState, action) => {
         ...state,
         error: action.error
       }
+    case GET_MY_POLLS_SUCCESS:
+      return {
+        ...state,
+        myPolls: action.polls
+      }
+    case GET_MY_POLLS_FAILURE:
+        return {
+          ...state,
+          error: action.error
+        }
     default:
       return state
   }

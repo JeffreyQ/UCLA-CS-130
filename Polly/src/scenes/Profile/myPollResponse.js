@@ -43,7 +43,7 @@ class MyPollResponseScreen extends React.Component{
         return(
             <SafeAreaView style={styles.container}>
                 <View style ={styles.headingContainer}>
-                    <Text style={styles.heading}> Poll Response #1 </Text>
+                    <Text style={styles.heading}> {this.props.prompt} </Text>
                 </View>
                 <View style ={styles.headingContainer}>
                     <Text style={styles.average}> 1 </Text>
