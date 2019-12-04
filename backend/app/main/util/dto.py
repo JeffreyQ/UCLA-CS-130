@@ -40,6 +40,12 @@ class UserDto:
         'user_id' : fields.Integer(description = 'id of who I am following'),
         'name': fields.String(description='name of who I am following')
     })
+
+    invited_by_user = api.model('invited_by_user', {
+        'user_id' : fields.Integer(description = 'id of user who sent invitation'),
+        'name': fields.String(description='name of user who sent invitation')
+    })
+
 class PollDto:
     api = Namespace('poll', description='poll related operations')
 
