@@ -53,7 +53,7 @@ class ProfileScreen extends React.Component{
                 alignSelf:'stretch',
                 padding: 20,
               }}>
-                {this.props.myPolls.map( poll => <Card key={poll.id} poll={poll} onPress={() => navigate('NumberScaleResponseScreen',{prompt:poll.prompt})}/>)}
+                {this.props.myPolls.map( poll => <Card key={poll.id} poll={poll} onPress={() => navigate('MultipleChoiceResponseScreen',{prompt:poll.prompt})}/>)}
             </ScrollView>
           </View>
         </View>
