@@ -7,11 +7,12 @@ import Heading from './heading'
 import Card from './card'
 
 class PublishedPollsScreen extends React.Component {
-  onCardPress = poll => {
+  onCardPress = pollId => {
     const { submitAnswer, checkRespondedToPoll } = this.props
-    checkRespondedToPoll(poll.id)
+    checkRespondedToPoll(pollId)
+    console.log(pollId)
     return this.props.navigation.navigate('PollDetails', {
-      poll,
+      pollId,
       submitAnswer,
       checkRespondedToPoll
     })
@@ -36,7 +37,7 @@ class PublishedPollsScreen extends React.Component {
                   <Card
                     key={poll.id}
                     poll={poll}
-                    onPress={() => this.onCardPress(poll)}
+                    onPress={() => this.onCardPress(poll.id)}
                     user={this.props.users.find(user => user.id === poll.owner_id)}
                   />
                 )}

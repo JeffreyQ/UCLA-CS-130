@@ -1,7 +1,7 @@
 import React from 'react'
 import Slider from '@react-native-community/slider'
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
-import { heading1Text } from '../../../textMixins'
+import { heading1Text, bodyText, grayBody } from '../../../textMixins'
 import { shadowStyle } from '../../../styles'
 
 class NumberScalePoll extends React.Component {
@@ -21,6 +21,22 @@ class NumberScalePoll extends React.Component {
     this.props.submitAnswer(answer, poll.id)
   }
 
+  renderPrompt = () => {
+    const { poll } = this.props
+
+    if (poll.responded) {
+      return <Text style={styles.respondedText}>You've already responded to this poll</Text>
+    }
+
+    return (
+      <TouchableHighlight underlayColor={"#fff"} onPress={this.submit}>
+        <View style={styles.button}>
+          <Text>Submit</Text>
+        </View>
+      </TouchableHighlight>
+    )
+  }
+
   render() {
     const { poll } = this.props
     return (
@@ -35,11 +51,7 @@ class NumberScalePoll extends React.Component {
           minimumTrackTintColor="#000"
           maximumTrackTintColor="#000"
         />
-        <TouchableHighlight underlayColor={"#fff"} onPress={this.submit}>
-          <View style={styles.button}>
-            <Text>Submit</Text>
-          </View>
-        </TouchableHighlight>
+        {this.renderPrompt()}
       </View>
     )
   }
@@ -51,6 +63,10 @@ const styles = StyleSheet.create({
   },
   text: {
     ...heading1Text
+  },
+  respondedText: {
+    ...bodyText,
+    ...grayBody
   },
   button: {
     backgroundColor: '#99C2FF',
