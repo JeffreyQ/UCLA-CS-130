@@ -6,6 +6,7 @@ import { heading1Text, heading2Text } from '../../../textMixins'
 import NumberScalePoll from './NumberScalePoll'
 import MultipleChoicePoll from './MultipleChoicePoll'
 import TwoChoicePoll from './TwoChoicePoll'
+import FreeResponsePoll from './FreeReponsePoll'
 
 class PollDetails extends React.Component {
   static navigationOptions = {
@@ -29,6 +30,8 @@ class PollDetails extends React.Component {
           return <TwoChoicePoll poll={poll} submitAnswer={submitAnswer} />
         }
         return <MultipleChoicePoll poll={poll} submitAnswer={submitAnswer} />
+      case "freeResp":
+        return <FreeResponsePoll poll={poll} submitAnswer={submitAnswer} />
     }
   }
   render() {
