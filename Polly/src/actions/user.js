@@ -140,7 +140,7 @@ export const getMe = () => {
 
       dispatch({
         type: userConstants.GET_ME_SUCCESS,
-        users:json.data
+        me:json
       })
     } catch (error) {
       dispatch({

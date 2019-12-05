@@ -5,8 +5,12 @@ import { connect } from 'react-redux'
 import { heading2Text, bodyText, grayBody } from '../../textMixins'
 import { getSubscribers, getSubscribedTo } from '../../actions/user'
 
+import Util from '../../util'
+
 class Heading extends React.Component {
   render(){
+    console.log(this.props.me.fbId)
+    const imageUrl = Util.getProfilePicUrl(this.props.me.fb_id)
     let numSubscribers = 0
     if(this.props.subscribers){
       numSubscribers = this.props.subscribers.length
@@ -18,8 +22,8 @@ class Heading extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.profilePicContainer}>
-          <Image source={require('./profile.jpg')} style={styles.profilePic}/>
-          <Text style={styles.name}>Stephanie</Text>
+          <Image source={{uri: imageUrl}} style={styles.profilePic}/>
+          <Text style={styles.name}>{this.props.me.name}</Text>
         </View>
         <TouchableHighlight underlayColor={"#fff"} onPress={this.props.subscriberPress}>
           <View style={styles.count}>

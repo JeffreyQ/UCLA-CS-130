@@ -5,6 +5,9 @@ import { ScrollView , withNavigation} from 'react-navigation'
 import Heading from './heading'
 import Card from './card'
 
+import Util from '../../util'
+
+
 class ProfileScreen extends React.Component{
     onCardPress = pollId => {
         const{getPollResponse,subscribers,pollResponse} = this.props
@@ -29,6 +32,7 @@ class ProfileScreen extends React.Component{
                     subscriptionPress={() => navigate('SubscriptionScreen', {subscribedTo:this.props.subscribedTo})} 
                     subscribers={this.props.subscribers} 
                     subscribedTo={this.props.subscribedTo}
+                    me={this.props.me}
                     logout={this.props.logout}
                     />
                     <View style={{flex: 1}}>
