@@ -5,6 +5,7 @@ import { heading1Text, heading2Text } from '../../../textMixins'
 
 import NumberScalePoll from './NumberScalePoll'
 import SelectAllPoll from './SelectAllPoll'
+import TrueFalsePoll from './TrueFalsePoll'
 
 class PollDetails extends React.Component {
   static navigationOptions = {
@@ -18,12 +19,15 @@ class PollDetails extends React.Component {
   };
   renderPollComponent = poll => {
     const submitAnswer = this.props.navigation.getParam('submitAnswer')
+    console.log(poll.form_type)
 
     switch (poll.form_type) {
       case "numScale":
         return <NumberScalePoll poll={poll} submitAnswer={submitAnswer} />
       case "selectAll":
         return <SelectAllPoll poll={poll} submitAnswer={submitAnswer} />
+      case "multChoice":
+        return <TrueFalsePoll poll={poll} submitAnswer={submitAnswer} />
     }
   }
   render() {
