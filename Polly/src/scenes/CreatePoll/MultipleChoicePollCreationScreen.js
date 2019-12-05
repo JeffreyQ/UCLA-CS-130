@@ -3,11 +3,11 @@ import { View, Text, TextInput } from 'react-native'
 import { ThemeProvider, Button } from 'react-native-elements'
 import { theme, styles } from './style'
 
-export default class SelectAllPollCreationScreen extends React.Component {
+export default class MultipleChoicePollCreationScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      formType: 'selectAll',
+      formType: 'multChoice',
       prompt: '',
       option1: '',
       option2: '',
@@ -17,7 +17,7 @@ export default class SelectAllPollCreationScreen extends React.Component {
   }
   
   static navigationOptions = {
-    title: 'Select All Poll',
+    title: 'Multiple Choice Poll',
   };
   render() {
     createPoll = this.props.navigation.getParam('createPoll')

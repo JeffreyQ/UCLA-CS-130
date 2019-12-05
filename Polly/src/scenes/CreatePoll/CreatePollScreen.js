@@ -6,8 +6,7 @@ import { View, StyleSheet } from 'react-native'
 import { createPoll } from '../../actions/polls'
 import { theme, elevationShadowStyle } from './style'
 
-
-class CreatePollScreen extends React.Component {
+export class CreatePollScreen extends React.Component {
     static navigationOptions = {
       title: 'Create New Poll',
     };
@@ -15,7 +14,7 @@ class CreatePollScreen extends React.Component {
       const { navigate } = this.props.navigation;
       return(
         <ThemeProvider theme={theme}>
-          <View style={styles.view}> 
+          <View style={styles.view} className='mainView'> 
             <Button
               style={styles.container}
               title="True False"
@@ -33,8 +32,8 @@ class CreatePollScreen extends React.Component {
             />
             <Button
               style={styles.container}
-              title="Select All"
-              onPress={() => navigate('SelectAllPoll', {name: 'SelectAll', createPoll: this.props.createPoll})}
+              title="Multiple Choice"
+              onPress={() => navigate('MultipleChoicePoll', {name: 'MultipleChoice', createPoll: this.props.createPoll})}
             />
           </View>
         </ThemeProvider>
