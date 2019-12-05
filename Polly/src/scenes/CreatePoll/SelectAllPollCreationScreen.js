@@ -77,10 +77,7 @@ export default class SelectAllPollCreationScreen extends React.Component {
               createPoll({
                 ...this.state,
                 respStruct: {
-                  option1: option1,
-                  option2: option2,
-                  option3: option3,
-                  option4: option4
+                  options: [option1, option2, option3, option4]
                 }
               })
               this.props.navigation.goBack()

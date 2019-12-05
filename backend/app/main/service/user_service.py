@@ -51,7 +51,7 @@ def save_new_user(data):
 def get_all_users():
     user = get_current_user()
     users_and_relationship = db.session \
-        .query(User.id, User.email, User.name, FollowerRelationship.relationship_status) \
+        .query(User.id, User.email, User.name, User.fb_id, FollowerRelationship.relationship_status) \
         .outerjoin(FollowerRelationship, FollowerRelationship.follower_id == User.id) \
         .filter(User.id != user.id) \
         .all()

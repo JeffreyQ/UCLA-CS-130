@@ -4,7 +4,9 @@ import {
   GET_POLLS_SUBSCRIBED_TO_SUCCESS,
   GET_POLLS_SUBSCRIBED_TO_FAILURE,
   ANSWER_POLL_SUCCESS,
-  ANSWER_POLL_FAILURE
+  ANSWER_POLL_FAILURE,
+  CHECK_RESPONDED_TO_POLL_SUCCESS,
+  CHECK_RESPONDED_TO_POLL_FAILURE
 } from '../constants/polls'
 
 export const createPoll = pollData => {
@@ -82,7 +84,7 @@ export const submitAnswer = (answer, pollId) => {
     const state = getState()
     const { JSONWebToken } = state.Auth
     try {
-      const response = await fetch(`http://localhost:5000/poll/response/${pollId}`, {
+      const response = await fetch(`http://localhost:5000/poll/${pollId}/response`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,13 +98,47 @@ export const submitAnswer = (answer, pollId) => {
       }
 
       return dispatch({
-        type: ANSWER_POLL_SUCCESS
+        type: ANSWER_POLL_SUCCESS,
+        pollId,
+        responded: true
       })
     } catch (error) {
       dispatch({
         type: ANSWER_POLL_FAILURE,
-        error
+        error: error.message
       }) 
+    }
+  }
+}
+
+export const checkRespondedToPoll = (pollId) => {
+  return async (dispatch, getState) => {
+    const { JSONWebToken } = getState().Auth 
+    try {
+      const response = await fetch(`http://localhost:5000/poll/${pollId}/responded`, {
+        headers: {
+          'Authorization': `Bearer ${JSONWebToken}`
+        }
+      })
+
+      if (response.status != 200) {
+        throw new Error('Failed to check if responded to poll')
+      }
+
+      const data = await response.json()
+
+      return dispatch({
+        type: CHECK_RESPONDED_TO_POLL_SUCCESS,
+        pollId,
+        responded: data.responded
+      })
+
+    } catch (error) {
+      console.log(error)
+      dispatch({
+        type: CHECK_RESPONDED_TO_POLL_FAILURE,
+        error
+      })
     }
   }
 }

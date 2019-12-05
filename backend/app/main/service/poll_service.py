@@ -142,7 +142,7 @@ def respond_to_poll(user_id,poll_id,data):
         return {
             'status': 'success',
             'message': 'Response posted successfully'
-        },200
+        },201
     except Exception as e:
         print(e)
         return 404

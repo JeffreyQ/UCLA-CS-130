@@ -16,6 +16,7 @@ class UserDto:
         'email': fields.String(description='user email'),
         'name': fields.String(required=True, description='name'),
         'id': fields.Integer(required=True, description='user id'),
+        'fb_id': fields.String(required=True, description='facebook id'),
         'relationship_status': fields.String
     })
 

@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, StyleSheet, Text, Image, TouchableHighlight } from 'react-native'
+import { connect } from 'react-redux'
+
 import { heading2Text, bodyText, grayBody } from '../../textMixins'
 import { getSubscribers, getSubscribedTo } from '../../actions/user'
-import { connect } from 'react-redux'
 
 class Heading extends React.Component {
   render(){
@@ -23,6 +24,9 @@ class Heading extends React.Component {
             <Text style={{...heading2Text}}>{this.props.subscribed.length}</Text>
             <Text style={{...bodyText}}>Pollers</Text>
           </View>
+        </TouchableHighlight>
+        <TouchableHighlight underlayColor={"#fff"} onPress={this.props.logout}>
+          <Text>Log Out</Text>
         </TouchableHighlight>
       </View>
     )
