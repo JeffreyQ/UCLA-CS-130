@@ -5,11 +5,11 @@ import CreatePollScreen from './CreatePollScreen'
 import TrueFalsePollCreationScreen from './TrueFalsePollCreationScreen'
 import NumberScalePollCreationScreen from './NumberScalePollCreationScreen'
 import ShortAnswerPollCreationScreen from './ShortAnswerPollCreationScreen'
-import SelectAllPollCreationScreen from './SelectAllPollCreationScreen'
+import MultipleChoicePollCreationScreen from './MultipleChoicePollCreationScreen'
 
 const RouteConfigs = {
   CreatePoll: {screen: CreatePollScreen},
-  SelectAllPoll: {screen: SelectAllPollCreationScreen},
+  MultipleChoicePoll: {screen: MultipleChoicePollCreationScreen},
   TrueFalsePoll: {screen: TrueFalsePollCreationScreen},
   NumberScalePoll: {screen: NumberScalePollCreationScreen},
   ShortAnswerPoll: {screen: ShortAnswerPollCreationScreen},

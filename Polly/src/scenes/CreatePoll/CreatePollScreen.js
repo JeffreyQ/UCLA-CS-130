@@ -33,8 +33,8 @@ class CreatePollScreen extends React.Component {
             />
             <Button
               style={styles.container}
-              title="Select All"
-              onPress={() => navigate('SelectAllPoll', {name: 'SelectAll', createPoll: this.props.createPoll})}
+              title="Multiple Choice"
+              onPress={() => navigate('MultipleChoicePoll', {name: 'MultipleChoice', createPoll: this.props.createPoll})}
             />
           </View>
         </ThemeProvider>
