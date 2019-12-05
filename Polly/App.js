@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import { createAppContainer } from 'react-navigation'
-import { createBottomTabNavigator } from 'react-navigation-tab'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Provider, connect } from 'react-redux'
 
