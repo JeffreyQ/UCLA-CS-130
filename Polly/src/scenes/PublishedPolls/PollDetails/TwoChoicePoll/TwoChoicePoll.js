@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { withNavigation } from 'react-navigation'
 
 import Button from '../../../../components/Button'
 import { heading1Text, heading2Text, bodyText, grayBody } from '../../../../textMixins'
@@ -10,12 +11,14 @@ class TwoChoicePoll extends React.Component {
   }
 
   submit = () => {
-    const { poll } = this.props
+    const { poll, navigation } = this.props
     const answer = {
-      option: this.state.answer ? 1 : 0
+      option: this.state.answer ? 1 : 0,
+      comment: answer ? "true" : "false"
     }
 
     this.props.submitAnswer(answer, poll.id)
+    navigation.goBack()
   }
 
   select = answer => {
@@ -34,7 +37,6 @@ class TwoChoicePoll extends React.Component {
   render() {
     const { poll } = this.props
     const { answer } = this.state
-    console.log(answer)
 
     return (
       <View style={styles.container}>
@@ -107,4 +109,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default TwoChoicePoll
+export default withNavigation(TwoChoicePoll)

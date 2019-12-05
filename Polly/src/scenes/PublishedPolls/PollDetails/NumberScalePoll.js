@@ -1,4 +1,5 @@
 import React from 'react'
+import { withNavigation } from 'react-navigation'
 import Slider from '@react-native-community/slider'
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { heading1Text, bodyText, grayBody } from '../../../textMixins'
@@ -13,12 +14,13 @@ class NumberScalePoll extends React.Component {
   }
 
   submit = () => {
-    const { poll } = this.props
+    const { poll, navigation } = this.props
     const answer = {
       option: this.state.value,
       comment: ""
     }
     this.props.submitAnswer(answer, poll.id)
+    navigation.goBack()
   }
 
   renderPrompt = () => {
@@ -80,4 +82,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NumberScalePoll
+export default withNavigation(NumberScalePoll)
