@@ -124,3 +124,12 @@ def get_user_subscribedto():
     .filter(FollowerRelationship.relationship_status == "accepted")\
     .all()
     return [u._asdict() for u in subscribedto], 200
+
+def get_invited_by_users(user_id):
+
+    invited_by = db.session.query(User.name, FollowerRelationship.user_id )\
+    .outerjoin(FollowerRelationship,FollowerRelationship.user_id == User.id)\
+    .filter(FollowerRelationship.follower_id == user_id)\
+    .filter(FollowerRelationship.relationship_status == "pending")\
+    .all()
+    return [u._asdict() for u in invited_by], 200

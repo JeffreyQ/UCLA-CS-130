@@ -41,17 +41,23 @@ class UserDto:
         'user_id' : fields.Integer(description = 'id of who I am following'),
         'name': fields.String(description='name of who I am following')
     })
+
+    invited_by_user = api.model('invited_by_user', {
+        'user_id' : fields.Integer(description = 'id of user who sent invitation'),
+        'name': fields.String(description='name of user who sent invitation')
+    })
+
 class PollDto:
     api = Namespace('poll', description='poll related operations')
 
     resp_struct_fields = api.model('Response_Struct', {
         'low': fields.String(description='label for low value on scale'),
         'high': fields.String(description='label for high value on scale'),
-        'options': fields.List(fields.String, description='list of answer options'),
+        'options': fields.List(fields.String, description='list of answer options. For True/False polls simply add [False, True] options'),
     })
     create_poll_fields = api.model('Create_Poll_Fields', {
     	'prompt': fields.String(required=True, description='poll question prompt'),
-    	'form_type': fields.String(required=True, description='form type', enum=['multChoice', 'selectAll', 'numScale', 'freeResp']),
+    	'form_type': fields.String(required=True, description='form type, use multChoice for True/False', enum=['multChoice', 'numScale', 'freeResp']),
     	'resp_struct': fields.Nested(resp_struct_fields),
     })
     create_poll_response = api.model('Poll_Id', {
@@ -61,7 +67,7 @@ class PollDto:
         'id': fields.Integer(required=True, description='poll id'),
     	'owner_id': fields.Integer(required=True, description='poll owner id'),
     	'prompt': fields.String(required=True, description='poll question prompt'),
-    	'form_type': fields.String(required=True, description='form type', enum=['multChoice', 'selectAll', 'numScale', 'freeResp']),
+    	'form_type': fields.String(required=True, description='form type, use multChoice for True/False', enum=['multChoice', 'numScale', 'freeResp']),
     	'resp_struct': fields.Nested(resp_struct_fields),
         'is_open': fields.Boolean(required=True, description='Status of whether poll is still open')
     })

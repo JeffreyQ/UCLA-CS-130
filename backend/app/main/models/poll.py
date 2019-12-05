@@ -2,7 +2,7 @@ from .. import db
 import datetime
 from sqlalchemy import Enum, DateTime
 
-form_types = ("multChoice", "selectAll", "numScale", "freeResp")
+form_types = ("multChoice", "numScale", "freeResp")
 form_type_enum = Enum(*form_types, name="form_type")
 
 

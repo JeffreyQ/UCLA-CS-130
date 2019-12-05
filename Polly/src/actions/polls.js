@@ -88,7 +88,7 @@ export const submitAnswer = (answer, pollId) => {
     const state = getState()
     const { JSONWebToken } = state.Auth
     try {
-      const response = await fetch(`http://localhost:5000/poll/response/${pollId}`, {
+      const response = await fetch(`http://localhost:5000/poll/${pollId}/response`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -102,12 +102,14 @@ export const submitAnswer = (answer, pollId) => {
       }
 
       return dispatch({
-        type: ANSWER_POLL_SUCCESS
+        type: ANSWER_POLL_SUCCESS,
+        pollId,
+        responded: true
       })
     } catch (error) {
       dispatch({
         type: ANSWER_POLL_FAILURE,
-        error
+        error: error.message
       }) 
     }
   }
@@ -162,11 +164,12 @@ export const getPollResponse = (pollId) => {
         throw new Error("Failed to get polls subscribed to")
       }
 
-      const polls = await response.json()
+      const responses = await response.json()
 
       return dispatch({
         type: GET_POLL_RESPONSE_SUCCESS,
-        polls
+        pollId,
+        responses:responses
       })
     } catch (error) {
       dispatch({

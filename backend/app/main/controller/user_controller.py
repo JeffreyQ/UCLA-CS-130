@@ -3,7 +3,7 @@ from flask_restplus import Resource
 from flask_jwt_extended import jwt_required, get_current_user
 
 from app.main.util.dto import UserDto
-from app.main.service.user_service import save_new_user, get_all_users, get_a_user, create_user_follow_request, confirm_user_follow_request, get_user_subscribers,get_user_subscribedto
+from app.main.service.user_service import save_new_user, get_all_users, get_a_user, create_user_follow_request, confirm_user_follow_request, get_user_subscribers,get_user_subscribedto, get_invited_by_users
 
 api = UserDto.api
 
@@ -80,6 +80,15 @@ class UserSubscribedTo(Resource):
     def get(self):
         """get people user is subscribed to"""
         return get_user_subscribedto()
+
+@api.route('/me/invitedby')
+class InvitedBy(Resource):
+    @api.doc('get list of users that have invited current user to subscribe', security='Bearer Auth')
+    @jwt_required
+    @api.marshal_list_with(UserDto.invited_by_user)
+    def get(self):
+        user = get_current_user()
+        return get_invited_by_users(user.id)
 
 @api.route('/me')
 class UserDetails(Resource):

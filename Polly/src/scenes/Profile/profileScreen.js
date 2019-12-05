@@ -7,7 +7,6 @@ import { ScrollView } from 'react-navigation'
 
 
 import Card from './card'
-import MyPollResponseScreen from './myPollResponse'
 import Heading from './heading'
 import SubscriptionScreen  from './subscriptionScreen'
 import SubscriberScreen from './subscriberScreen'
@@ -15,8 +14,7 @@ import PollResponse from '../PollResponse'
 
 
 import { getSubscribedTo, getSubscribers } from '../../actions/user' 
-import { getMyPolls } from '../../actions/polls' 
-import { connect } from 'react-redux'
+import { getMyPolls, getPollResponse } from '../../actions/polls' 
 import { logout } from '../../actions/auth'
 
 class ProfileScreen extends React.Component{
@@ -27,36 +25,13 @@ class ProfileScreen extends React.Component{
     props.getMyPolls()
   }
 
-  onCardPress = pollId => {
-    return this.props.navigation.navigate('PollResponse', {
-      pollId
+  onPress = (pollId) => {
+    const { getPollResponse } = this.props
+    getPollResponse(pollId)
+    return this.props.navigation.navigate('ResponseContainer', {
+      pollId,
+      getPollResponse
     })
-  }
-  checkPoll=(param)=>{
- 
-    switch(param) {
- 
-      case 'multChoice':
-        return 'TrueFalseResponseScreen';
-        break;
-      
-      case 'selectAll':
-        return 'SelectAllResponseScreen';
-        break;
- 
-      case 'freeResp':
-        return 'ShortAnswerResponseScreen';
-        break;
- 
-      case 'numScale':
-        return 'NumberScaleResponseScreen';
-        break;
- 
-      default:
-        return 'NumberScaleResponseScreen';
-    
-      }
- 
   }
 
   render() {
@@ -75,7 +50,6 @@ class ProfileScreen extends React.Component{
             <Text style={{...heading1Text}}>My Polls</Text>
             <Text style={{...bodyText, ...grayBody}}>Filter</Text>
           </View>
-          {/* <Card onPress={() => navigate('MyPollResponseScreen')}/> */}
           <View style={styles.scrollContainer}>
             <ScrollView
               style={{
@@ -83,7 +57,7 @@ class ProfileScreen extends React.Component{
                 alignSelf:'stretch',
                 padding: 20,
               }}>
-                {this.props.myPolls.map( poll => <Card key={poll.id} poll={poll} onPress={() => navigate(this.checkPoll(poll.form_type),{prompt:poll.prompt})}/>)}
+                {this.props.myPolls.map( poll => <Card key={poll.id} poll={poll} onPress={this.onPress(poll.id)} />)}
             </ScrollView>
           </View>
         </View>
@@ -135,24 +109,3 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen)
 
-// const RouteConfigs = {
-//   Profile: {
-//     screen: ProfileScreen
-//   },
-//   PollResponse: {
-//     screen: PollResponse
-//   },
-//   SubscriptionContainer: {
-//     screen: SubscriptionContainer
-//   },
-//   SubscriberContainer:{
-//     screen: SubscriberContainer
-//   },
-// }
-
-// const StackNavigatorConfigs = {
-//   initialRouteName: 'Profile',
-// }
-
-
-// export default createStackNavigator(RouteConfigs, StackNavigatorConfigs)

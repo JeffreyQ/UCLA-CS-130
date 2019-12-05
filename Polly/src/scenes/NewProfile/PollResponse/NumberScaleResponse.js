@@ -1,52 +1,30 @@
 import React from 'react'
 import { StyleSheet, Text, SafeAreaView, View } from 'react-native'
 import { ScrollView } from 'react-navigation'
-import { heading1Text,heading2Text, bodyText, grayBody } from '../../textMixins'
+import { heading1Text,heading2Text, bodyText, grayBody } from '../../../textMixins'
 // import {  } from '../../actions/poll' 
 import ResponseEntry from './responseEntry'
 import { connect } from 'react-redux'
 
-const users = [
-    {
-      id:1,
-      name: 'Stephanie Y',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-    {
-      id:2,
-      name: 'Ram G.',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-    {
-      id:3,
-      name: 'Jeff Q.',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-    {
-      id:4,
-      name: 'Jesse C.',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-    {
-      id:5,
-      name: 'Lawrence C.',
-      image: require('./profile.jpg'),
-      response: 1
-    },
-  ]
-class MyPollResponseScreen extends React.Component{
+class NumberScaleResponse extends React.Component{
+    constructor(props) {
+        super(props)
+    }
     render() {
+        const{poll} = this.props
+        let average = 0;
+        for(let r in poll.responses)
+        {
+            average = average + poll.responses[r]['answer']
+        }
+        average = (average/poll.responses.length).toFixed(2)
         return(
             <SafeAreaView style={styles.container}>
                 <View style ={styles.headingContainer}>
-                    <Text style={styles.heading}> {this.props.prompt} </Text>
+                    <Text style={styles.heading}> {poll.prompt} </Text>
                 </View>
                 <View style ={styles.headingContainer}>
-                    <Text style={styles.average}> 1 </Text>
+                    <Text style={styles.average}> {average} </Text>
                     <Text> Average Response </Text>
                 </View>
                 <View style={styles.scrollContainer}>
@@ -56,7 +34,7 @@ class MyPollResponseScreen extends React.Component{
                         alignSelf:'stretch',
                         padding: 20,
                         }}>
-                        {users.map(user =><ResponseEntry key={user.id}user={user}/>)}
+                        {poll.responses.map(response =><ResponseEntry response={response} user={(this.props.users.filter(user => user.id === response.responder_id))[0]}/>)}
                     </ScrollView>
                 </View>
             </SafeAreaView>
@@ -101,4 +79,4 @@ const styles = StyleSheet.create({
     },
   })
 
-  export default MyPollResponseScreen
+  export default NumberScaleResponse

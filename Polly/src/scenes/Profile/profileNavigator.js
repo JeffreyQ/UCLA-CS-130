@@ -5,12 +5,12 @@ import SubscriptionScreen  from './subscriptionScreen'
 import SubscriberScreen from './subscriberScreen'
 import PollResponse from '../PollResponse'
 import ProfileScreen from './profileScreen'
-import MyPollResponseScreen from './myPollResponse'
 import NumberScaleResponseScreen from './numberScaleResponse'
 import TrueFalseResponseScreen from './trueFalseResponseScreen'
 import SelectAllResponseScreen from './selectAllResponse'
 import ShortAnswerResponseScreen from './shortAnswerResponse'
 import GeneralResponseScreen from './generalResponse'
+import ResponseContainer from './responseContainer'
 
 const RouteConfigs = {
     Profile: {
@@ -25,20 +25,8 @@ const RouteConfigs = {
     SubscriberScreen:{
       screen: SubscriberScreen
     },
-    MyPollResponseScreen:{
-      screen: MyPollResponseScreen
-    },
-    NumberScaleResponseScreen:{
-      screen: NumberScaleResponseScreen
-    },
-    TrueFalseResponseScreen:{
-      screen: TrueFalseResponseScreen
-    },
-    SelectAllResponseScreen:{
-      screen: SelectAllResponseScreen
-    },
-    ShortAnswerResponseScreen:{
-      screen: ShortAnswerResponseScreen
+    ResponseContainer:{
+      screen: ResponseContainer
     },
     GeneralResponseScreen:{
       screen: GeneralResponseScreen
