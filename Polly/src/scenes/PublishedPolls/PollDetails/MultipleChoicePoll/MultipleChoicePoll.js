@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
+import { withNavigation } from 'react-navigation'
 
 import { heading1Text, bodyText, grayBody } from '../../../../textMixins'
 import ResponseCard from './ResponseCard'
@@ -17,7 +18,7 @@ class SelectAllPoll extends React.Component {
   }
 
   submit = () => {
-    const { poll } = this.props
+    const { poll, navigation } = this.props
     const { options } = poll.resp_struct
     const answer = {
       option: this.state.selected,
@@ -25,6 +26,7 @@ class SelectAllPoll extends React.Component {
     }
 
     this.props.submitAnswer(answer, poll.id)
+    navigation.goBack()
   }
 
   renderPrompt = () => {
@@ -87,4 +89,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SelectAllPoll
+export default withNavigation(SelectAllPoll)

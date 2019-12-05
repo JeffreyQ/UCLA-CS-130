@@ -33,7 +33,6 @@ export const createPoll = pollData => {
         }),
       })
       if (response.status != 201) {
-        console.log(response.json())
         throw "Unable to create poll."
       }
       
@@ -202,7 +201,6 @@ export const checkRespondedToPoll = (pollId) => {
       })
 
     } catch (error) {
-      console.log(error)
       dispatch({
         type: CHECK_RESPONDED_TO_POLL_FAILURE,
         error
