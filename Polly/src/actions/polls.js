@@ -84,7 +84,7 @@ export const submitAnswer = (answer, pollId) => {
     const state = getState()
     const { JSONWebToken } = state.Auth
     try {
-      const response = await fetch(`http://localhost:5000/poll/response/${pollId}`, {
+      const response = await fetch(`http://localhost:5000/poll/${pollId}/response`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,12 +98,13 @@ export const submitAnswer = (answer, pollId) => {
       }
 
       return dispatch({
-        type: ANSWER_POLL_SUCCESS
+        type: ANSWER_POLL_SUCCESS,
+        pollId
       })
     } catch (error) {
       dispatch({
         type: ANSWER_POLL_FAILURE,
-        error
+        error: error.message
       }) 
     }
   }
