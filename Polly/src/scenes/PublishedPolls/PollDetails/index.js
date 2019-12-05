@@ -4,14 +4,26 @@ import { View, Text, StyleSheet, Dimensions, Image } from 'react-native'
 import { heading1Text, heading2Text } from '../../../textMixins'
 
 import NumberScalePoll from './NumberScalePoll'
+import SelectAllPoll from './SelectAllPoll'
 
 class PollDetails extends React.Component {
+  static navigationOptions = {
+    headerStyle: {
+      backgroundColor: '#EEEEEE',
+      borderBottomWidth: 0,
+    },
+    headerTitleStyle: {
+      fontSize: 18,
+    },
+  };
   renderPollComponent = poll => {
     const submitAnswer = this.props.navigation.getParam('submitAnswer')
 
     switch (poll.form_type) {
       case "numScale":
-        return <NumberScalePoll poll={poll} submitAnswer={submitAnswer}/>
+        return <NumberScalePoll poll={poll} submitAnswer={submitAnswer} />
+      case "selectAll":
+        return <SelectAllPoll poll={poll} submitAnswer={submitAnswer} />
     }
   }
   render() {
@@ -23,22 +35,8 @@ class PollDetails extends React.Component {
     }
 
     return (
-      <View>
-        <View style={{
-          width,
-          height: width,
-          backgroundColor: 'rgba(86, 204, 242, .08)',
-          justifyContent: 'space-evenly',
-          alignItems: 'center'
-        }}>
-          <Image
-            source={{uri: 'https://via.placeholder.com/150'}}
-            style={{height: 150, width: 150}} />
-          <Text style={styles.title}>{poll.prompt}</Text>
-        </View>
-        <View style={styles.pollDetailsContainer}>
-          {this.renderPollComponent(poll)}
-        </View>
+      <View style={styles.pollDetailsContainer}>
+        {this.renderPollComponent(poll)}
       </View>
     )
   }
@@ -52,7 +50,8 @@ const styles = StyleSheet.create({
     ...heading2Text
   },
   pollDetailsContainer: {
-    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#EEEEEE',
     alignItems: 'center'
   }
 })
