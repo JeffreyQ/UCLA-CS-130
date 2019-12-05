@@ -1,5 +1,6 @@
 .PHONY: test
 
+
 build:
 	docker-compose build
 
@@ -25,3 +26,6 @@ clean:
 
 test:
 	docker-compose -p polly-test -f docker-compose.test.yml up --abort-on-container-exit
+
+coverage:
+	docker-compose -p polly-test -f docker-compose.test.yml up 
