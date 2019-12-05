@@ -31,7 +31,7 @@ class TestPollService(BaseTestCase):
         db.session.commit()
 
         mock.return_value = user_1
-        resp, status_code = poll_service.save_new_poll(1, {"prompt": "test", "form_type":"selectAll",  "resp_struct": None })
+        resp, status_code = poll_service.save_new_poll(1, {"prompt": "test", "form_type":"multChoice",  "resp_struct": None })
 
         expected = {"id": 1}
         assert expected == resp
@@ -45,7 +45,7 @@ class TestPollService(BaseTestCase):
         poll_1_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 400736)
         poll_2_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 402306)
         
-        poll_1 = Poll(owner_id=1, prompt="test1", form_type="selectAll", resp_struct=None, created_date=poll_1_date)
+        poll_1 = Poll(owner_id=1, prompt="test1", form_type="multChoice", resp_struct=None, created_date=poll_1_date)
         poll_2 = Poll(owner_id=1, prompt="test2", form_type="multChoice", resp_struct=None, created_date=poll_2_date)
 
         db.session.add(user_1)
@@ -63,7 +63,7 @@ class TestPollService(BaseTestCase):
                 'owner_id': 1,
                 'created_date': poll_1_date, 
                 'prompt': 'test1',
-                'form_type': 'selectAll'
+                'form_type': 'multChoice'
             }, 
             {
                 'id': 2,
@@ -87,7 +87,7 @@ class TestPollService(BaseTestCase):
         poll_1_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 400736)
         poll_2_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 402306)
         
-        poll_1 = Poll(owner_id=1, prompt="test1", form_type="selectAll", resp_struct=None, created_date=poll_1_date)
+        poll_1 = Poll(owner_id=1, prompt="test1", form_type="multChoice", resp_struct=None, created_date=poll_1_date)
         poll_2 = Poll(owner_id=1, prompt="test2", form_type="multChoice", resp_struct=None, created_date=poll_2_date)
 
         db.session.add(user_1)
@@ -105,7 +105,7 @@ class TestPollService(BaseTestCase):
                 'owner_id': 1,
                 'created_date': poll_1_date, 
                 'prompt': 'test1',
-                'form_type': 'selectAll'
+                'form_type': 'multChoice'
             }, 
             {
                 'id': 2,
@@ -128,7 +128,7 @@ class TestPollService(BaseTestCase):
         poll_1_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 400736)
         poll_2_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 402306)
         
-        poll_1 = Poll(owner_id=1, prompt="test1", form_type="selectAll", resp_struct=None, created_date=poll_1_date)
+        poll_1 = Poll(owner_id=1, prompt="test1", form_type="multChoice", resp_struct=None, created_date=poll_1_date)
         poll_2 = Poll(owner_id=1, prompt="test2", form_type="multChoice", resp_struct=None, created_date=poll_2_date)
 
         db.session.add(user_1)
@@ -145,7 +145,7 @@ class TestPollService(BaseTestCase):
             'owner_id': 1,
             'created_date': poll_1_date, 
             'prompt': 'test1',
-            'form_type': 'selectAll'
+            'form_type': 'multChoice'
         } 
         
         assert expected == resp
@@ -158,7 +158,7 @@ class TestPollService(BaseTestCase):
         poll_1_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 400736)
         poll_2_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 402306)
         
-        poll_1 = Poll(owner_id=1, prompt="test1", form_type="selectAll", resp_struct=None, created_date=poll_1_date)
+        poll_1 = Poll(owner_id=1, prompt="test1", form_type="multChoice", resp_struct=None, created_date=poll_1_date)
         poll_2 = Poll(owner_id=1, prompt="test2", form_type="multChoice", resp_struct=None, created_date=poll_2_date)
 
         db.session.add(user_1)
@@ -178,7 +178,7 @@ class TestPollService(BaseTestCase):
             'owner_id': 1,
             'created_date': poll_1_date, 
             'prompt': 'test1',
-            'form_type': 'selectAll'
+            'form_type': 'multChoice'
         } 
         assert resp == expected
         assert status_code == 200
@@ -192,7 +192,7 @@ class TestPollService(BaseTestCase):
         poll_1_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 400736)
         poll_2_date = datetime.datetime(2019, 12, 5, 4, 10, 12, 402306)
         
-        poll_1 = Poll(owner_id=1, prompt="test1", form_type="selectAll", resp_struct=None, created_date=poll_1_date)
+        poll_1 = Poll(owner_id=1, prompt="test1", form_type="multChoice", resp_struct=None, created_date=poll_1_date)
         poll_2 = Poll(owner_id=1, prompt="test2", form_type="multChoice", resp_struct=None, created_date=poll_2_date)
 
         db.session.add(user_1)
@@ -209,7 +209,7 @@ class TestPollService(BaseTestCase):
                 'owner_id': 1,
                 'created_date': poll_1_date, 
                 'prompt': 'test1',
-                'form_type': 'selectAll'
+                'form_type': 'multChoice'
             }, 
             {
                 'id': 2,
@@ -224,22 +224,4 @@ class TestPollService(BaseTestCase):
 
         assert resp == expected
         assert status_code == 200
-
-
-    #TODO finish these
-    @cleared_db
-    def test_get_polls_responses(self):
-        pass
-
-    @cleared_db
-    def test_respond_to_poll(self):
-        pass
-
-    @cleared_db
-    def test_get_polls_following(self):
-        pass
-
-    @cleared_db
-    def test_has_responded_to_poll(self):
-        pass
 
