@@ -99,7 +99,8 @@ export const submitAnswer = (answer, pollId) => {
 
       return dispatch({
         type: ANSWER_POLL_SUCCESS,
-        pollId
+        pollId,
+        responded: true
       })
     } catch (error) {
       dispatch({

@@ -40,7 +40,6 @@ const Polls = (state = defaultState, action) => {
       }
     case ANSWER_POLL_SUCCESS:
     case CHECK_RESPONDED_TO_POLL_SUCCESS:
-      const poll = state.pollsSubscribedTo.find(poll => poll.id === action.pollId)
       const newPolls = state.pollsSubscribedTo.map(poll => {
         if (poll.id === action.pollId) {
           return {
