@@ -1,13 +1,15 @@
 import React from 'react'
 import { Image, View, Text, StyleSheet } from 'react-native'
 import { heading2Text, bodyText, grayBody } from '../../../textMixins'
+import Util from '../../../util'
 
 export default ResponseEntry = props => {
   const { user } = props
+  const imageUrl = (Util.getProfilePicUrl(props.users.find(u => user.follower_id == u.id).fbId))
   return (
     <View>
       <View style={styles.container}>
-        <Image source={require('./profile.jpg')} style={styles.image} />
+        <Image source={{uri: imageUrl}} style={styles.image} />
         <Text>{user.name}</Text>
         <Text>{props.response.answer}</Text>
       </View>

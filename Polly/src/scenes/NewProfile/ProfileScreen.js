@@ -5,18 +5,17 @@ import { ScrollView , withNavigation} from 'react-navigation'
 import Heading from './heading'
 import Card from './card'
 
-import Util from '../../util'
-
 
 class ProfileScreen extends React.Component{
     onCardPress = pollId => {
-        const{getPollResponse,subscribers,pollResponse} = this.props
+        const{getPollResponse,subscribers,pollResponse,users} = this.props
         getPollResponse(pollId)
         return this.props.navigation.navigate('PollResponse',{
             pollId,
             subscribers,
             getPollResponse,
-            pollResponse
+            pollResponse,
+            users
         })
     }
 
@@ -28,8 +27,8 @@ class ProfileScreen extends React.Component{
             <SafeAreaView style={styles.container}>
                 <View style={styles.container}>
                     <Heading
-                    subscriberPress={() => navigate('SubscriberScreen',{subscribers:this.props.subscribers})} 
-                    subscriptionPress={() => navigate('SubscriptionScreen', {subscribedTo:this.props.subscribedTo})} 
+                    subscriberPress={() => navigate('SubscriberScreen',{subscribers:this.props.subscribers, users:this.props.users})} 
+                    subscriptionPress={() => navigate('SubscriptionScreen', {subscribedTo:this.props.subscribedTo, users:this.props.users})} 
                     subscribers={this.props.subscribers} 
                     subscribedTo={this.props.subscribedTo}
                     me={this.props.me}

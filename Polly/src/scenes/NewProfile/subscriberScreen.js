@@ -25,7 +25,7 @@ class SubscriberScreen extends React.Component{
                 alignSelf:'stretch',
                 padding: 20,
               }}>
-                {this.props.navigation.getParam('subscribers').map(user =><SubscribeEntry key={user.id}user={user}/>)}
+                {this.props.navigation.getParam('subscribers').map(user =><SubscribeEntry key={user.id} user_id={user.follower_id} user={user} users={this.props.navigation.getParam('users')}/>)}
             </ScrollView>
           </View>
         </SafeAreaView>

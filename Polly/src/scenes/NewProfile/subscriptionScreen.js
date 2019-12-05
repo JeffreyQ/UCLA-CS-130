@@ -27,7 +27,7 @@ import SubscribeEntry from './subscribeEntry'
                   alignSelf:'stretch',
                   padding: 20,
                 }}>
-                  {this.props.navigation.getParam('subscribedTo').map(user =><SubscribeEntry key={user.id}user={user}/>)}
+                  {this.props.navigation.getParam('subscribedTo').map(user =><SubscribeEntry user_id={user.user_id} key={user.id} user={user} users={this.props.navigation.getParam('users')}/>)}
                   {/* {users.map(user => <SubscribeEntry key={user.id} user={user}/>)} */}
               </ScrollView>
             </View>

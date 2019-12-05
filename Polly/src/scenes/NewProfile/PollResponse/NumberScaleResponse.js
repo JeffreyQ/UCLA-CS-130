@@ -35,7 +35,7 @@ class NumberScaleResponse extends React.Component{
                         alignSelf:'stretch',
                         padding: 20,
                         }}>
-                        {poll.responses.map(response =><ResponseEntry response={response} user={(this.props.users.filter(user => user.follower_id === response.responder_id))[0]}/>)}
+                        {poll.responses.map(response =><ResponseEntry response={response} users={this.props.allUsers} user={(this.props.users.filter(user => user.follower_id === response.responder_id))[0]}/>)}
                     </ScrollView>
                 </View>
             </SafeAreaView>

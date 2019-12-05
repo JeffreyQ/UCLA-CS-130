@@ -13,11 +13,13 @@ class PollResponse extends React.Component {
     renderResponseComponent = poll => {    
         switch (poll.form_type) {
             case "numScale":
-                return <NumberScaleResponse poll={poll} users={this.props.navigation.getParam('subscribers')}/>
+                return <NumberScaleResponse poll={poll} allUsers={this.props.navigation.getParam('users')} 
+                users={this.props.navigation.getParam('subscribers')}/>
             case "freeResp":
                 return <ShortAnswerResponse poll={poll} users={this.props.navigation.getParam('subscribers')}/>
             case "multChoice":
-                 return <MultipleChoiceResponse poll={poll} users={this.props.navigation.getParam('subscribers')}/>
+                 return <MultipleChoiceResponse poll={poll} allUsers={this.props.navigation.getParam('users')} 
+                 users={this.props.navigation.getParam('subscribers')}/>
             default:
                 return null
         }

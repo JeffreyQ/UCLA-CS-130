@@ -28,7 +28,7 @@ class MultipleChoiceResponse extends React.Component{
                             onPress={() => 
                                 navigate('GeneralResponse',
                                 {option:option, 
-                            responses:poll.responses.filter(response => response.answer === index),users:this.props.users})}/>
+                            responses:poll.responses.filter(response => response.answer === index),allUsers:this.props.allUsers,users:this.props.users})}/>
                         )}
                         {/* {aggregates.map(aggregate => <OptionCard option={(aggregate.option===1) ? 'True' : 'False'} votes={aggregate.votes} 
                         onPress={() => 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {getSubscribers, getSubscribedTo, getMe} from '../../actions/user'
+import {getSubscribers, getSubscribedTo, getMe, getUsers} from '../../actions/user'
 import {getMyPolls, getPollResponse} from '../../actions/polls'
 import { logout } from '../../actions/auth'
 import ProfileScreen from './ProfileScreen'
@@ -13,18 +13,20 @@ class ProfileContainer extends React.Component{
         props.getSubscribedTo()
         props.getMyPolls()
         props.getMe()
+        props.getUsers()
     }
 
     render() {
       return(
         <ProfileScreen
             subscribers={this.props.subscribers}
-            subscribedTo={this.props.subscribedTo}
+            subscribedTo={this.props.subscribed}
             myPolls={this.props.myPolls}
             getPollResponse={this.props.getPollResponse}
             pollResponse={this.props.pollResponse}
             logout={this.props.logout}
             me={this.props.me}
+            users={this.props.users}
         />
       )
     }
@@ -34,10 +36,11 @@ class ProfileContainer extends React.Component{
 const mapStateToProps = state => {
     return {
       subscribers: state.User.subscribers,
-      subscribedTo: state.User.subscribedTo,
+      subscribed: state.User.subscribed,
       myPolls: state.Polls.myPolls,
       pollResponse: state.Polls.pollResponse,
-      me:state.User.me
+      me:state.User.me,
+      users: state.User.users
     }
   }
   
@@ -48,6 +51,7 @@ const mapStateToProps = state => {
       getMyPolls: () => dispatch(getMyPolls()),
       getPollResponse: pollId => dispatch(getPollResponse(pollId)),
       getMe: () => dispatch(getMe()),
+      getUsers: () => dispatch(getUsers()),
       logout: () => dispatch(logout())
     }
   }

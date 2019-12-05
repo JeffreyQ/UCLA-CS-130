@@ -22,6 +22,7 @@ class GeneralResponse extends React.Component{
                         }}>
                             {this.props.navigation.getParam('responses').map(response => 
                             <ResponseEntry response={this.props.navigation.getParam('option')} 
+                            users={this.props.navigation.getParam('allUsers')}
                             user={(this.props.navigation.getParam('users')
                             .filter(user => user.follower_id === response.responder_id))[0]}/>)}
                     </ScrollView>
