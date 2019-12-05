@@ -133,27 +133,34 @@ def get_polls_responses(user_id,poll_id):
 
 def respond_to_poll(user_id,poll_id,data):
     try:
+        responder_id = user_id
+        option = data['option']
+        comment = None if 'comment' not in data else data['comment']
+        response = Response(poll_id=poll_id,responder_id=responder_id,answer=option,comment=comment)
+        db.session.add(response)
+        db.session.commit()
+        return {
+            'status': 'success',
+            'message': 'Response posted successfully'
+        },200
+    except Exception as e:
+        print(e)
+        return 404
+
+def has_responded_to_poll(user_id,poll_id):
+    try:
         #need to prevent duplicate responses from same person
         query = db.session.query(Response.poll_id)\
             .filter(Response.poll_id == poll_id)\
             .filter(Response.responder_id == user_id)\
             .first()
-        #if they haven't responded yet
-        if not query:
-            responder_id = user_id
-            option = data['option']
-            comment = None if 'comment' not in data else data['comment']
-            response = Response(poll_id=poll_id,responder_id=responder_id,answer=option,comment=comment)
-            db.session.add(response)
-            db.session.commit()
-            return {
-                'status': 'success',
-                'message': 'Response posted successfully'
-            },200
-        return {
-            'status':'failure',
-            'message':'You have already answered this poll'
-        },404
+        if(query):
+            return {"responded":True},200
+        else:
+            return {"responded":False},200
     except Exception as e:
         print(e)
-        return 404
+        return {
+            'status':'failure',
+            'message':'error checking if user has responded'
+        },404

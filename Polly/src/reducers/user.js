@@ -97,9 +97,11 @@ const User = (state: State = defaultState, action: Action): State => {
         users: action.users.map(user => {
           const newUser = {
             ...user,
-            relationshipStatus: user.relationship_status
+            relationshipStatus: user.relationship_status,
+            fbId: user.fb_id
           }
           delete newUser['relationship_status']
+          delete newUser['fb_id']
           return newUser
         })
       }

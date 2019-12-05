@@ -58,7 +58,7 @@ class PollsFollowing(Resource):
         print(user)
         return poll_service.get_polls_following(user.id)
 
-@api.route('/response/<poll_id>')
+@api.route('/<poll_id>/response')
 class PollResponse(Resource):
     @jwt_required
     @api.marshal_with(_poll.get_all_responses_poll)
@@ -76,4 +76,13 @@ class PollResponse(Resource):
         '''post a response to given poll id'''
         data = request.json
         user = get_current_user()
-        return poll_service.respond_to_poll(2,poll_id,data)
+        return poll_service.respond_to_poll(user.id,poll_id,data)
+
+@api.route('/<poll_id>/responded')
+class UserResponded(Resource):
+    @jwt_required
+    @api.marshal_with(_poll.did_respond)
+    @api.doc('Has current user responded to poll', security={'Bearer Auth':''})
+    def get(self,poll_id):
+        user = get_current_user();
+        return poll_service.has_responded_to_poll(user.id,poll_id)

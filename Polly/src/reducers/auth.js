@@ -1,4 +1,10 @@
-import { SET_JSON_WEB_TOKEN, SET_JSON_WEB_TOKEN_FAILURE, CHECKED_AUTH, INVALID_JWT_FAILURE } from '../constants/auth'
+import {
+  SET_JSON_WEB_TOKEN,
+  SET_JSON_WEB_TOKEN_FAILURE,
+  CHECKED_AUTH,
+  INVALID_JWT_FAILURE,
+  LOGOUT
+} from '../constants/auth'
 
 const defaultState = {
   checkedAuth: false,
@@ -28,6 +34,11 @@ const Auth = (state = defaultState, action) => {
       return {
         ...state,
         error: action.error
+      }
+    case LOGOUT: 
+      return {
+        ...state,
+        JSONWebToken: null
       }
     default: return state
   }

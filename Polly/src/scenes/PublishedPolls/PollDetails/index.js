@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native'
 import { heading1Text, heading2Text } from '../../../textMixins'
 
@@ -14,8 +15,12 @@ class PollDetails extends React.Component {
     }
   }
   render() {
-    const poll = this.props.navigation.getParam('poll')
+    const { poll } = this.props
     const {width} = Dimensions.get('window')
+
+    if (!poll) {
+      return null
+    }
 
     return (
       <View>
@@ -52,4 +57,14 @@ const styles = StyleSheet.create({
   }
 })
 
-export default PollDetails
+const mapStateToProps = (state, ownProps) => {
+  const pollId = ownProps.navigation.getParam('pollId')
+  const polls = state.Polls.pollsSubscribedTo
+  const poll = polls.find(poll => poll.id === pollId)
+
+  return {
+    poll
+  }
+}
+
+export default connect(mapStateToProps)(PollDetails)

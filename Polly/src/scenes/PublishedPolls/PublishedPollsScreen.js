@@ -7,11 +7,13 @@ import Heading from './heading'
 import Card from './card'
 
 class PublishedPollsScreen extends React.Component {
-  onCardPress = poll => {
-    const { submitAnswer } = this.props
+  onCardPress = pollId => {
+    const { submitAnswer, checkRespondedToPoll } = this.props
+    checkRespondedToPoll(pollId)
     return this.props.navigation.navigate('PollDetails', {
-      poll,
-      submitAnswer
+      pollId,
+      submitAnswer,
+      checkRespondedToPoll
     })
   }
 
@@ -32,9 +34,10 @@ class PublishedPollsScreen extends React.Component {
               }}>
                 {pollsSubscribedTo.map(poll =>
                   <Card
+                    key={poll.id}
                     poll={poll}
-                    onPress={() => this.onCardPress(poll)}
-                    user={this.props.users.find(user => user.id === poll.id)}
+                    onPress={() => this.onCardPress(poll.id)}
+                    user={this.props.users.find(user => user.id === poll.owner_id)}
                   />
                 )}
             </ScrollView>

@@ -16,6 +16,7 @@ class UserDto:
         'email': fields.String(description='user email'),
         'name': fields.String(required=True, description='name'),
         'id': fields.Integer(required=True, description='user id'),
+        'fb_id': fields.String(required=True, description='facebook id'),
         'relationship_status': fields.String
     })
 
@@ -90,4 +91,7 @@ class PollDto:
     get_all_responses_poll = api.model('get_all_responses_poll',{
         "aggregates": fields.List(fields.Nested(aggregate_answers)),
         "responses": fields.List(fields.Nested(single_responses))
+    })
+    did_respond = api.model('did_respond',{
+        "responded":fields.Boolean(description="has this user responded to the poll")
     })

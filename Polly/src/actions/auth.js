@@ -1,5 +1,12 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import { SET_JSON_WEB_TOKEN, SET_JSON_WEB_TOKEN_FAILURE, CHECKED_AUTH, INVALID_JWT_FAILURE } from '../constants/auth'
+import { LoginManager } from "react-native-fbsdk"
+import {
+  SET_JSON_WEB_TOKEN,
+  SET_JSON_WEB_TOKEN_FAILURE,
+  CHECKED_AUTH,
+  INVALID_JWT_FAILURE,
+  LOGOUT
+} from '../constants/auth'
 
 export const checkAuth = () => {
   return async dispatch => {
@@ -20,6 +27,21 @@ export const checkAuth = () => {
         type: SET_JSON_WEB_TOKEN_FAILURE,
         error
       })
+    }
+  }
+}
+
+export const logout = () => {
+  return async dispatch => {
+    try {
+      await AsyncStorage.removeItem("JSONWebToken")
+      LoginManager.logOut()
+      return dispatch({
+        type: LOGOUT
+      })
+    } catch (error) {
+      // error removing item from AsyncStorage
+      // don't do anything
     }
   }
 }

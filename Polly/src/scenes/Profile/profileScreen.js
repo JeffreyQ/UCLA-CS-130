@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from 'react-navigation-stack'
+import { connect } from 'react-redux'
 import { StyleSheet, Text, SafeAreaView, View,Button } from 'react-native'
 import { heading1Text, bodyText, grayBody } from '../../textMixins'
 import { ScrollView } from 'react-navigation'
@@ -16,6 +17,7 @@ import PollResponse from '../PollResponse'
 import { getSubscribedTo, getSubscribers } from '../../actions/user' 
 import { getMyPolls } from '../../actions/polls' 
 import { connect } from 'react-redux'
+import { logout } from '../../actions/auth'
 
 class ProfileScreen extends React.Component{
   constructor(props) {
@@ -59,13 +61,15 @@ class ProfileScreen extends React.Component{
 
   render() {
     const {navigate} = this.props.navigation;
-    console.log(this.props.myPolls);
     return (
       <SafeAreaView style={styles.container}>
-        <Heading subscriberPress={() => navigate('SubscriberScreen',{subscribers:this.props.subscribers})} 
-        subscriptionPress={() => navigate('SubscriptionScreen', {subscribed:this.props.subscribed})} 
-        subscribers={this.props.subscribers} 
-        subscribed={this.props.subscribed} />
+        <Heading
+          subscriberPress={() => navigate('SubscriberScreen',{subscribers:this.props.subscribers})} 
+          subscriptionPress={() => navigate('SubscriptionScreen', {subscribed:this.props.subscribed})} 
+          subscribers={this.props.subscribers} 
+          subscribed={this.props.subscribed}
+          logout={this.props.logout}
+        />
         <View style={styles.bodyContainer}>
           <View style={styles.heading}>
             <Text style={{...heading1Text}}>My Polls</Text>
@@ -125,7 +129,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   getSubscribers: () => dispatch(getSubscribers()),
   getSubscribedTo: () => dispatch(getSubscribedTo()),
-  getMyPolls: () => dispatch(getMyPolls())
+  getMyPolls: () => dispatch(getMyPolls()),
+  logout: () => dispatch(logout())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen)
