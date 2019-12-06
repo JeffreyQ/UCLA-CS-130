@@ -9,7 +9,7 @@ export default class TrueFalsePollCreationScreen extends React.Component {
     this.state = {
       formType: 'multChoice',
       prompt: '',
-      respStruct: { 'choice': '' }
+      respStruct: { 'options': ['True', 'False'] }
     }
   }
   

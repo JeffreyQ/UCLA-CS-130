@@ -33,6 +33,8 @@ Tests are written in the app/test/ folder. Test modules should be named in the f
 
 To run the test suite, run `make test`. This runs a test postgres instance, creating and destroying the db instance on every run.
 
+Our test suite coverage can be seen [here](http://ec2-54-225-3-241.compute-1.amazonaws.com:8000/). (This may be out of date)
+
 ## Documentation Generation
 ### Online Documentation
 Our backend API documentation is generated automatically using `flask_restplus`, a library extension of `Swagger`.

@@ -6,13 +6,19 @@ import {
   CHECK_RESPONDED_TO_POLL_SUCCESS,
   CHECK_RESPONDED_TO_POLL_FAILURE,
   ANSWER_POLL_SUCCESS,
-  ANSWER_POLL_FAILURE
+  ANSWER_POLL_FAILURE,
+  GET_MY_POLLS_SUCCESS,
+  GET_MY_POLLS_FAILURE,
+  GET_POLL_RESPONSE_SUCCESS,
+  GET_POLL_RESPONSE_FAILURE,
 } from '../constants/polls'
 
 const defaultState = {
   lastPollCreated: -1,
   error: null,
-  pollsSubscribedTo: []
+  pollsSubscribedTo: [],
+  myPolls:[],
+  pollResponse:[]
 }
 
 const Polls = (state = defaultState, action) => {
@@ -63,6 +69,41 @@ const Polls = (state = defaultState, action) => {
         error: action.error
       }
     }
+    case GET_MY_POLLS_SUCCESS:
+      return {
+        ...state,
+        myPolls: action.polls
+      }
+    case GET_MY_POLLS_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      }
+    case GET_POLL_RESPONSE_SUCCESS:
+      const aPoll = {...state.myPolls.find(poll => poll.id === action.pollId), ...action.responses}
+      // const respPolls = state.myPolls.map(poll =>  {
+      //   if(poll.id === action.pollId) {
+      //     return {
+      //       ...poll,
+      //       ...action.responses
+      //     }
+      //   }
+      //   return{
+      //     ...poll
+      //   }
+      // })
+      return{
+        ...state,
+        pollResponse: [...state.pollResponse, aPoll]
+        
+      }
+    
+    case GET_POLL_RESPONSE_FAILURE:    
+      return{
+        ...state,
+        error: action.error
+        }
+
     default:
       return state
   }

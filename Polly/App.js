@@ -7,7 +7,7 @@ import { Provider, connect } from 'react-redux'
 
 import PublishedPollsScreen from './src/scenes/PublishedPolls'
 import CreatePollScreen from './src/scenes/CreatePoll'
-import ProfileScreen from './src/scenes/Profile'
+import ProfileScreen from './src/scenes/NewProfile'
 import LoginScreen from './src/scenes/LoginScreen'
 import SearchScreen from './src/scenes/Search'
 

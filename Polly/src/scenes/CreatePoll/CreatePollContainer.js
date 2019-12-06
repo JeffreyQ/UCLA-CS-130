@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 
 class CreatePollContainer extends React.Component {
   render() {
-    //console.log(this.props)
     return (
       <CreatePoll screenProps={{createPoll: this.props.createPoll}} />
     )

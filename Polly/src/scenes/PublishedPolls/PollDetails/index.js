@@ -4,7 +4,9 @@ import { View, Text, StyleSheet, Dimensions, Image } from 'react-native'
 import { heading1Text, heading2Text } from '../../../textMixins'
 
 import NumberScalePoll from './NumberScalePoll'
-import SelectAllPoll from './SelectAllPoll'
+import MultipleChoicePoll from './MultipleChoicePoll'
+import TwoChoicePoll from './TwoChoicePoll'
+import FreeResponsePoll from './FreeReponsePoll'
 
 class PollDetails extends React.Component {
   static navigationOptions = {
@@ -22,8 +24,14 @@ class PollDetails extends React.Component {
     switch (poll.form_type) {
       case "numScale":
         return <NumberScalePoll poll={poll} submitAnswer={submitAnswer} />
-      case "selectAll":
-        return <SelectAllPoll poll={poll} submitAnswer={submitAnswer} />
+      case "multChoice":
+        const { options } = poll.resp_struct
+        if (options.length == 2) {
+          return <TwoChoicePoll poll={poll} submitAnswer={submitAnswer} />
+        }
+        return <MultipleChoicePoll poll={poll} submitAnswer={submitAnswer} />
+      case "freeResp":
+        return <FreeResponsePoll poll={poll} submitAnswer={submitAnswer} />
     }
   }
   render() {

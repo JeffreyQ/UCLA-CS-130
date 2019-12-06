@@ -6,7 +6,11 @@ import {
   ANSWER_POLL_SUCCESS,
   ANSWER_POLL_FAILURE,
   CHECK_RESPONDED_TO_POLL_SUCCESS,
-  CHECK_RESPONDED_TO_POLL_FAILURE
+  CHECK_RESPONDED_TO_POLL_FAILURE,
+  GET_MY_POLLS_SUCCESS,
+  GET_MY_POLLS_FAILURE,
+  GET_POLL_RESPONSE_SUCCESS,
+  GET_POLL_RESPONSE_FAILURE
 } from '../constants/polls'
 
 export const createPoll = pollData => {
@@ -29,7 +33,6 @@ export const createPoll = pollData => {
         }),
       })
       if (response.status != 201) {
-        console.log(response.json())
         throw "Unable to create poll."
       }
       
@@ -134,9 +137,71 @@ export const checkRespondedToPoll = (pollId) => {
       })
 
     } catch (error) {
-      console.log(error)
       dispatch({
         type: CHECK_RESPONDED_TO_POLL_FAILURE,
+        error
+      })
+    }
+  }
+}
+
+export const getMyPolls = () => {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const { JSONWebToken } = state.Auth
+
+      const response = await fetch('http://localhost:5000/poll/', {
+
+        headers: {
+          'Authorization': `Bearer ${JSONWebToken}`
+        }
+      })
+
+      if (response.status != 200) {
+        throw new Error("Failed to get polls subscribed to")
+      }
+
+      const polls = await response.json()
+
+      return dispatch({
+        type: GET_MY_POLLS_SUCCESS,
+        polls
+      })
+    } catch (error) {
+      dispatch({
+        type: GET_MY_POLLS_FAILURE,
+        error
+      })
+    } 
+  }
+}
+
+export const getPollResponse = (pollId) => {
+  return async (dispatch, getState) => {
+    const { JSONWebToken } = getState().Auth 
+    try {
+      const response = await fetch(`http://localhost:5000/poll/${pollId}/response`, {
+        headers: {
+          'Authorization': `Bearer ${JSONWebToken}`
+        }
+      })
+
+      if (response.status != 200) {
+        throw new Error('Failed to check if responded to poll')
+      }
+
+      const responses = await response.json()
+
+      return dispatch({
+        type: GET_POLL_RESPONSE_SUCCESS,
+        pollId,
+        responses: responses
+      })
+
+    } catch (error) {
+      dispatch({
+        type: GET_POLL_RESPONSE_FAILURE,
         error
       })
     }
